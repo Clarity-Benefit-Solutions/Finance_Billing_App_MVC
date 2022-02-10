@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32106.194
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinaceBilling", "DevExtremeAspNetCoreApp\FinaceBilling.csproj", "{206711EE-230B-47B7-8A93-B3B3E92A7316}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DevExtreme NuGet.config", "DevExtreme NuGet.config", "{E8A09FDA-A364-403E-8BD0-FE4D69D66252}"
+	ProjectSection(SolutionItems) = preProject
+		NuGet.config = NuGet.config
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{206711EE-230B-47B7-8A93-B3B3E92A7316}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{206711EE-230B-47B7-8A93-B3B3E92A7316}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{206711EE-230B-47B7-8A93-B3B3E92A7316}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{206711EE-230B-47B7-8A93-B3B3E92A7316}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {59EF344B-B19D-4BAF-AEC4-2B03DB38033C}
+	EndGlobalSection
+EndGlobal
