@@ -1,0 +1,50 @@
+﻿@model IEnumerable<DevExtremeAspNetCoreApp.Models.ClientViewModel>
+
+<h2>Termminated Client</h2>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">ClientName</th>
+            <th scope="col">ClientGroupName</th>
+            <th scope="col">BillingStartDate</th>
+            <th scope="col">EIN</th>
+            <th scope="col">ClientDivisionName</th>
+            <th scope="col">ClientID</th>
+            <th scope="col">ClientDivisionID</th>
+            <th scope="col">Active</th>
+            <th scope="col">ClientAlternate</th>
+            <th scope="col">DeactivationDate</th>
+            <th scope="col">TPACode</th>
+            <th scope="col">Linetype</th>
+            <th scope="col">AccountTypeCode</th>
+            <th scope="col">MyProperty</th>
+            <th scope="col">PlanID</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @{
+            foreach (var item in @Model)
+            {
+                <tr>
+                    <td>@item.ClientName</td>
+                    <td>@item.ClientGroupName</td>
+                    <td>@item.BillingStartDate</td>
+                    <td>@item.EIN</td>
+                    <td>@item.ClientDivisionName</td>
+                    <td>@item.ClientID</td>
+                    <td>@item.ClientDivisionID</td>
+                    <td>@item.Active</td>
+                    <td>@item.ClientAlternate</td>
+                    <td>@item.DeactivationDate</td>
+                    <td>@item.TPACode</td>
+                    <td>@item.Linetype</td>
+                    <td>@item.AccountTypeCode</td>
+                    <td>@item.MyProperty</td>
+                    <td>@item.PlanID</td>
+                </tr>
+            }
+        }
+
+    </tbody>
+</table>
