@@ -3,3 +3,5 @@
 ################################################################################
 
 /DevExtremeAspNetCoreApp/bin/Debug/net5.0
+/DevExtremeAspNetCoreApp/obj
+/.vs
