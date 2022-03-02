@@ -20,8 +20,8 @@ namespace DevExtremeAspNetCoreApp.Entities
         public string TPACode { get; set; }
         public string Linetype { get; set; }
         public string AccountTypeCode { get; set; }
-        public string MyProperty { get; set; }
+        public string DivisionName { get; set; }
         public string PlanID { get; set; }
 
-}
+    }
 }

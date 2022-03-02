@@ -3369,10 +3369,12 @@ namespace DevExtremeAspNetCoreApp.Entities
             });
             modelBuilder.Entity<VwExistingClient>(entity =>
             {
+
                 entity.HasNoKey();
+                entity.ToView("VW_EXISTING_CLIENT");
 
                 entity.Property(e => e.ClientGroupName)
-                .HasColumnName("ClientGroupName");
+                 .HasColumnName("ClientGroupName");
                 entity.Property(e => e.ClientName)
                 .HasColumnName("ClientName");
                 entity.Property(e => e.BillingStartDate)
@@ -3392,13 +3394,13 @@ namespace DevExtremeAspNetCoreApp.Entities
                 entity.Property(e => e.DeactivationDate)
                 .HasColumnName("DeactivationDate");
                 entity.Property(e => e.TPACode)
-                .HasColumnName("DivisionName");
-                entity.Property(e => e.Linetype)
                 .HasColumnName("TPA Code");
-                entity.Property(e => e.AccountTypeCode)
+                entity.Property(e => e.Linetype)
                 .HasColumnName("Line type");
-                entity.Property(e => e.MyProperty)
+                entity.Property(e => e.AccountTypeCode)
                 .HasColumnName("Account Type Code");
+                entity.Property(e => e.DivisionName)
+                .HasColumnName("DivisionName");
                 entity.Property(e => e.PlanID)
                 .HasColumnName("Plan ID");
             });
@@ -3429,13 +3431,13 @@ namespace DevExtremeAspNetCoreApp.Entities
                 entity.Property(e => e.DeactivationDate)
                 .HasColumnName("DeactivationDate");
                 entity.Property(e => e.TPACode)
-                .HasColumnName("DivisionName");
-                entity.Property(e => e.Linetype)
                 .HasColumnName("TPA Code");
-                entity.Property(e => e.AccountTypeCode)
+                entity.Property(e => e.Linetype)
                 .HasColumnName("Line type");
-                entity.Property(e => e.MyProperty)
+                entity.Property(e => e.AccountTypeCode)
                 .HasColumnName("Account Type Code");
+                entity.Property(e => e.DivisionName)
+                .HasColumnName("DivisionName");
                 entity.Property(e => e.PlanID)
                 .HasColumnName("Plan ID");
             });
