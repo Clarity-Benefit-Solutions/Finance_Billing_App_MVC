@@ -15,27 +15,28 @@ using System.Data;
 using Microsoft.IdentityModel.Protocols;
 using Microsoft.Extensions.Configuration;
 
-namespace DevExtremeAspNetCoreApp.Controllers
+namespace FinaceBilling.Controllers
 {
-    public class UploadFIleController : Controller
+    public class QuickbookController : Controller
     {
         private IHostingEnvironment _env { get; set; }
 
         private readonly IConfiguration _config;
         private Finance_BillingContext _db;
 
-        public UploadFIleController(IHostingEnvironment env, Finance_BillingContext db, IConfiguration config)
+        public QuickbookController(IHostingEnvironment env, Finance_BillingContext db, IConfiguration config)
         {
             _env = env;
             _config = config;
             _db = db;
         }
 
+ 
 
         [HttpGet]
-        public IActionResult UploadFile()
+        public IActionResult Quickbook()
         {
-      
+
             return View();
         }
 
@@ -46,7 +47,7 @@ namespace DevExtremeAspNetCoreApp.Controllers
         [DisableRequestSizeLimit]
         [RequestFormLimits(MultipartBodyLengthLimit = int.MaxValue)]
         [DisableFormValueModelBinding]
-        public async Task<IActionResult> UploadFile(UploadFile files)
+        public async Task<IActionResult> Quickbook(UploadFile files)
         {
             var filesCount = Request?.Form?.Files?.Count ?? 0;
             if (files == null || filesCount == 0) {
@@ -65,36 +66,17 @@ namespace DevExtremeAspNetCoreApp.Controllers
                 ModelState.AddModelError($"error", $"Something went wrong.");
                 return View();
             }
-            
 
-            #region Filenames commented
-            //var FileNamelist = new List<string> {
-            //    "1_BENEFL_Integrated_Current_Import.csv",
-            //    "2_BENEFL_Integrated_Prior_Import.csv",
-            //    "3_DebitCard_Import.csv",
-            //    "4_NPM.CSV",
-            //    "5_QBdetail.xlsx",
-            //    "6_BrokerClientlist.CSV",
-            //    "7_Clientlist.CSV",
-            //    "8_Cobraletters.CSV",
-            //    "9_Bswift_BillingNumbers_Import.xlsx",
-            //    "910_ENBillingNumbers_Import.xlsx",
-            //    "911_EC Extract.txt",
-            //    "912_EB Extract.txt",
-            //    "913_SPMBYACAREPORT.CSV",
-            //    "IgnoredRowsEBExtract.txt"
-            //};
-            #endregion
 
             var tblFilesNames = _db.TblFilesNameToUploads.ToList();
             //Seed FileNames
 
             var FileNamelist = tblFilesNames.Select(o => o.FileName).ToList();
             var validFilesCount = FileNamelist.Count;
-           // string missingFiles = "";
+            // string missingFiles = "";
             List<string> returnvalue = new List<string>();
             var uploadfiles = Request.Form.Files.Select(x => x.FileName).ToList();
-          
+
 
             for (int i = 0; i < uploadfiles.Count; i++) {
                 returnvalue.Add(Path.GetFileNameWithoutExtension(uploadfiles[i]));
@@ -112,7 +94,7 @@ namespace DevExtremeAspNetCoreApp.Controllers
                 return View();
             }
 
-            
+
             //File name,Size validation 
             string[] arr;
             string filePath;
@@ -139,6 +121,8 @@ namespace DevExtremeAspNetCoreApp.Controllers
             //rootpath = Path.Combine(rootpath, "1_Ram");
             string rootpath = _env.ContentRootPath;
             rootpath = @"E:\Finance_Billing\Starting_Files";
+            // rootpath = ConfigurationManager.AppSettings["Path"].ToString();
+
             if (!Directory.Exists(rootpath)) {
                 ModelState.AddModelError($"Something", $"Something went wrong.");
                 //Directory.CreateDirectory(rootpath);
@@ -167,15 +151,6 @@ namespace DevExtremeAspNetCoreApp.Controllers
                     SqlParameter parm3 = new SqlParameter("@output_execution_id", SqlDbType.Int);
                     parm3.Direction = ParameterDirection.Output;
                     sql_cmnd.Parameters.Add(parm3);
-                    var lblsmsg = sql_cmnd.ExecuteNonQuery();
-                    if (lblsmsg > 0) {
-
-                        ViewBag.Message = "File Uploaded Successfully";
-                        
-                    } else {
-                        ViewBag.Message = "Failed To Upload File, Please check and try again.";
-                        
-                    }
                     sql_cmnd.ExecuteNonQuery();
                     sqlCon.Close();
                 }
@@ -193,5 +168,4 @@ namespace DevExtremeAspNetCoreApp.Controllers
             return View();
         }
     }
-
 }

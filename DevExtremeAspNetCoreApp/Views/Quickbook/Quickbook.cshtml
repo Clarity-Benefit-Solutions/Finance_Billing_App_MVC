@@ -1,13 +1,10 @@
 ﻿@using Microsoft.AspNetCore.Http
 @model UploadFile
 @{
-
-	ViewBag.Title = "Upload Files";
-		
-
+	ViewData["Title"] = "Quickbook";
 }
 
-<div class="row" style="border:1px solid green">
+<div class="row" style="border:1px solid blue">
 	<div class="col-md-5">
 		<div class="card text-center">
 			<div class="card-header">
@@ -29,8 +26,8 @@
 					</div>
 					<div class="form-group">
 						<div class="col-md-10">
-							<input class="btn btn-success" id="Upload" type="submit" disabled value="Upload" /><br />
-							<label id="msglabel">@ViewBag.Message</label>
+							<input class="btn btn-primary" id="Upload" type="submit" disabled value="Upload" />
+
 						</div>
 					</div>
 				</form>
@@ -59,15 +56,16 @@
 				</ul>
 			</div>
 		</div>
-	}else { 
-	<div class="col-md-5">
-		@Html.ValidationSummary(false, "", new { @class = "text-danger" })
-	</div>
+	} else {
+		<div class="col-md-5">
+			@Html.ValidationSummary(false, "", new { @class = "text-danger" })
+		</div>
 	}
 </div>
 
 
 <script>
+
 	document.querySelectorAll(".drop-zone-input").forEach((inputElement) => {
 		const dropZoneElement = inputElement.closest(".drop-zone");
 
@@ -124,11 +122,11 @@
 			dropZoneElement.appendChild(thumbnailElement);
 		}
 
-		thumbnailElement.dataset.label = filelength+" Files Selected";
+		thumbnailElement.dataset.label = filelength + " Files Selected";
 
-		
-			thumbnailElement.style.backgroundImage = null;
-		
+
+		thumbnailElement.style.backgroundImage = null;
+
 	}
 
 
@@ -141,15 +139,27 @@
 			bt.disabled = true;
 		}
 		if (input.files && input.files[0]) {
+
 			var reader = new FileReader();
 			reader.onload = function (e) {
 				$('#Logo')
 					.attr('src', e.target.result)
 				$('#Logo').css("visible:true;")
+
 			};
 			reader.readAsDataURL(input.files[0]);
 			$('#Logo').attr("visibility", "false");
+
+
 		}
+
+
 	}
 </script>
+
+
+
+
+
+
 
