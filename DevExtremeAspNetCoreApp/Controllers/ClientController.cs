@@ -3,6 +3,8 @@ using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
 using DevExtremeAspNetCoreApp.Entities;
 using DevExtremeAspNetCoreApp.Models;
+using FinaceBilling.Entities;
+using FinaceBilling.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -13,7 +15,7 @@ using System.Xml.Linq;
 
 namespace FinaceBilling.Controllers
 {
-    public class ClientController : Controller
+    public class ClientController : BaseController
     {
         private Finance_BillingContext _db;
         private readonly IMapper _mapper;
@@ -96,6 +98,35 @@ namespace FinaceBilling.Controllers
                 return View(ex.Message);
             }
             return View(excludedClientViewModels);
+        }
+        [HttpGet]
+        public JsonResult AddExcludedClient(string id)
+        {
+            try
+            {
+                TblExcludedClient tblExcludedClient = new TblExcludedClient();
+                var result = _db.TblStagingClientsMasters.Where(x => x.ClientId == id && x.DivisionName != "0").FirstOrDefault();
+                tblExcludedClient.ClientName = result.ClientName;
+                tblExcludedClient.CreateDate = DateTime.Now;
+                tblExcludedClient.Bencode = result.ClientAlternate;
+                tblExcludedClient.ClientID = (int)Convert.ToInt64(result.ClientId);
+
+
+                if (tblExcludedClient != null)
+                {
+                    _db.TblExcludedClients.Add(tblExcludedClient);
+                    _db.SaveChanges();
+                    return ReturnAjaxSuccessMessage("client added Succesfully");
+                }
+                else
+                {
+                return ReturnAjaxErrorMessage("client not added ");
+                }
+            }
+            catch (Exception ex)
+            {
+                return ReturnAjaxErrorMessage(ex.Message);
+            }     
         }
        
     }
