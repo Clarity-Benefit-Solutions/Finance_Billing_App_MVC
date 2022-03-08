@@ -1,0 +1,10 @@
+E:\SmartData\User 2\Git\MVC App\FinanceBillingModel\bin\Debug\netcoreapp3.1\FinanceBillingModel.deps.json
+E:\SmartData\User 2\Git\MVC App\FinanceBillingModel\bin\Debug\netcoreapp3.1\FinanceBillingModel.dll
+E:\SmartData\User 2\Git\MVC App\FinanceBillingModel\bin\Debug\netcoreapp3.1\FinanceBillingModel.pdb
+E:\SmartData\User 2\Git\MVC App\FinanceBillingModel\obj\Debug\netcoreapp3.1\FinanceBillingModel.csproj.AssemblyReference.cache
+E:\SmartData\User 2\Git\MVC App\FinanceBillingModel\obj\Debug\netcoreapp3.1\FinanceBillingModel.GeneratedMSBuildEditorConfig.editorconfig
+E:\SmartData\User 2\Git\MVC App\FinanceBillingModel\obj\Debug\netcoreapp3.1\FinanceBillingModel.AssemblyInfoInputs.cache
+E:\SmartData\User 2\Git\MVC App\FinanceBillingModel\obj\Debug\netcoreapp3.1\FinanceBillingModel.AssemblyInfo.cs
+E:\SmartData\User 2\Git\MVC App\FinanceBillingModel\obj\Debug\netcoreapp3.1\FinanceBillingModel.csproj.CoreCompileInputs.cache
+E:\SmartData\User 2\Git\MVC App\FinanceBillingModel\obj\Debug\netcoreapp3.1\FinanceBillingModel.dll
+E:\SmartData\User 2\Git\MVC App\FinanceBillingModel\obj\Debug\netcoreapp3.1\FinanceBillingModel.pdb

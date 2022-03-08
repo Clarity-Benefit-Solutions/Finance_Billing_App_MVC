@@ -22,6 +22,11 @@
       <Folder Include="wwwroot\lib\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\FinanceBillingModel\FinanceBillingModel.csproj" />
+      <ProjectReference Include="..\FinanceBillingService\FinanceBillingService.csproj" />
+    </ItemGroup>
+
     <ProjectExtensions><VisualStudio><UserProperties TemplateFeatures="NETCORE" /></VisualStudio></ProjectExtensions>
 
 </Project>

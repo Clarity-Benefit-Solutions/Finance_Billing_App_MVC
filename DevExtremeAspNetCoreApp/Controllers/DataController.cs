@@ -1,6 +1,7 @@
 ﻿using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
 using DevExtremeAspNetCoreApp.Entities;
+using FinanceBillingService.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -14,18 +15,18 @@ namespace FinaceBilling.Controllers
     [ApiController]
     public class DataController : ControllerBase
     {
-        private Finance_BillingContext _db;
+        private IInvoiceService _iInvoiceService;
 
-        public DataController(Finance_BillingContext db)
+        public DataController(IInvoiceService iInvoiceService)
         {
-            _db = db;
+            _iInvoiceService = iInvoiceService;
         }
 
         [HttpGet]
         public object Get(DataSourceLoadOptions loadOptions)
         {
 
-            return DataSourceLoader.Load(_db.VwInvoiceByMonths.ToList(), loadOptions);
+            return _iInvoiceService.GetSampleDataForDashbard(loadOptions);
         }
     }
 }

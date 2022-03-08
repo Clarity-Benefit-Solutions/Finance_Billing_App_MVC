@@ -1,26 +1,22 @@
 ﻿using AutoMapper;
-using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
-using DevExtremeAspNetCoreApp.Entities;
 using DevExtremeAspNetCoreApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace FinaceBilling.Controllers
 {
     public class ClientController : Controller
     {
-        private Finance_BillingContext _db;
+        
         private readonly IMapper _mapper;
 
-        public ClientController(Finance_BillingContext db,IMapper mapper)
+        public ClientController(IMapper mapper)
         {
-            _db = db;
+            
             _mapper = mapper;
         }
 
