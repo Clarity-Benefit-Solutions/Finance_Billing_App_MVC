@@ -19,16 +19,19 @@ namespace FinanceBillingData.Repository
 
         public async Task<List<VwInvoiceByMonth>> GetSampleDataForDashbard()
         {
-            return await Task.Run(() => {
-               return  _db.VwInvoiceByMonths.ToList();
-            });
+            return _db.VwInvoiceByMonths.ToList();
+            //return await Task.Run<List<VwInvoiceByMonth>>(() => {
+            //    List<VwInvoiceByMonth> result= _db.VwInvoiceByMonths.ToList();
+            //    return result;
+            //});
                 
         }
         public async Task<List<VwInvoiceByMonth>> GetInvoiceDataByMonth(int month,int year)
         {
-            return await Task.Run(() => {
-                return _db.VwInvoiceByMonths.Where(o => o.Month == month && o.Year == year).ToList();
-            });
+            return _db.VwInvoiceByMonths.Where(o => o.Month == month && o.Year == year).ToList();
+            //return await Task.Run<List<VwInvoiceByMonth>>(() => {
+            //    return _db.VwInvoiceByMonths.Where(o => o.Month == month && o.Year == year).ToList();
+            //});
 
         }
         

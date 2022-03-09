@@ -1,0 +1,332 @@
+{
+  "format": 1,
+  "restore": {
+    "E:\\SmartData\\User 2\\Git\\MVC App\\FinanceBilling\\FinaceBilling.csproj": {}
+  },
+  "projects": {
+    "E:\\SmartData\\User 2\\Git\\MVC App\\FinanceBillingData\\FinanceBillingData.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\SmartData\\User 2\\Git\\MVC App\\FinanceBillingData\\FinanceBillingData.csproj",
+        "projectName": "FinanceBillingData",
+        "projectPath": "E:\\SmartData\\User 2\\Git\\MVC App\\FinanceBillingData\\FinanceBillingData.csproj",
+        "packagesPath": "C:\\Users\\MJaswal_Beneflex\\.nuget\\packages\\",
+        "outputPath": "E:\\SmartData\\User 2\\Git\\MVC App\\FinanceBillingData\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\Offline Packages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+        ],
+        "configFilePaths": [
+          "E:\\SmartData\\User 2\\Git\\MVC App\\NuGet.Config",
+          "C:\\Users\\MJaswal_Beneflex\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 21.2.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\System\\Components\\Packages": {},
+          "C:\\Program Files (x86)\\DevExpress 21.2\\DevExtreme\\System\\DevExtreme\\Bin\\AspNetCore": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "E:\\SmartData\\User 2\\Git\\MVC App\\FinanceBillingModel\\FinanceBillingModel.csproj": {
+                "projectPath": "E:\\SmartData\\User 2\\Git\\MVC App\\FinanceBillingModel\\FinanceBillingModel.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[5.0.12, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[5.0.12, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.102\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "E:\\SmartData\\User 2\\Git\\MVC App\\FinanceBillingModel\\FinanceBillingModel.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\SmartData\\User 2\\Git\\MVC App\\FinanceBillingModel\\FinanceBillingModel.csproj",
+        "projectName": "FinanceBillingModel",
+        "projectPath": "E:\\SmartData\\User 2\\Git\\MVC App\\FinanceBillingModel\\FinanceBillingModel.csproj",
+        "packagesPath": "C:\\Users\\MJaswal_Beneflex\\.nuget\\packages\\",
+        "outputPath": "E:\\SmartData\\User 2\\Git\\MVC App\\FinanceBillingModel\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\Offline Packages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+        ],
+        "configFilePaths": [
+          "E:\\SmartData\\User 2\\Git\\MVC App\\NuGet.Config",
+          "C:\\Users\\MJaswal_Beneflex\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 21.2.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\System\\Components\\Packages": {},
+          "C:\\Program Files (x86)\\DevExpress 21.2\\DevExtreme\\System\\DevExtreme\\Bin\\AspNetCore": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.102\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "E:\\SmartData\\User 2\\Git\\MVC App\\FinanceBillingService\\FinanceBillingService.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\SmartData\\User 2\\Git\\MVC App\\FinanceBillingService\\FinanceBillingService.csproj",
+        "projectName": "FinanceBillingService",
+        "projectPath": "E:\\SmartData\\User 2\\Git\\MVC App\\FinanceBillingService\\FinanceBillingService.csproj",
+        "packagesPath": "C:\\Users\\MJaswal_Beneflex\\.nuget\\packages\\",
+        "outputPath": "E:\\SmartData\\User 2\\Git\\MVC App\\FinanceBillingService\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\Offline Packages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+        ],
+        "configFilePaths": [
+          "E:\\SmartData\\User 2\\Git\\MVC App\\NuGet.Config",
+          "C:\\Users\\MJaswal_Beneflex\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 21.2.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\System\\Components\\Packages": {},
+          "C:\\Program Files (x86)\\DevExpress 21.2\\DevExtreme\\System\\DevExtreme\\Bin\\AspNetCore": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "E:\\SmartData\\User 2\\Git\\MVC App\\FinanceBillingData\\FinanceBillingData.csproj": {
+                "projectPath": "E:\\SmartData\\User 2\\Git\\MVC App\\FinanceBillingData\\FinanceBillingData.csproj"
+              },
+              "E:\\SmartData\\User 2\\Git\\MVC App\\FinanceBillingModel\\FinanceBillingModel.csproj": {
+                "projectPath": "E:\\SmartData\\User 2\\Git\\MVC App\\FinanceBillingModel\\FinanceBillingModel.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "DevExtreme.AspNet.Core": {
+              "target": "Package",
+              "version": "[21.2.4, )"
+            },
+            "DevExtreme.AspNet.Data": {
+              "target": "Package",
+              "version": "[2.8.2, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.102\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "E:\\SmartData\\User 2\\Git\\MVC App\\FinanceBilling\\FinaceBilling.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\SmartData\\User 2\\Git\\MVC App\\FinanceBilling\\FinaceBilling.csproj",
+        "projectName": "FinaceBilling",
+        "projectPath": "E:\\SmartData\\User 2\\Git\\MVC App\\FinanceBilling\\FinaceBilling.csproj",
+        "packagesPath": "C:\\Users\\MJaswal_Beneflex\\.nuget\\packages\\",
+        "outputPath": "E:\\SmartData\\User 2\\Git\\MVC App\\FinanceBilling\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\Offline Packages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+        ],
+        "configFilePaths": [
+          "E:\\SmartData\\User 2\\Git\\MVC App\\NuGet.Config",
+          "C:\\Users\\MJaswal_Beneflex\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 21.2.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\System\\Components\\Packages": {},
+          "C:\\Program Files (x86)\\DevExpress 21.2\\DevExtreme\\System\\DevExtreme\\Bin\\AspNetCore": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "E:\\SmartData\\User 2\\Git\\MVC App\\FinanceBillingData\\FinanceBillingData.csproj": {
+                "projectPath": "E:\\SmartData\\User 2\\Git\\MVC App\\FinanceBillingData\\FinanceBillingData.csproj"
+              },
+              "E:\\SmartData\\User 2\\Git\\MVC App\\FinanceBillingModel\\FinanceBillingModel.csproj": {
+                "projectPath": "E:\\SmartData\\User 2\\Git\\MVC App\\FinanceBillingModel\\FinanceBillingModel.csproj"
+              },
+              "E:\\SmartData\\User 2\\Git\\MVC App\\FinanceBillingService\\FinanceBillingService.csproj": {
+                "projectPath": "E:\\SmartData\\User 2\\Git\\MVC App\\FinanceBillingService\\FinanceBillingService.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[11.0.1, )"
+            },
+            "BuildBundlerMinifier": {
+              "target": "Package",
+              "version": "[2.9.406, )"
+            },
+            "DevExtreme.AspNet.Core": {
+              "target": "Package",
+              "version": "[21.2.4, )"
+            },
+            "DevExtreme.AspNet.Data": {
+              "target": "Package",
+              "version": "[2.8.2, )"
+            },
+            "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[5.0.2, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.102\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

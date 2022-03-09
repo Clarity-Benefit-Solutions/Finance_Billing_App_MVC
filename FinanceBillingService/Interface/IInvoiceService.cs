@@ -1,4 +1,5 @@
 ﻿using DevExtreme.AspNet.Mvc;
+using FinanceBillingData.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,7 +9,7 @@ namespace FinanceBillingService.Interface
 {
     public interface IInvoiceService
     {
-        Task<object> GetSampleDataForDashbard(DataSourceLoadOptions loadOptions);
+        Task<List<VwInvoiceByMonth>> GetSampleDataForDashbard();
         Task<object> GetSampleDataForDashbard(int month, int year);
     }
 }

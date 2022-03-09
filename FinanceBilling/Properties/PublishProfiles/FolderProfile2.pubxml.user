@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_PublishTargetUrl>E:\SmartData\User 2\New folder</_PublishTargetUrl>
+    <History>True|2022-03-02T15:59:07.7832706Z;True|2022-03-02T10:52:48.9298426-05:00;True|2022-03-02T10:36:26.4878247-05:00;True|2022-03-02T08:39:38.4071184-05:00;True|2022-03-02T08:34:33.2950924-05:00;True|2022-03-02T08:27:45.6446422-05:00;True|2022-03-02T07:50:27.3497464-05:00;True|2022-03-02T07:15:52.2084852-05:00;True|2022-03-02T07:03:55.9851438-05:00;</History>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="SqlConnectionString">
+      <Value>Data Source=BE015%3bInitial Catalog=Finance_Billing%3bIntegrated Security=SSPI%3b</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+</Project>

@@ -1,5 +1,6 @@
 ﻿using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
+using FinanceBillingData.Entities;
 using FinanceBillingData.Interface;
 using FinanceBillingService.Interface;
 using System;
@@ -18,9 +19,9 @@ namespace FinanceBillingService.Service
 
             _iInvoiceRepository = iInvoiceRepository;
         }
-        public async Task<object> GetSampleDataForDashbard(DataSourceLoadOptions loadOptions)
+        public async Task<List<VwInvoiceByMonth>> GetSampleDataForDashbard()
         {
-            return DataSourceLoader.Load(await _iInvoiceRepository.GetSampleDataForDashbard(), loadOptions);
+            return await _iInvoiceRepository.GetSampleDataForDashbard();
         }
         public async Task<object> GetSampleDataForDashbard(int month, int year)
         {
