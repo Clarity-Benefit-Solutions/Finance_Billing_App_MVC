@@ -27,6 +27,7 @@ namespace FinanceBillingData.Entities
         public virtual DbSet<TblEdiBillingGroupCount> TblEdiBillingGroupCounts { get; set; }
         public virtual DbSet<TblErrorLog> TblErrorLogs { get; set; }
         public virtual DbSet<TblErrorMsg> TblErrorMsgs { get; set; }
+        public virtual DbSet<TblExcludedClient> TblExcludedClients { get; set; } 
         public virtual DbSet<TblFilesNameToUpload> TblFilesNameToUploads { get; set; }
         public virtual DbSet<TblInvoiceDateTable> TblInvoiceDateTables { get; set; }
         public virtual DbSet<TblMonthMinConversion> TblMonthMinConversions { get; set; }
@@ -859,6 +860,34 @@ namespace FinanceBillingData.Entities
                 entity.Property(e => e.LogSource)
                     .HasMaxLength(500)
                     .HasColumnName("log_source");
+            });
+            modelBuilder.Entity<TblExcludedClient>(entity =>
+            {
+                entity.HasKey(e => e.ClientID)
+                    .HasName("ClientID");
+
+                entity.ToTable("TBL_EXCLUDE_CLIENT");
+
+                entity.Property(e => e.ClientName)
+                .HasColumnName("ClientName");
+
+                entity.Property(e => e.Bencode)
+                    .HasColumnName("Bencode");
+
+                entity.Property(e => e.Description)
+                    .HasColumnType("text")
+                    .HasColumnName("Description");
+
+                entity.Property(e => e.UserID)
+                    .HasColumnName("UserID");
+
+                entity.Property(e => e.UserName)
+                    .HasColumnType("text")
+                    .HasColumnName("UserName");
+
+                entity.Property(e => e.CreateDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("CreateDate");
             });
 
             modelBuilder.Entity<TblFilesNameToUpload>(entity =>

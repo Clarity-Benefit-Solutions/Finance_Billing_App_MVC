@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using DevExtremeAspNetCoreApp.Entities;
 using DevExtremeAspNetCoreApp.Models;
+using FinaceBilling.Entities;
+using FinaceBilling.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +18,9 @@ namespace FinaceBilling.Custom.Helpers
             CreateMap<VwNewClient, ClientViewModel>().ReverseMap();
             CreateMap<VwExistingClient, ClientViewModel>().ReverseMap();
             CreateMap<VwTerminatedClient, ClientViewModel>().ReverseMap();
-            
+            CreateMap<TblExcludedClientViewModel, TblExcludedClient>().ReverseMap();
+
+
 
 
 
