@@ -1,5 +1,5 @@
 ﻿
-using FinaceBilling.Entities;
+
 using Microsoft.EntityFrameworkCore;
 
 #nullable disable

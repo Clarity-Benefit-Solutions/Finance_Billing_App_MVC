@@ -22,7 +22,8 @@ namespace FinaceBilling.Custom.Helpers
             CreateMap<VwTerminatedClient, TerminatedClient>().ReverseMap();
             CreateMap<VwExistingClient, ExistingClient>().ReverseMap();
             CreateMap<ClientProductComparison, ClientToProductViewModel>().ReverseMap();
-            CreateMap<ClientToClientComparison, ClientToClientViewModel>().ReverseMap();
+            CreateMap<ClientToClientComparison, ClientToClientViewModel>().ReverseMap(); 
+            CreateMap<VwNewClient, NewClientViewModel>().ReverseMap(); 
 
         }
     }

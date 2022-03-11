@@ -450,16 +450,12 @@ E:\SmartData\User 4\FinanceBilling\obj\Debug\net5.0\FinaceBilling.GeneratedMSBui
 E:\SmartData\User 4\FinanceBilling\obj\Debug\net5.0\FinaceBilling.AssemblyInfoInputs.cache
 E:\SmartData\User 4\FinanceBilling\obj\Debug\net5.0\FinaceBilling.AssemblyInfo.cs
 E:\SmartData\User 4\FinanceBilling\obj\Debug\net5.0\FinaceBilling.csproj.CoreCompileInputs.cache
-E:\SmartData\User 4\FinanceBilling\obj\Debug\net5.0\FinaceBilling.MvcApplicationPartsAssemblyInfo.cs
 E:\SmartData\User 4\FinanceBilling\obj\Debug\net5.0\FinaceBilling.MvcApplicationPartsAssemblyInfo.cache
 E:\SmartData\User 4\FinanceBilling\obj\Debug\net5.0\FinaceBilling.RazorAssemblyInfo.cache
 E:\SmartData\User 4\FinanceBilling\obj\Debug\net5.0\FinaceBilling.RazorAssemblyInfo.cs
-E:\SmartData\User 4\FinanceBilling\obj\Debug\net5.0\FinaceBilling.dll
-E:\SmartData\User 4\FinanceBilling\obj\Debug\net5.0\ref\FinaceBilling.dll
-E:\SmartData\User 4\FinanceBilling\obj\Debug\net5.0\FinaceBilling.pdb
+E:\SmartData\User 4\FinanceBilling\bin\Debug\net5.0\web.config
 E:\SmartData\User 4\FinanceBilling\bin\Debug\net5.0\appsettings.Development.json
 E:\SmartData\User 4\FinanceBilling\bin\Debug\net5.0\appsettings.json
-E:\SmartData\User 4\FinanceBilling\bin\Debug\net5.0\web.config
 E:\SmartData\User 4\FinanceBilling\bin\Debug\net5.0\bundleconfig.json
 E:\SmartData\User 4\FinanceBilling\bin\Debug\net5.0\libman.json
 E:\SmartData\User 4\FinanceBilling\bin\Debug\net5.0\FinaceBilling.exe
@@ -891,4 +887,7 @@ E:\SmartData\User 4\FinanceBilling\obj\Debug\net5.0\FinaceBilling.RazorTargetAss
 E:\SmartData\User 4\FinanceBilling\obj\Debug\net5.0\FinaceBilling.RazorTargetAssemblyInfo.cs
 E:\SmartData\User 4\FinanceBilling\obj\Debug\net5.0\FinaceBilling.Views.pdb
 E:\SmartData\User 4\FinanceBilling\obj\Debug\net5.0\FinaceBilling.csproj.CopyComplete
+E:\SmartData\User 4\FinanceBilling\obj\Debug\net5.0\FinaceBilling.dll
+E:\SmartData\User 4\FinanceBilling\obj\Debug\net5.0\ref\FinaceBilling.dll
+E:\SmartData\User 4\FinanceBilling\obj\Debug\net5.0\FinaceBilling.pdb
 E:\SmartData\User 4\FinanceBilling\obj\Debug\net5.0\FinaceBilling.genruntimeconfig.cache

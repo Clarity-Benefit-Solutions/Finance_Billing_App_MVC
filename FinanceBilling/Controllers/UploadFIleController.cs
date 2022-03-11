@@ -56,7 +56,7 @@ namespace FinaceBilling.Controllers
         {
 
             UploadFile uploadFile = new UploadFile();
-            uploadFile.TblExcludedClientViewModels = new List<TblExcludedClientViewModel>();
+            uploadFile.NewClientViewModels = new List<NewClientViewModel>();
             uploadFile.ExistingClients = new List<ExistingClient>();
             uploadFile.TerminatedClients = new List<TerminatedClient>();
             uploadFile.clientToClientViewModels = new List<ClientToClientViewModel>();
@@ -212,14 +212,14 @@ namespace FinaceBilling.Controllers
             }
             UploadFile uploadFile = new UploadFile();
             Analytics analytics = new Analytics();
-            uploadFile.TblExcludedClientViewModels = new List<TblExcludedClientViewModel>();
+            uploadFile.NewClientViewModels = new List<NewClientViewModel>();
             uploadFile.ExistingClients = new List<ExistingClient>();
             uploadFile.TerminatedClients = new List<TerminatedClient>();
             uploadFile.clientToProductViewModels = new List<ClientToProductViewModel>();
             uploadFile.clientToClientViewModels = new List<ClientToClientViewModel>();
 
-            List<SpExcludeClientData> spExcludeClientDatas = await _iclientService.GetExcludeClientDataList();
-            _mapper.Map(spExcludeClientDatas, uploadFile.TblExcludedClientViewModels);
+            List<VwNewClient> vwNewClients = await _iclientService.GetNewClientList();
+            _mapper.Map(vwNewClients, uploadFile.NewClientViewModels);
 
             List<VwTerminatedClient>  vwTerminatedClients = await _iclientService.GetTerminatedClientList();
             _mapper.Map(vwTerminatedClients, uploadFile.TerminatedClients);

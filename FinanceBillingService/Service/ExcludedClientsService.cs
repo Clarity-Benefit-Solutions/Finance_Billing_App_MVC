@@ -1,4 +1,4 @@
-﻿using FinaceBilling.Entities;
+﻿
 using FinanceBillingData.Entities;
 using FinanceBillingData.Interface;
 using FinanceBillingService.Interface;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FinanceBillingService.Service
 {
-    public class ExcludedClientsService: IExcludedClientsService
+    public class ExcludedClientsService : IExcludedClientsService
     {
         private readonly IExcludedClientsRepository _iExcludedClientsRepository;
         private readonly IClientMasterService _iClientMasterService;
@@ -21,7 +21,8 @@ namespace FinanceBillingService.Service
             return await _iExcludedClientsRepository.AddNewExcludedClient(tblExcludedClient);
         }
 
-        public async Task<bool> AddExcludedClientFromMasterClient(string id) {
+        public async Task<bool> AddExcludedClientFromMasterClient(string id)
+        {
             bool result = false;
             TblExcludedClient tblExcludedClient = new TblExcludedClient();
             TblStagingClientsMaster tblStagingClientsMaster = await _iClientMasterService.GetMasterClientById(id);
@@ -39,6 +40,10 @@ namespace FinanceBillingService.Service
                 result = true;
             }
             return result;
+        }
+        public async Task<bool> DeleteExculdedClient(int id)
+        {
+            return await _iExcludedClientsRepository.DeleteExculdedClient(id);
         }
     }
 }

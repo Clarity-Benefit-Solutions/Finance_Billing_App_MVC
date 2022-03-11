@@ -1,4 +1,5 @@
-﻿using FinaceBilling.Entities;
+﻿
+using FinanceBillingData.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,7 @@ namespace FinanceBillingService.Interface
     {
         Task<TblExcludedClient> AddNewExcludedClient(TblExcludedClient tblExcludedClient);
         Task<bool> AddExcludedClientFromMasterClient(string id);
+        Task<bool> DeleteExculdedClient(int id);
     }
+
 }

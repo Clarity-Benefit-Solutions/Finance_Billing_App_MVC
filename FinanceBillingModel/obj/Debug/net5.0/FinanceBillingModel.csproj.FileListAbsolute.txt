@@ -14,7 +14,6 @@ E:\SmartData\User 4\FinanceBillingModel\bin\Debug\net5.0\FinanceBillingModel.dep
 E:\SmartData\User 4\FinanceBillingModel\bin\Debug\net5.0\FinanceBillingModel.dll
 E:\SmartData\User 4\FinanceBillingModel\bin\Debug\net5.0\ref\FinanceBillingModel.dll
 E:\SmartData\User 4\FinanceBillingModel\bin\Debug\net5.0\FinanceBillingModel.pdb
-E:\SmartData\User 4\FinanceBillingModel\obj\Debug\net5.0\FinanceBillingModel.csproj.AssemblyReference.cache
 E:\SmartData\User 4\FinanceBillingModel\obj\Debug\net5.0\FinanceBillingModel.GeneratedMSBuildEditorConfig.editorconfig
 E:\SmartData\User 4\FinanceBillingModel\obj\Debug\net5.0\FinanceBillingModel.AssemblyInfoInputs.cache
 E:\SmartData\User 4\FinanceBillingModel\obj\Debug\net5.0\FinanceBillingModel.AssemblyInfo.cs

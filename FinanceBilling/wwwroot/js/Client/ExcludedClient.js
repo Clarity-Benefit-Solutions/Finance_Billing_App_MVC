@@ -6,7 +6,7 @@
         url: Url,
         success: function (result) {
             if (result != null) {
-                alert(result.message)
+               // alert(result.message)
                 location.reload();
             }
         }

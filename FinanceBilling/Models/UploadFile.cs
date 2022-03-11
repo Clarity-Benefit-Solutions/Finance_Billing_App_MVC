@@ -16,7 +16,7 @@ namespace DevExtremeAspNetCoreApp.Models
         [MaxFileSize(int.MaxValue)]
         [AllowedExtensions(new[] { "xls", "csv", "xlsx", "txt" })]
         public List<IFormFile> UploadedFiles { get; set; }
-        public List<TblExcludedClientViewModel> TblExcludedClientViewModels { get; set; }
+        public List<NewClientViewModel> NewClientViewModels { get; set; }
         public List<ExistingClient> ExistingClients { get; set; }
         public List<TerminatedClient> TerminatedClients { get; set; }
         public List<Analytics> Analytics { get; set; }

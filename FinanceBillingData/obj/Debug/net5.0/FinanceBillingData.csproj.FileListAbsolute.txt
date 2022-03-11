@@ -21,9 +21,6 @@ E:\SmartData\User 4\FinanceBillingData\obj\Debug\net5.0\FinanceBillingData.Gener
 E:\SmartData\User 4\FinanceBillingData\obj\Debug\net5.0\FinanceBillingData.AssemblyInfoInputs.cache
 E:\SmartData\User 4\FinanceBillingData\obj\Debug\net5.0\FinanceBillingData.AssemblyInfo.cs
 E:\SmartData\User 4\FinanceBillingData\obj\Debug\net5.0\FinanceBillingData.csproj.CoreCompileInputs.cache
-E:\SmartData\User 4\FinanceBillingData\obj\Debug\net5.0\FinanceBillingData.dll
-E:\SmartData\User 4\FinanceBillingData\obj\Debug\net5.0\ref\FinanceBillingData.dll
-E:\SmartData\User 4\FinanceBillingData\obj\Debug\net5.0\FinanceBillingData.pdb
 E:\SmartData\User 4\FinanceBillingData\bin\Debug\net5.0\FinanceBillingData.deps.json
 E:\SmartData\User 4\FinanceBillingData\bin\Debug\net5.0\FinanceBillingData.runtimeconfig.json
 E:\SmartData\User 4\FinanceBillingData\bin\Debug\net5.0\FinanceBillingData.runtimeconfig.dev.json
@@ -33,4 +30,7 @@ E:\SmartData\User 4\FinanceBillingData\bin\Debug\net5.0\FinanceBillingData.pdb
 E:\SmartData\User 4\FinanceBillingData\bin\Debug\net5.0\FinanceBillingModel.dll
 E:\SmartData\User 4\FinanceBillingData\bin\Debug\net5.0\FinanceBillingModel.pdb
 E:\SmartData\User 4\FinanceBillingData\obj\Debug\net5.0\FinanceBillingData.csproj.CopyComplete
+E:\SmartData\User 4\FinanceBillingData\obj\Debug\net5.0\FinanceBillingData.dll
+E:\SmartData\User 4\FinanceBillingData\obj\Debug\net5.0\ref\FinanceBillingData.dll
+E:\SmartData\User 4\FinanceBillingData\obj\Debug\net5.0\FinanceBillingData.pdb
 E:\SmartData\User 4\FinanceBillingData\obj\Debug\net5.0\FinanceBillingData.genruntimeconfig.cache

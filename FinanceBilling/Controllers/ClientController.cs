@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace FinaceBilling.Controllers
 {
-    public class ClientController : Controller
+    public class ClientController : BaseController
     {
 
         private readonly IMapper _mapper;
@@ -99,25 +99,40 @@ namespace FinaceBilling.Controllers
         {
             try
             {
-                TblExcludedClient tblExcludedClient = new TblExcludedClient();
-                TblStagingClientsMaster tblStagingClientsMaster = await _iClientService.GetTblStagingClientById(clientId);
-                tblExcludedClient.ClientName = tblStagingClientsMaster.ClientName;
-                tblExcludedClient.CreateDate = DateTime.Now;
-                tblExcludedClient.Bencode = tblStagingClientsMaster.ClientAlternate;
-                tblExcludedClient.ClientID = (int)Convert.ToInt64(tblStagingClientsMaster.ClientId);
-                
-
-
-
-                if (tblExcludedClient != null)
+                bool isSuccess = await _iExcludedClientsService.AddExcludedClientFromMasterClient(clientId);
+                if (isSuccess)
                 {
-                     await _iClientService.AddTblExcludeClient(tblExcludedClient);
-                        return ReturnAjaxSuccessMessage("client added Succesfully");
+                    return Json(new { success = false, responseText = "client added Succesfully." });
                 }
-                
-                return    ReturnAjaxErrorMessage("Something Went Wrong ");
-                
+                else
+                {
+                    return Json(new { success = false, responseText = "client not added." });
+                }
             }
+           
+           
+            
+            //try
+            //{
+            //    TblExcludedClient tblExcludedClient = new TblExcludedClient();
+            //    TblStagingClientsMaster tblStagingClientsMaster = await _iClientService.GetTblStagingClientById(clientId);
+            //    tblExcludedClient.ClientName = tblStagingClientsMaster.ClientName;
+            //    tblExcludedClient.CreateDate = DateTime.Now;
+            //    tblExcludedClient.Bencode = tblStagingClientsMaster.ClientAlternate;
+            //    tblExcludedClient.ClientID = (int)Convert.ToInt64(tblStagingClientsMaster.ClientId);
+                
+
+
+
+            //    if (tblExcludedClient != null)
+            //    {
+            //         await _iClientService.AddTblExcludeClient(tblExcludedClient);
+            //            return ReturnAjaxSuccessMessage("client added Succesfully");
+            //    }
+                
+            //    return    ReturnAjaxErrorMessage("Something Went Wrong ");
+                
+            //}
             catch (Exception ex)
             {
                 return ReturnAjaxErrorMessage(ex.Message);
@@ -128,17 +143,9 @@ namespace FinaceBilling.Controllers
         {
             try
             {
-                //TblExcludedClient tblExcludedClient = new TblExcludedClient();
-                //tblExcludedClient = _db.TblExcludedClients.Where(x => x.Id == id).FirstOrDefault();
-                //tblExcludedClient =
-                    await _iClientService.DeleteExculdedClient( id);
-                //tblExcludedClient.isDeleted = true;
-
-                //if (tblExcludedClient != null)
-                //{
-                //    _db.TblExcludedClients.Update(tblExcludedClient);
-                //    _db.SaveChanges();
-                //}
+                
+                    await _iExcludedClientsService.DeleteExculdedClient( id);
+                
                 return RedirectToAction("ExcludedClient");
             }
             catch (Exception ex)
