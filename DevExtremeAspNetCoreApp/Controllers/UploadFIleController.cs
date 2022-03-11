@@ -12,6 +12,7 @@ using DevExtremeAspNetCoreApp.Custom.Attributes;
 using DevExtremeAspNetCoreApp.Entities;
 using Microsoft.Data.SqlClient;
 using System.Data;
+using System.Xml.Linq;
 using Microsoft.IdentityModel.Protocols;
 using Microsoft.Extensions.Configuration;
 
@@ -157,6 +158,7 @@ namespace DevExtremeAspNetCoreApp.Controllers
                 //call the store procedure to run SSIS package
                 SqlConnection sqlCon = null;
                 Guid NewGuid = new Guid();
+                //var getGuid = NewGuid.ToString();
                 String SqlconString = _config.GetConnectionString("SqlConnectionString");
                 using (sqlCon = new SqlConnection(SqlconString)) {
                     sqlCon.Open();
@@ -169,12 +171,12 @@ namespace DevExtremeAspNetCoreApp.Controllers
                     sql_cmnd.Parameters.Add(parm3);
                     var lblsmsg = sql_cmnd.ExecuteNonQuery();
                     if (lblsmsg > 0) {
+                        ViewBag.Message = "File uploaded successfully";
+                        ViewBag.color = "Green";
 
-                        ViewBag.Message = "File Uploaded Successfully";
-                        
                     } else {
-                        ViewBag.Message = "Failed To Upload File, Please check and try again.";
-                        
+                        ViewBag.Message = "Failed to upload file, Please check and try again.";
+                        ViewBag.color = "Red";
                     }
                     sql_cmnd.ExecuteNonQuery();
                     sqlCon.Close();
@@ -182,6 +184,16 @@ namespace DevExtremeAspNetCoreApp.Controllers
 
                 //Check the errors in error table fetch and show to the end user.
                 var packageerrors = _db.TblErrorLogs.ToList();
+                //@declare @Guid varchar;
+                var getGuid = "afbc9e17-4e07-4bec-8311-345308d80c42";
+                var logdb = _db.TBL_LOGGINGDBs.ToList();
+                var errolog = _db.TBLERRORLOGSs.ToList();
+                
+                //var lstdetailerrors = _db.TBL_LOGGINGDBs.ToList();
+                var detailerrors = from l in _db.TBL_LOGGINGDBs
+                                   join e in _db.TBLERRORLOGSs on l.Id equals e.LoggingDbID
+                                   where l.Guid == getGuid
+                                   select l;
 
                 for (int i = 0; i < packageerrors.Count; i++) {
                     ModelState.AddModelError(packageerrors[i].LogId.ToString(), packageerrors[i].ErrMsg.ToString());

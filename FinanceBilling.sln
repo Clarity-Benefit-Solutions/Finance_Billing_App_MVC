@@ -3,11 +3,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.32106.194
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinaceBilling", "DevExtremeAspNetCoreApp\FinaceBilling.csproj", "{206711EE-230B-47B7-8A93-B3B3E92A7316}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinaceBilling", "DevExtremeAspNetCoreApp\FinaceBilling.csproj", "{206711EE-230B-47B7-8A93-B3B3E92A7316}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DevExtreme NuGet.config", "DevExtreme NuGet.config", "{E8A09FDA-A364-403E-8BD0-FE4D69D66252}"
 	ProjectSection(SolutionItems) = preProject
 		NuGet.config = NuGet.config
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9EE3C092-F9C2-405F-8027-8F3CFF551C84}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
 Global

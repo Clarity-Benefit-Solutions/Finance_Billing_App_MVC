@@ -4,6 +4,8 @@ using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using FinaceBilling.Entities;
+using DevExtremeAspNetCoreApp.Entities;
 using DevExtremeAspNetCoreApp.Custom.Attributes;
 using Microsoft.AspNetCore.Http;
 
@@ -25,10 +27,16 @@ namespace DevExtremeAspNetCoreApp.Models
             //if (!extension.ToLower().Equals(".jpg"))
             //    yield return new ValidationResult("File extension is not valid.");
 
-            //if (size > (5 * 1024 * 1024))
+            //if (size > (5 * 1024 * 1024))44
             //    yield return new ValidationResult("File size is bigger than 5MB.");
 
-              return new List<ValidationResult>();
+            //Finance_BillingContext fb = new Finance_BillingContext();
+            
+           // var tb = tbs;
+            //TBL_LOGGINGDB tb = new TBL_LOGGINGDB();
+            //fb.TBL_LOGGINGDBs.Add(tb);
+            //fb.SaveChanges();
+            return new List<ValidationResult>();
         }
     }
 }
