@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using FinaceBilling.Custom.Dependency;
 using FinaceBilling.Custom.Helpers;
@@ -44,7 +40,7 @@ namespace DevExtremeAspNetCoreApp
             });
 
             IMapper mapper = mappingConfig.CreateMapper();
-           
+           //Repositories
             services.AddSingleton(mapper);
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             //Repositories
@@ -56,6 +52,10 @@ namespace DevExtremeAspNetCoreApp
             services.AddTransient<IFileNameRepository, FileNameRepository>();
             services.AddTransient<ITblLoggingRepository, TblLoggingRepository>();
             services.AddTransient<IAnalyticsRepository, AnalyticsRepository>();
+            services.AddTransient<IQuickBookClientsRepository, QuickBookClientsRepository>();
+            services.AddTransient<IClientMasterRepository,ClientMasterRepository>();
+            services.AddTransient<IExcludedClientsRepository,ExcludedClientsRepository>();
+
             //Services
             //services.AddInternalServices();
 
@@ -67,6 +67,9 @@ namespace DevExtremeAspNetCoreApp
             services.AddTransient<ITblLoggingService, TblLoggingService>();
             services.AddTransient<IAnalyticsService, AnalyticsService>();
 
+            services.AddTransient<IQuickBookClientsServices,QuickBookClientsServices>();
+            services.AddTransient<IClientMasterService,ClientMasterService>();
+            services.AddTransient<IExcludedClientsService,ExcludedClientsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

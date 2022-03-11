@@ -1,4 +1,5 @@
 ﻿
+using FinaceBilling.Entities;
 using Microsoft.EntityFrameworkCore;
 
 #nullable disable
@@ -7,10 +8,6 @@ namespace FinanceBillingData.Entities
 {
     public partial class Finance_BillingContext : DbContext
     {
-        public Finance_BillingContext()
-        {
-        }
-
         public Finance_BillingContext(DbContextOptions<Finance_BillingContext> options)
             : base(options)
         {
@@ -82,13 +79,13 @@ namespace FinanceBillingData.Entities
         public virtual DbSet<SpClientDropDownData> SpClientDropDownData { get; set; }
         public virtual DbSet<SpExcludeClientData> SpExcludeClientData { get; set; }
 
-
+        public virtual DbSet<TblQBClients> TblQBClients { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.                optionsBuilder.UseSqlServer("Data Source=BE015;Initial Catalog=Finance_Billing;Integrated Security=SSPI;", Builder => Builder.EnableRetryOnFailure());
                 optionsBuilder.UseSqlServer("Data Source=BE015;Initial Catalog=Finance_Billing;Integrated Security=SSPI;", Builder => Builder.EnableRetryOnFailure());
             }
         }
@@ -3612,7 +3609,25 @@ namespace FinanceBillingData.Entities
                 entity.Property(e => e.CreateDate)
                 .HasColumnName("CreateDate");
             });
+            modelBuilder.Entity<TblQBClients>(entity =>
+            {
+                entity.HasNoKey();
+                entity.ToTable("TBL_QB_CLIENTS");
+                entity.Property(e => e.FirstName)
+                   .HasMaxLength(50)
+                   .HasColumnName("First Name");
+                entity.Property(e => e.LastName)
+                    .HasMaxLength(50)
+                    .HasColumnName("Last Name");
+                entity.Property(e => e.BenCode)
+                    .HasMaxLength(255)
+                    .HasColumnName("Ben Code");
 
+                entity.Property(e => e.IsDeleted).HasColumnName("IsDeleted");
+                entity.Property(e => e.Status).HasMaxLength(255);
+                entity.Property(e => e.CreatedDate).HasColumnName("CreateDate");
+                entity.Property(e => e.ModifiedDate).HasColumnName("ModifiedDate");
+            });
 
             OnModelCreatingPartial(modelBuilder);
         }

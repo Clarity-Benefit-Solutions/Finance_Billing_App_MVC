@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 namespace FinanceBillingService.Service
 {
     public class InvoiceService : IInvoiceService
-
     {
         private IInvoiceRepository _iInvoiceRepository;
         public InvoiceService(IInvoiceRepository iInvoiceRepository)

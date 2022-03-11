@@ -31,7 +31,7 @@ namespace FinanceBillingData.Repository
                 return _db.VwExistingClient.ToList();
             });
         }
-       
+
         public async Task<List<VwTerminatedClient>> GetTerminatedClientList()
         {
             return await Task.Run(() =>

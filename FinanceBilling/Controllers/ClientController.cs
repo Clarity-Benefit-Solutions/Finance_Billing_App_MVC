@@ -5,26 +5,22 @@ using FinanceBillingData.Entities;
 using FinanceBillingData.Interface;
 using FinanceBillingService.Interface;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace FinaceBilling.Controllers
 {
-    public class ClientController : BaseController
+    public class ClientController : Controller
     {
 
         private readonly IMapper _mapper;
         private readonly IClientService _iClientService;
-       
-
-
-        public ClientController(IMapper mapper, IClientService iClientService)
+        private readonly IExcludedClientsService _iExcludedClientsService;
+        public ClientController(IMapper mapper, IClientService iClientService, IExcludedClientsService iExcludedClientsService)
         {
             _iClientService = iClientService;
-            
+            _iExcludedClientsService = iExcludedClientsService;
             _mapper = mapper;
         }
 
@@ -91,9 +87,6 @@ namespace FinaceBilling.Controllers
 
                 excludedClientViewModels.SpClientDropDownData = await _iClientService.GetClientDropDownData();
                 excludedClientViewModels.spExcludeClientDatas = await _iClientService.GetExcludeClientDataList();
-
-
-
             }
             catch (Exception ex)
             {
