@@ -29,28 +29,6 @@ namespace DevExtremeAspNetCoreApp
             {
                 webBuilder.UseStartup<Startup>();
             });
-        //.ConfigureServices((_, services) => services
-        ////Repositories
-        //.AddScoped<IErrorLogsRepository, ErrorLogsRepository>()
-        //.AddScoped<ICommonRepository, CommonRepository>()
-        //.AddScoped<IInvoiceRepository, InvoiceRepository>()
-        //.AddScoped<IClientRepository, ClientRepository>()
-        //.AddScoped<IFileNameRepository, FileNameRepository>()
-        ////Services
 
-        //.AddScoped<IErrorLogService, ErrorLogService>()
-        ////.AddScoped<ICommonService, CommonService>()
-        //.AddScoped<IInvoiceService, InvoiceService>()
-        //.AddScoped<IClientService, ClientService>()
-        //.AddScoped<IFileNameService, FileNameService>()
-        //);
-
-    //public static IWebHost BuildWebHost(string[] args) =>
-    //  new WebHostBuilder()
-    //      .UseKestrel()
-    //      .UseContentRoot(Directory.GetCurrentDirectory())
-    //      .UseIISIntegration()
-    //      .UseStartup<Startup>()
-    //      .Build();
-}
+    }
 }

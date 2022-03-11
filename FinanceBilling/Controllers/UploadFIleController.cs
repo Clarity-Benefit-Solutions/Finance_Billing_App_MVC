@@ -11,12 +11,11 @@ using System.Threading.Tasks;
 using DevExtremeAspNetCoreApp.Custom.Attributes;
 using System.Data;
 using Microsoft.Extensions.Configuration;
-using System.Data.SqlClient;
 using FinanceBillingData.Interface;
 using FinanceBillingData.Entities;
 using FinanceBillingService.Interface;
 
-namespace DevExtremeAspNetCoreApp.Controllers
+namespace FinaceBilling.Controllers
 {
     public class UploadFIleController : Controller
     {

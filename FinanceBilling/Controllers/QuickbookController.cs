@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 using DevExtremeAspNetCoreApp.Custom.Attributes;
 using Microsoft.Data.SqlClient;
 using System.Data;
-using Microsoft.IdentityModel.Protocols;
 using Microsoft.Extensions.Configuration;
 using FinanceBillingService.Interface;
 using FinanceBillingData.Entities;

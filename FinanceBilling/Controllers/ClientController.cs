@@ -2,25 +2,24 @@
 using DevExtreme.AspNet.Mvc;
 using DevExtremeAspNetCoreApp.Models;
 using FinanceBillingData.Entities;
-using FinanceBillingData.Interface;
+using FinanceBillingService.Interface;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace FinaceBilling.Controllers
 {
-    public class ClientController : BaseController
+    public class ClientController : Controller
     {
 
         private readonly IMapper _mapper;
         private readonly IClientService _iClientService;
-
-        public ClientController(IMapper mapper, IClientService iClientService)
+        private readonly IExcludedClientsService _iExcludedClientsService;
+        public ClientController(IMapper mapper, IClientService iClientService, IExcludedClientsService iExcludedClientsService)
         {
             _iClientService = iClientService;
+            _iExcludedClientsService = iExcludedClientsService;
             _mapper = mapper;
         }
 
@@ -87,9 +86,6 @@ namespace FinaceBilling.Controllers
 
                 excludedClientViewModels.SpClientDropDownData = await _iClientService.GetClientDropDownData();
                 excludedClientViewModels.spExcludeClientDatas = await _iClientService.GetExcludeClientDataList();
-
-
-
             }
             catch (Exception ex)
             {
@@ -98,32 +94,23 @@ namespace FinaceBilling.Controllers
             return View(excludedClientViewModels);
         }
         [HttpGet]
-        public JsonResult AddExcludedClient(string id)
+        public async Task<JsonResult> AddExcludedClient(string id)
         {
             try
             {
-                TblExcludedClient tblExcludedClient = new TblExcludedClient();
-                var result = _db.TblStagingClientsMasters.Where(x => x.ClientId == id && x.DivisionName != "0").FirstOrDefault();
-                tblExcludedClient.ClientName = result.ClientName;
-                tblExcludedClient.CreateDate = DateTime.Now;
-                tblExcludedClient.Bencode = result.ClientAlternate;
-                tblExcludedClient.ClientID = (int)Convert.ToInt64(result.ClientId);
-
-
-                if (tblExcludedClient != null)
+                bool isSuccess=await _iExcludedClientsService.AddExcludedClientFromMasterClient(id);
+                if (isSuccess)
                 {
-                    _db.TblExcludedClients.Add(tblExcludedClient);
-                    _db.SaveChanges();
-                    return ReturnAjaxSuccessMessage("client added Succesfully");
+                    return Json(new { success = false, responseText = "client added Succesfully." }); 
                 }
                 else
                 {
-                return ReturnAjaxErrorMessage("client not added ");
+                    return Json(new { success = false, responseText = "client not added." });
                 }
             }
             catch (Exception ex)
             {
-                return ReturnAjaxErrorMessage(ex.Message);
+                return Json(new { success = false, responseText = ex.Message });
             }     
         }
        

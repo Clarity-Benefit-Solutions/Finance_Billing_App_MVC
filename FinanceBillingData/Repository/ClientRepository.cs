@@ -31,7 +31,7 @@ namespace FinanceBillingData.Repository
                 return _db.VwExistingClient.ToList();
             });
         }
-       
+
         public async Task<List<VwTerminatedClient>> GetTerminatedClientList()
         {
             return await Task.Run(() =>
@@ -53,5 +53,6 @@ namespace FinanceBillingData.Repository
                 return _db.SpExcludeClientData.FromSqlRaw("SPS_GET_EXCLUDECLIENTDATA").ToList<SpExcludeClientData>();
             });
         }
+       
     }
 }

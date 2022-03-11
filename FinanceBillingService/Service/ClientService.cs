@@ -1,5 +1,6 @@
 ﻿using FinanceBillingData.Entities;
 using FinanceBillingData.Interface;
+using FinanceBillingService.Interface;
 using System;
 using System.Collections.Generic;
 using System.Text;
