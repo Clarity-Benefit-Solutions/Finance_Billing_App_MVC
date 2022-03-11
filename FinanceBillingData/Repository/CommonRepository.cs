@@ -5,7 +5,9 @@ using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace FinanceBillingData.Repository
@@ -13,11 +15,13 @@ namespace FinanceBillingData.Repository
     public class CommonRepository: ICommonRepository
     {
         private readonly IConfiguration _config;
+        private readonly ITblLoggingRepository _tblLoggingRepository;
         private Finance_BillingContext _db;
-        public CommonRepository(Finance_BillingContext db, IConfiguration config)
+        public CommonRepository(Finance_BillingContext db, IConfiguration config, ITblLoggingRepository tblLoggingRepository)
         {
             _db = db;
             _config = config;
+            _tblLoggingRepository = tblLoggingRepository;
         }
         public async Task<bool> ExecuteSSISPackage(string guid) {
             bool isSuccess = false;
@@ -26,6 +30,7 @@ namespace FinanceBillingData.Repository
                 SqlConnection sqlCon = null;
 
                 String SqlconString = _config.GetConnectionString("SqlConnectionString");
+                //TblLogging tblLogging = new TblLogging();
                 using (sqlCon = new SqlConnection(SqlconString))
                 {
                     sqlCon.Open();
@@ -37,6 +42,27 @@ namespace FinanceBillingData.Repository
                     parm3.Direction = ParameterDirection.Output;
                     sql_cmnd.Parameters.Add(parm3);
                     var lblsmsg = sql_cmnd.ExecuteNonQuery();
+                    DateTime currentTime = DateTime.Now;
+                    DateTime MinsLater = currentTime.AddMinutes(5);
+                    var isCompleted = false;
+                    do
+                    {
+                        Thread.Sleep(1000 * 2);
+                        TblLogging tblLogging = _db.TblLoggings.Where(c => c.Guid == guid).FirstOrDefault();
+                        //tblLogging.IsCompleted = isCompleted;
+                    } while (MinsLater <= currentTime || isCompleted);
+
+                    if (lblsmsg > 0)
+                    {
+
+                        return true;
+
+                    }
+                    else
+                    {
+                        return true;
+                        //ViewBag.Message = "File Uploaded Successfully";
+                    }
                     sql_cmnd.ExecuteNonQuery();
                     sqlCon.Close();
                     isSuccess = true;

@@ -30,6 +30,8 @@ namespace FinanceBillingData.Entities
         public virtual DbSet<TblExcludedClient> TblExcludedClients { get; set; } 
         public virtual DbSet<TblFilesNameToUpload> TblFilesNameToUploads { get; set; }
         public virtual DbSet<TblInvoiceDateTable> TblInvoiceDateTables { get; set; }
+        public virtual DbSet<TblLogging> TblLoggings { get; set; }
+
         public virtual DbSet<TblMonthMinConversion> TblMonthMinConversions { get; set; }
         public virtual DbSet<TblMonthMinConversionInvoice> TblMonthMinConversionInvoices { get; set; }
         public virtual DbSet<TblProcess> TblProcesses { get; set; }
@@ -71,6 +73,11 @@ namespace FinanceBillingData.Entities
         public virtual DbSet<VwNewClient> VwNewClient { get; set; }
         public virtual DbSet<VwExistingClient> VwExistingClient { get; set; }
         public virtual DbSet<VwTerminatedClient> VwTerminatedClient { get; set; }
+        
+        public virtual DbSet<ClientProductComparison> ClientProductComparisons { get; set; }
+        public virtual DbSet<ClientToClientComparison> ClientToClientComparisons { get; set; }
+
+
 
         public virtual DbSet<SpClientDropDownData> SpClientDropDownData { get; set; }
         public virtual DbSet<SpExcludeClientData> SpExcludeClientData { get; set; }
@@ -163,7 +170,7 @@ namespace FinanceBillingData.Entities
                     .IsUnicode(false)
                     .HasColumnName("Total Cards");
             });
-
+           
             modelBuilder.Entity<TblBackupReportingExportTable>(entity =>
             {
                 entity.HasNoKey();
@@ -863,13 +870,17 @@ namespace FinanceBillingData.Entities
             });
             modelBuilder.Entity<TblExcludedClient>(entity =>
             {
-                entity.HasKey(e => e.ClientID)
-                    .HasName("ClientID");
+                entity.Property(e => e.ClientID)
+                    .HasColumnName("ClientID");
 
                 entity.ToTable("TBL_EXCLUDE_CLIENT");
 
                 entity.Property(e => e.ClientName)
                 .HasColumnName("ClientName");
+                entity.HasKey(e => e.Id)
+                .HasName("Id");
+                entity.Property(e => e.isDeleted)
+                 .HasColumnName("isDeleted");
 
                 entity.Property(e => e.Bencode)
                     .HasColumnName("Bencode");
@@ -1566,6 +1577,62 @@ namespace FinanceBillingData.Entities
                 entity.Property(e => e.UniqueKeyBundleBilling).HasMaxLength(255);
 
                 entity.Property(e => e.UniqueKeyParticipant).HasMaxLength(255);
+            });
+            modelBuilder.Entity<TblLogging>(entity =>
+            {
+
+
+                entity.ToTable("TBL_LOGGINGDB");
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("Id");
+
+                entity.Property(e => e.PackageName)
+                    .HasColumnName("PackageName");
+
+                entity.Property(e => e.PackageId)
+                    .HasColumnName("PackageId");
+
+                entity.Property(e => e.Guid)
+                    .HasColumnName("Guid");
+
+                entity.Property(e => e.MachineName)
+                    .HasColumnName("MachineName");
+
+                entity.Property(e => e.UserName)
+                    .HasColumnName("UserName");
+
+                entity.Property(e => e.DataSource)
+                    .HasColumnName("DataSource");
+
+                entity.Property(e => e.StartDateTime)
+                    .HasColumnName("StartDateTime");
+
+                entity.Property(e => e.EndDateTime)
+                    .HasColumnName("EndDateTime");
+
+                entity.Property(e => e.NumRowsInserted)
+                    .HasColumnName("NumRowsInserted");
+
+                entity.Property(e => e.NumRowsUpdated)
+                    .HasColumnName("NumRowsUpdated");
+
+                entity.Property(e => e.NumRowsDeleted)
+                    .HasColumnName("NumRowsDeleted");
+
+                entity.Property(e => e.NumRowsTotal)
+                    .HasColumnName("NumRowsTotal");
+
+                entity.Property(e => e.IsSuccess)
+                    .HasColumnName("IsSuccess");
+
+                entity.Property(e => e.IsFailed)
+                    .HasColumnName("IsFailed");
+
+                entity.Property(e => e.IsCompleted)
+                    .HasColumnName("IsCompleted");
+
+
             });
 
             modelBuilder.Entity<TblQbImportsPro>(entity =>
@@ -3356,7 +3423,7 @@ namespace FinanceBillingData.Entities
                     .HasColumnType("numeric(38, 2)")
                     .HasColumnName("INVOICE TOTAL");
             });
-            //
+            
             modelBuilder.Entity<VwNewClient>(entity =>
             {
                 entity.HasNoKey();
@@ -3469,7 +3536,54 @@ namespace FinanceBillingData.Entities
                 entity.Property(e => e.PlanID)
                 .HasColumnName("Plan ID");
             });
+            
+            modelBuilder.Entity<ClientProductComparison>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("VW_CLIENTPRODUCT_COMPARISON");
+
+                entity.Property(e => e.SourceFileBencode)
+                .HasColumnName("SOURCEFILE_BENCODE");
+                entity.Property(e => e.SourceFileClientName)
+                .HasColumnName("SOURCEFILE_CLIENTNAME");
+                entity.Property(e => e.SourceFileProducts)
+                .HasColumnName("SOURCEFILE_PRODUCTS");
+                entity.Property(e => e.BillingAppBenCode)
+                .HasColumnName("BILLINGAPP_BENCODE");
+                entity.Property(e => e.BillingAppClientName)
+                .HasColumnName("BILLINGAPP_CLIENTNAME");
+                entity.Property(e => e.StartBillingDate)
+                .HasColumnName("START_BILLING_DATE");
+                entity.Property(e => e.EndBillingDate)
+                .HasColumnName("END_BILLING_DATE");
+                entity.Property(e => e.iNotExistInBillingAppTable)
+                .HasColumnName("NOTEXIST_IN_BILLINGAPPTABLE");
+               
+            });
             //
+            modelBuilder.Entity<ClientToClientComparison>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("VW_CLIENTTOCLIENT_COMPARISON");
+
+                entity.Property(e => e.SourceFileBenCode)
+                .HasColumnName("SOURCEFILE_BENCODE");
+                entity.Property(e => e.SourceFileClientName)
+                .HasColumnName("SOURCEFILE_CLIENTNAME");
+                entity.Property(e => e.BillingAppBenCode)
+                .HasColumnName("BILLINGAPP_BENCODE");
+                entity.Property(e => e.BillingAppClientName)
+                .HasColumnName("BILLINGAPP_CLIENTNAME");
+                entity.Property(e => e.StartBillingDate)
+                .HasColumnName("START_BILLING_DATE");
+                entity.Property(e => e.EndBillingDate)
+                .HasColumnName("END_BILLING_DATE");
+                entity.Property(e => e.iNotExistInBillingAppTable)
+                .HasColumnName("NOTEXIST_IN_BILLINGAPPTABLE");
+
+            });
             modelBuilder.Entity<SpClientDropDownData>(entity =>
             {
                 entity.HasNoKey();

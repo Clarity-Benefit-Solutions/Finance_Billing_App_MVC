@@ -12,6 +12,10 @@ namespace FinanceBillingData.Interface
         Task<List<VwExistingClient>> GetExistingClientList();
         Task<List<VwTerminatedClient>> GetTerminatedClientList();
         Task<List<SpClientDropDownData>> GetClientDropDownData();
-        Task<List<SpExcludeClientData>> GetExcludeClientDataList();
+        Task<List<SpExcludeClientData>> GetExcludeClientDataList(); 
+        Task<TblStagingClientsMaster> GetTblStagingClientById(string clientId);
+        Task<TblExcludedClient> AddTblExcludeClient(TblExcludedClient tblExcludedClients);
+        Task<TblExcludedClient> DeleteExculdedClient(int id); 
+
     }
 }

@@ -7,8 +7,9 @@ namespace FinanceBillingData.Entities
 {
     public class SpExcludeClientData
     {
-        
-        public int ClientID { get; set; }
+
+		public int Id { get; set; }
+		public int ClientID { get; set; }
 		public string ClientName { get; set; }
 		public string Bencode { get; set; }
 		public string Description { get; set; }

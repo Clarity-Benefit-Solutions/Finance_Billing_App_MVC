@@ -15,6 +15,8 @@ using System.Data.SqlClient;
 using FinanceBillingData.Interface;
 using FinanceBillingData.Entities;
 using FinanceBillingService.Interface;
+using FinaceBilling.Models;
+using AutoMapper;
 
 namespace DevExtremeAspNetCoreApp.Controllers
 {
@@ -26,13 +28,27 @@ namespace DevExtremeAspNetCoreApp.Controllers
         private readonly IFileNameRepository _iFileNameRepository;
         private readonly IErrorLogService _iErrorLogService;
         private readonly ICommonService _iCommonService;
-        public UploadFIleController(IHostingEnvironment env, IConfiguration config, IFileNameRepository iFileNameRepository, IErrorLogService iErrorLogService, ICommonService iCommonService)
+       // private readonly IUploadService _iUploadService;
+        private readonly IClientService _iclientService;
+        private readonly IMapper _mapper;
+        private readonly IAnalyticsService _iAnalyticsService;
+
+        public UploadFIleController(IMapper mapper,IHostingEnvironment env, IConfiguration config, IFileNameRepository iFileNameRepository,
+            IErrorLogService iErrorLogService,
+            ICommonService iCommonService
+            //, IUploadService iUploadService
+            , IClientService iclientService
+            , IAnalyticsService iAnalyticsService)
         {
             _env = env;
             _config = config;
             _iFileNameRepository = iFileNameRepository;
             _iErrorLogService = iErrorLogService;
             _iCommonService = iCommonService;
+            //_iUploadService = iUploadService;
+            _iclientService = iclientService;
+            _iAnalyticsService = iAnalyticsService;
+            _mapper = mapper;
         }
 
 
@@ -40,7 +56,14 @@ namespace DevExtremeAspNetCoreApp.Controllers
         public IActionResult UploadFile()
         {
 
-            return View();
+            UploadFile uploadFile = new UploadFile();
+            uploadFile.TblExcludedClientViewModels = new List<TblExcludedClientViewModel>();
+            uploadFile.ExistingClients = new List<ExistingClient>();
+            uploadFile.TerminatedClients = new List<TerminatedClient>();
+            uploadFile.clientToClientViewModels = new List<ClientToClientViewModel>();
+            uploadFile.clientToProductViewModels = new List<ClientToProductViewModel>();
+
+            return View(uploadFile);
         }
 
         /// <summary>
@@ -188,9 +211,32 @@ namespace DevExtremeAspNetCoreApp.Controllers
                 }
 
             }
+            UploadFile uploadFile = new UploadFile();
+            Analytics analytics = new Analytics();
+            uploadFile.TblExcludedClientViewModels = new List<TblExcludedClientViewModel>();
+            uploadFile.ExistingClients = new List<ExistingClient>();
+            uploadFile.TerminatedClients = new List<TerminatedClient>();
+            uploadFile.clientToProductViewModels = new List<ClientToProductViewModel>();
+            uploadFile.clientToClientViewModels = new List<ClientToClientViewModel>();
+
+            List<SpExcludeClientData> spExcludeClientDatas = await _iclientService.GetExcludeClientDataList();
+            _mapper.Map(spExcludeClientDatas, uploadFile.TblExcludedClientViewModels);
+
+            List<VwTerminatedClient>  vwTerminatedClients = await _iclientService.GetTerminatedClientList();
+            _mapper.Map(vwTerminatedClients, uploadFile.TerminatedClients);
+
+            List<VwExistingClient>  vwExistingClients = await _iclientService.GetExistingClientList();
+            _mapper.Map(vwExistingClients, uploadFile.ExistingClients);
+
+            List<ClientProductComparison> clientProductComparisons = await _iAnalyticsService.GetListClientProductComparison();
+            _mapper.Map(clientProductComparisons, uploadFile.clientToProductViewModels);
+            List<ClientToClientComparison> ClientToClientComparison = await _iAnalyticsService.GetListClientToClientComparison();
+            _mapper.Map(ClientToClientComparison, uploadFile.clientToClientViewModels);
+        
 
 
-            return View();
+            return View(uploadFile);
+            
         }
     }
 

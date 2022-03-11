@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using DevExtremeAspNetCoreApp.Custom.Attributes;
+using FinaceBilling.Models;
 using Microsoft.AspNetCore.Http;
 
 namespace DevExtremeAspNetCoreApp.Models
@@ -15,6 +16,12 @@ namespace DevExtremeAspNetCoreApp.Models
         [MaxFileSize(int.MaxValue)]
         [AllowedExtensions(new[] { "xls", "csv", "xlsx", "txt" })]
         public List<IFormFile> UploadedFiles { get; set; }
+        public List<TblExcludedClientViewModel> TblExcludedClientViewModels { get; set; }
+        public List<ExistingClient> ExistingClients { get; set; }
+        public List<TerminatedClient> TerminatedClients { get; set; }
+        public List<Analytics> Analytics { get; set; }
+        public List<ClientToProductViewModel> clientToProductViewModels { get; set; }
+        public List<ClientToClientViewModel> clientToClientViewModels { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DevExtremeAspNetCoreApp.Models;
+using FinaceBilling.Models;
 using FinanceBillingData.Entities;
 using System;
 using System.Collections.Generic;
@@ -12,13 +13,16 @@ namespace FinaceBilling.Custom.Helpers
     {
         public AutoMapperProfile()
         {
-            //CreateMap<Customer, CustomerViewModel>().ReverseMap();.
             CreateMap<VwNewClient, ClientViewModel>().ReverseMap();
             CreateMap<VwExistingClient, ClientViewModel>().ReverseMap();
             CreateMap<VwTerminatedClient, ClientViewModel>().ReverseMap();
-            
-
-
+            CreateMap<TblExcludedClientViewModel, TblExcludedClient>().ReverseMap();
+            CreateMap<TblLogging, TblLoggingViewModel>().ReverseMap();
+            CreateMap<SpExcludeClientData, TblExcludedClientViewModel>().ReverseMap();
+            CreateMap<VwTerminatedClient, TerminatedClient>().ReverseMap();
+            CreateMap<VwExistingClient, ExistingClient>().ReverseMap();
+            CreateMap<ClientProductComparison, ClientToProductViewModel>().ReverseMap();
+            CreateMap<ClientToClientComparison, ClientToClientViewModel>().ReverseMap();
 
         }
     }

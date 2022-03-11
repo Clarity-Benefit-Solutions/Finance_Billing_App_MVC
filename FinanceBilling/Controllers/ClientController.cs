@@ -3,6 +3,7 @@ using DevExtreme.AspNet.Mvc;
 using DevExtremeAspNetCoreApp.Models;
 using FinanceBillingData.Entities;
 using FinanceBillingData.Interface;
+using FinanceBillingService.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -17,10 +18,13 @@ namespace FinaceBilling.Controllers
 
         private readonly IMapper _mapper;
         private readonly IClientService _iClientService;
+       
+
 
         public ClientController(IMapper mapper, IClientService iClientService)
         {
             _iClientService = iClientService;
+            
             _mapper = mapper;
         }
 
@@ -98,35 +102,59 @@ namespace FinaceBilling.Controllers
             return View(excludedClientViewModels);
         }
         [HttpGet]
-        public JsonResult AddExcludedClient(string id)
+        public async Task<JsonResult> AddExcludedClient(string clientId)
         {
             try
             {
                 TblExcludedClient tblExcludedClient = new TblExcludedClient();
-                var result = _db.TblStagingClientsMasters.Where(x => x.ClientId == id && x.DivisionName != "0").FirstOrDefault();
-                tblExcludedClient.ClientName = result.ClientName;
+                TblStagingClientsMaster tblStagingClientsMaster = await _iClientService.GetTblStagingClientById(clientId);
+                tblExcludedClient.ClientName = tblStagingClientsMaster.ClientName;
                 tblExcludedClient.CreateDate = DateTime.Now;
-                tblExcludedClient.Bencode = result.ClientAlternate;
-                tblExcludedClient.ClientID = (int)Convert.ToInt64(result.ClientId);
+                tblExcludedClient.Bencode = tblStagingClientsMaster.ClientAlternate;
+                tblExcludedClient.ClientID = (int)Convert.ToInt64(tblStagingClientsMaster.ClientId);
+                
+
 
 
                 if (tblExcludedClient != null)
                 {
-                    _db.TblExcludedClients.Add(tblExcludedClient);
-                    _db.SaveChanges();
-                    return ReturnAjaxSuccessMessage("client added Succesfully");
+                     await _iClientService.AddTblExcludeClient(tblExcludedClient);
+                        return ReturnAjaxSuccessMessage("client added Succesfully");
                 }
-                else
-                {
-                return ReturnAjaxErrorMessage("client not added ");
-                }
+                
+                return    ReturnAjaxErrorMessage("Something Went Wrong ");
+                
             }
             catch (Exception ex)
             {
                 return ReturnAjaxErrorMessage(ex.Message);
             }     
         }
-       
+        [HttpGet]
+        public async Task<IActionResult> DeleteExculdedClient(int id)
+        {
+            try
+            {
+                //TblExcludedClient tblExcludedClient = new TblExcludedClient();
+                //tblExcludedClient = _db.TblExcludedClients.Where(x => x.Id == id).FirstOrDefault();
+                //tblExcludedClient =
+                    await _iClientService.DeleteExculdedClient( id);
+                //tblExcludedClient.isDeleted = true;
+
+                //if (tblExcludedClient != null)
+                //{
+                //    _db.TblExcludedClients.Update(tblExcludedClient);
+                //    _db.SaveChanges();
+                //}
+                return RedirectToAction("ExcludedClient");
+            }
+            catch (Exception ex)
+            {
+
+                return View(ex.Message);
+            }
+        }
+
     }
 }
 

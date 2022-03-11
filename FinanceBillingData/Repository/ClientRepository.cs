@@ -53,5 +53,35 @@ namespace FinanceBillingData.Repository
                 return _db.SpExcludeClientData.FromSqlRaw("SPS_GET_EXCLUDECLIENTDATA").ToList<SpExcludeClientData>();
             });
         }
+        public async Task<TblStagingClientsMaster> GetTblStagingClientById(string  clientId)
+        {
+            return await Task.Run(() =>
+            {
+                return _db.TblStagingClientsMasters.Where(x => x.ClientId == clientId && x.DivisionName != "0").FirstOrDefault();
+            });
+        }
+        public async Task<TblExcludedClient> AddTblExcludeClient(TblExcludedClient tblExcludedClients)
+        {
+            return await Task.Run<TblExcludedClient>(() =>
+            {
+                _db.TblExcludedClients.AddAsync(tblExcludedClients);
+                _db.SaveChanges();
+                return tblExcludedClients;
+            });
+        }
+        public async Task<TblExcludedClient> DeleteExculdedClient(int id)
+        {
+            return await Task.Run<TblExcludedClient>(() =>
+            {
+                TblExcludedClient tblExcludedClient = new TblExcludedClient();
+
+                tblExcludedClient = _db.TblExcludedClients.Where(m => m.Id == id).FirstOrDefault();
+                tblExcludedClient.isDeleted = true;
+                _db.TblExcludedClients.Update(tblExcludedClient);
+                _db.SaveChanges();
+                return tblExcludedClient;
+            });
+        }
     }
+
 }

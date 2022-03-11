@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using FinaceBilling.Custom.Dependency;
 using FinaceBilling.Custom.Helpers;
 using FinanceBillingData.Entities;
 using FinanceBillingData.Interface;
@@ -47,19 +48,25 @@ namespace DevExtremeAspNetCoreApp
             services.AddSingleton(mapper);
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             //Repositories
+            //services.AddInternalRepositories();
             services.AddTransient<IErrorLogsRepository, ErrorLogsRepository>();
             services.AddTransient<ICommonRepository, CommonRepository>();
             services.AddTransient<IInvoiceRepository, InvoiceRepository>();
             services.AddTransient<IClientRepository, ClientRepository>();
             services.AddTransient<IFileNameRepository, FileNameRepository>();
-
+            services.AddTransient<ITblLoggingRepository, TblLoggingRepository>();
+            services.AddTransient<IAnalyticsRepository, AnalyticsRepository>();
             //Services
+            //services.AddInternalServices();
 
             services.AddTransient<IErrorLogService, ErrorLogService>();
             services.AddTransient<ICommonService, CommonService>();
             services.AddTransient<IInvoiceService, InvoiceService>();
             services.AddTransient<IClientService, ClientService>();
             services.AddTransient<IFileNameService, FileNameService>();
+            services.AddTransient<ITblLoggingService, TblLoggingService>();
+            services.AddTransient<IAnalyticsService, AnalyticsService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
