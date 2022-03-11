@@ -1,0 +1,30 @@
+﻿
+<h2>Quickbook Clients</h2>
+
+@(Html.DevExtreme().DataGrid<FinanceBillingData.Entities.TblQBClients>()
+    .DataSource(ds => ds.Mvc()
+        .Controller("Quickbook")
+        .Key("ClientID")
+        .LoadAction("GetAllQuickBookClientList")
+        .InsertAction("AddNewQuickBookClient")
+        .UpdateAction("UpdateQuickBookClient")
+        .DeleteAction("DeleteQuickBookClient")
+    )
+    .RemoteOperations(true)
+    .Columns(columns => {
+
+
+        columns.AddFor(m => m.FirstName);
+
+        columns.AddFor(m => m.LastName);
+
+        columns.AddFor(m => m.BenCode);
+
+        columns.AddFor(m => m.Status);
+    })
+    .Editing(e => e
+        .AllowAdding(true)
+        .AllowUpdating(true)
+        .AllowDeleting(true)
+    )
+)

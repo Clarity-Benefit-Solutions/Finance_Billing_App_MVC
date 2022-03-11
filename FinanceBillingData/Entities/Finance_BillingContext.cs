@@ -3497,7 +3497,7 @@ namespace FinanceBillingData.Entities
             });
             modelBuilder.Entity<TblQBClients>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey("ClientID");
                 entity.ToTable("TBL_QB_CLIENTS");
                 entity.Property(e => e.FirstName)
                    .HasMaxLength(50)
@@ -3511,7 +3511,7 @@ namespace FinanceBillingData.Entities
 
                 entity.Property(e => e.IsDeleted).HasColumnName("IsDeleted");
                 entity.Property(e => e.Status).HasMaxLength(255);
-                entity.Property(e => e.CreatedDate).HasColumnName("CreateDate");
+                entity.Property(e => e.CreatedDate).HasColumnName("CreatedDate");
                 entity.Property(e => e.ModifiedDate).HasColumnName("ModifiedDate");
             });
 

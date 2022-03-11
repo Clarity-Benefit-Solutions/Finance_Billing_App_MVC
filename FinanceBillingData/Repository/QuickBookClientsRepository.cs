@@ -57,6 +57,7 @@ namespace FinanceBillingData.Repository
                 if (tblQBClientsResult == null)
                 {
                     tblQBClients.CreatedDate = DateTime.UtcNow;
+                    tblQBClients.IsDeleted = false;
                     _db.TblQBClients.Add(tblQBClients);
                     _db.SaveChanges();
                 }
@@ -74,12 +75,16 @@ namespace FinanceBillingData.Repository
             {
                 TblQBClients tblQBClientsResult = _db.TblQBClients.AsQueryable().Where(x => x.ClientID == tblQBClients.ClientID
                  && x.IsDeleted == false).FirstOrDefault();
-                if (tblQBClientsResult!= null)
+                if (tblQBClientsResult != null)
                 {
-                    tblQBClientsResult.FirstName = tblQBClients.FirstName;
-                    tblQBClientsResult.LastName = tblQBClients.LastName;
-                    tblQBClientsResult.BenCode = tblQBClients.BenCode;
-                    tblQBClientsResult.Status = tblQBClients.Status;
+                    if (!string.IsNullOrEmpty(tblQBClients.FirstName))
+                        tblQBClientsResult.FirstName = tblQBClients.FirstName;
+                    if (!string.IsNullOrEmpty(tblQBClients.LastName))
+                        tblQBClientsResult.LastName = tblQBClients.LastName;
+                    if (!string.IsNullOrEmpty(tblQBClients.BenCode))
+                        tblQBClientsResult.BenCode = tblQBClients.BenCode;
+                    if (!string.IsNullOrEmpty(tblQBClients.Status))
+                        tblQBClientsResult.Status = tblQBClients.Status;
                     tblQBClientsResult.ModifiedDate = DateTime.UtcNow;
                     _db.SaveChanges();
                 }
