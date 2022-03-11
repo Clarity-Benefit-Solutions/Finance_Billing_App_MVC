@@ -891,3 +891,4 @@ E:\SmartData\User 4\FinanceBilling\obj\Debug\net5.0\FinaceBilling.dll
 E:\SmartData\User 4\FinanceBilling\obj\Debug\net5.0\ref\FinaceBilling.dll
 E:\SmartData\User 4\FinanceBilling\obj\Debug\net5.0\FinaceBilling.pdb
 E:\SmartData\User 4\FinanceBilling\obj\Debug\net5.0\FinaceBilling.genruntimeconfig.cache
+E:\SmartData\User 4\FinanceBilling\obj\Debug\net5.0\FinaceBilling.MvcApplicationPartsAssemblyInfo.cs

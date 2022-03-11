@@ -3,10 +3,8 @@ using FinanceBillingData.Interface;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -60,7 +58,7 @@ namespace FinanceBillingData.Repository
                     }
                     else
                     {
-                        return false;
+                        return true;
                         //ViewBag.Message = "File Uploaded Successfully";
                     }
                     sql_cmnd.ExecuteNonQuery();
