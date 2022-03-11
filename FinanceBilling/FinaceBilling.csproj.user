@@ -3,10 +3,10 @@
   <PropertyGroup>
     <DevExtremeCreateAsPartial>False</DevExtremeCreateAsPartial>
     <DevExtremeUseLayout>True</DevExtremeUseLayout>
-    <DevExtremeSelectedDataContextName>Finance_BillingContext %28DevExtremeAspNetCoreApp.Entities%29</DevExtremeSelectedDataContextName>
+    <DevExtremeSelectedDataContextName>Finance_BillingContext %28FinanceBillingData.Entities%29</DevExtremeSelectedDataContextName>
     <Controller_SelectedScaffolderID>MvcControllerEmptyScaffolder</Controller_SelectedScaffolderID>
     <Controller_SelectedScaffolderCategoryPath>root/Common/MVC/Controller</Controller_SelectedScaffolderCategoryPath>
-    <View_SelectedScaffolderID>RazorViewEmptyScaffolder</View_SelectedScaffolderID>
+    <View_SelectedScaffolderID>DevExtremeMvcViewWithModelBindingScaffolder_v21.2</View_SelectedScaffolderID>
     <View_SelectedScaffolderCategoryPath>root/Common/MVC/View</View_SelectedScaffolderCategoryPath>
     <WebStackScaffolding_ViewDialogWidth>650</WebStackScaffolding_ViewDialogWidth>
     <ActiveDebugProfile>IIS Express</ActiveDebugProfile>

@@ -9,11 +9,12 @@ using System.Threading.Tasks;
 
 namespace FinanceBillingService.Service
 {
-    public class QuickBookClientsServices: IQuickBookClientsServices
+    public class QuickBookClientsServices : IQuickBookClientsServices
     {
         private IQuickBookClientsRepository _iQuickBookClientsRepository;
 
-        public QuickBookClientsServices(IQuickBookClientsRepository iQuickBookClientsRepository) {
+        public QuickBookClientsServices(IQuickBookClientsRepository iQuickBookClientsRepository)
+        {
             _iQuickBookClientsRepository = iQuickBookClientsRepository;
         }
         /// <summary>
@@ -34,6 +35,20 @@ namespace FinanceBillingService.Service
         public async Task<TblQBClients> GetQuickBookClientById(int clientId)
         {
             return await _iQuickBookClientsRepository.GetQuickBookClientById(clientId);
+        }
+        public async Task<TblQBClients> AddAndUpdateQuickBookClient(TblQBClients tblQBClients)
+        {
+            TblQBClients tblQBClientsResponse = new TblQBClients();
+            TblQBClients tblQBClientsResult = await _iQuickBookClientsRepository.GetQuickBookClientById(tblQBClients.ClientID);
+            if (tblQBClientsResult?.ClientID > 0)
+            {
+                tblQBClientsResponse = await _iQuickBookClientsRepository.UpdateQuickBookClient(tblQBClients);
+            }
+            else
+            {
+                tblQBClientsResponse = await _iQuickBookClientsRepository.AddNewQuickBookClient(tblQBClients);
+            }
+            return tblQBClientsResponse;
         }
         /// <summary>
         /// Add New client

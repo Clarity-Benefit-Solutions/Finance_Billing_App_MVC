@@ -14,6 +14,10 @@ using System.Data;
 using Microsoft.Extensions.Configuration;
 using FinanceBillingService.Interface;
 using FinanceBillingData.Entities;
+using Newtonsoft.Json;
+using System.Net;
+using DevExtreme.AspNet.Mvc;
+using DevExtreme.AspNet.Data;
 
 namespace FinaceBilling.Controllers
 {
@@ -24,15 +28,17 @@ namespace FinaceBilling.Controllers
         private readonly IConfiguration _config;
         private readonly IErrorLogService _iErrorLogService;
         private readonly IFileNameService _iFileNameService;
-        public QuickbookController(IHostingEnvironment env, IConfiguration config, IErrorLogService iErrorLogService, IFileNameService iFileNameService)
+        private readonly IQuickBookClientsServices _iQuickBookClientsServices;
+        public QuickbookController(IHostingEnvironment env, IConfiguration config, IErrorLogService iErrorLogService, IFileNameService iFileNameService, IQuickBookClientsServices iQuickBookClientsServices)
         {
             _env = env;
             _config = config;
             _iErrorLogService = iErrorLogService;
             _iFileNameService = iFileNameService;
+            _iQuickBookClientsServices = iQuickBookClientsServices;
         }
 
- 
+
 
         [HttpGet]
         public IActionResult Quickbook()
@@ -51,7 +57,8 @@ namespace FinaceBilling.Controllers
         public async Task<IActionResult> Quickbook(UploadFile files)
         {
             var filesCount = Request?.Form?.Files?.Count ?? 0;
-            if (files == null || filesCount == 0) {
+            if (files == null || filesCount == 0)
+            {
                 ModelState.AddModelError("NoFilesUploaded", $"No files slected and uploaded.Please upload files.");
                 return View();
             }
@@ -63,7 +70,8 @@ namespace FinaceBilling.Controllers
             // 2. a boundary should be found in the Content-Type
             if (!request.HasFormContentType ||
                 !MediaTypeHeaderValue.TryParse(request.ContentType, out var mediaTypeHeader) ||
-                string.IsNullOrEmpty(mediaTypeHeader.Boundary.Value)) {
+                string.IsNullOrEmpty(mediaTypeHeader.Boundary.Value))
+            {
                 ModelState.AddModelError($"error", $"Something went wrong.");
                 return View();
             }
@@ -79,13 +87,15 @@ namespace FinaceBilling.Controllers
             var uploadfiles = Request.Form.Files.Select(x => x.FileName).ToList();
 
 
-            for (int i = 0; i < uploadfiles.Count; i++) {
+            for (int i = 0; i < uploadfiles.Count; i++)
+            {
                 returnvalue.Add(Path.GetFileNameWithoutExtension(uploadfiles[i]));
             }
 
             var missingFile = tblFilesNames.Where(f => !returnvalue.Any(str => str.Contains(f.FileName)));
             //File count validation
-            if (Request.Form.Files.Count != validFilesCount) {
+            if (Request.Form.Files.Count != validFilesCount)
+            {
                 ModelState.AddModelError("file_count", $"Number of files to be uploaded should be {validFilesCount}.");
                 ViewBag.missingFile = missingFile;
                 //var missingFiles validation
@@ -101,11 +111,13 @@ namespace FinaceBilling.Controllers
             string filePath;
             var IsValidationPassed = true;
 
-            for (int i = 0; i < Request.Form.Files.Count; i++) {
+            for (int i = 0; i < Request.Form.Files.Count; i++)
+            {
                 arr = Request.Form.Files[i].FileName.Split('.');
                 arr[1] = "." + arr[1];
                 var fileEntityObj = tblFilesNames.Where(o => o.FileName == arr[0] && o.FileExtension.ToLower() == arr[1].ToLower()).FirstOrDefault();
-                if (fileEntityObj == null) {
+                if (fileEntityObj == null)
+                {
                     ModelState.AddModelError($"{Request.Form.Files[i].FileName}NotFound", $"File {Request.Form.Files[i].FileName} can not upload due to invalid file name.");
                     IsValidationPassed = false;
                 }
@@ -124,17 +136,21 @@ namespace FinaceBilling.Controllers
             rootpath = @"E:\Finance_Billing\Starting_Files";
             // rootpath = ConfigurationManager.AppSettings["Path"].ToString();
 
-            if (!Directory.Exists(rootpath)) {
+            if (!Directory.Exists(rootpath))
+            {
                 ModelState.AddModelError($"Something", $"Something went wrong.");
                 //Directory.CreateDirectory(rootpath);
             }
 
             //checking vallidation is passed or not
-            if (IsValidationPassed) {
+            if (IsValidationPassed)
+            {
 
-                for (int i = 0; i < Request.Form.Files.Count; i++) {
+                for (int i = 0; i < Request.Form.Files.Count; i++)
+                {
                     filePath = Path.Combine(rootpath, Request.Form.Files[i].FileName);
-                    using (Stream fileStream = new FileStream(filePath, FileMode.Create, FileAccess.Write)) {
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create, FileAccess.Write))
+                    {
                         Request.Form.Files[i].CopyTo(fileStream);
                     }
                 }
@@ -143,7 +159,8 @@ namespace FinaceBilling.Controllers
                 SqlConnection sqlCon = null;
                 Guid NewGuid = new Guid();
                 String SqlconString = _config.GetConnectionString("SqlConnectionString");
-                using (sqlCon = new SqlConnection(SqlconString)) {
+                using (sqlCon = new SqlConnection(SqlconString))
+                {
                     sqlCon.Open();
                     SqlCommand sql_cmnd = new SqlCommand("dbo.EXECUTE_SSIS_FINANCEBILLING", sqlCon);
                     sql_cmnd.CommandType = CommandType.StoredProcedure;
@@ -157,9 +174,10 @@ namespace FinaceBilling.Controllers
                 }
 
                 //Check the errors in error table fetch and show to the end user.
-                List<TblErrorLog> packageerrors =await  _iErrorLogService.GetErrorLogs();
+                List<TblErrorLog> packageerrors = await _iErrorLogService.GetErrorLogs();
 
-                for (int i = 0; i < packageerrors.Count; i++) {
+                for (int i = 0; i < packageerrors.Count; i++)
+                {
                     ModelState.AddModelError(packageerrors[i].LogId.ToString(), packageerrors[i].ErrMsg.ToString());
                 }
 
@@ -167,6 +185,64 @@ namespace FinaceBilling.Controllers
 
 
             return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> QuickbookClients()
+        {
+            List<TblQBClients> quickbookClientlist = new List<TblQBClients>();
+            return View(quickbookClientlist);
+        }
+        [HttpPost]
+        public async Task<TblQBClients> AddAndUpdateQuickBookClient(TblQBClients tblQBClients)
+        {
+            return await _iQuickBookClientsServices.AddAndUpdateQuickBookClient(tblQBClients);
+        }
+        [HttpGet]
+        public async Task<IActionResult> GetAllQuickBookClientList(DataSourceLoadOptions loadOptions)//(int take, int skip)
+        {
+            var result = DataSourceLoader.Load(await _iQuickBookClientsServices.GetAllQuickBookClientList(1000000000,0), loadOptions);
+            var resultJson = JsonConvert.SerializeObject(result);
+            return Content(resultJson, "application/json");
+            //  return await _iQuickBookClientsServices.GetAllQuickBookClientList(0, 1000000000);
+            //   return await _iQuickBookClientsServices.GetAllQuickBookClientList(take, skip);
+        }
+        [HttpPost]
+        public async Task<TblQBClients> GetQuickBookClientById(int clientId)
+        {
+            return await _iQuickBookClientsServices.GetQuickBookClientById(clientId);
+        }
+        [HttpPost]
+        public async Task<ActionResult> AddNewQuickBookClient(string values)
+        {
+            TblQBClients tblQBClients = new TblQBClients();                             // Creating a new item
+            JsonConvert.PopulateObject(values, tblQBClients);
+            // Populating the item with the values
+            //if (!TryValidateModel(tblQBClients))                        // Validating the item
+            //    return new OkObjectResult(HttpStatusCode.BadRequest, ValidationErrorMessage);
+            await _iQuickBookClientsServices.AddNewQuickBookClient(tblQBClients);
+            return new OkObjectResult(HttpStatusCode.OK);
+            //return await _iQuickBookClientsServices.AddNewQuickBookClient(tblQBClients);
+        }
+        [HttpPut]
+        public async Task<ActionResult> UpdateQuickBookClient(int key, string values)
+        {
+            TblQBClients tblQBClients = new TblQBClients();
+            tblQBClients.ClientID = key;
+            // Creating a new item
+
+            JsonConvert.PopulateObject(values, tblQBClients);
+            // Populating the item with the values
+            //if (!TryValidateModel(tblQBClients))                        // Validating the item
+            //    return new OkObjectResult(HttpStatusCode.BadRequest, ValidationErrorMessage);
+            await _iQuickBookClientsServices.UpdateQuickBookClient(tblQBClients);
+            return new OkObjectResult(HttpStatusCode.OK);
+            //return await _iQuickBookClientsServices.UpdateQuickBookClient(tblQBClients);
+        }
+        [HttpDelete]
+        public async Task DeleteQuickBookClient(int key)
+        {
+             await _iQuickBookClientsServices.DeleteQuickBookClient(key);
         }
     }
 }

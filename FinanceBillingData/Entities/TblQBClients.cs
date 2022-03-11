@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ namespace FinanceBillingData.Entities
 {
     public partial class TblQBClients
     {
+        [Key]
         public int ClientID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }

@@ -11,6 +11,7 @@ namespace FinanceBillingService.Interface
     {
         Task<List<TblQBClients>> GetAllQuickBookClientList(int take, int skip);
         Task<TblQBClients> GetQuickBookClientById(int clientId);
+        Task<TblQBClients> AddAndUpdateQuickBookClient(TblQBClients tblQBClients);
         Task<TblQBClients> AddNewQuickBookClient(TblQBClients tblQBClients);
         Task<TblQBClients> UpdateQuickBookClient(TblQBClients tblQBClients);
         Task<TblQBClients> DeleteQuickBookClient(int clientId);
