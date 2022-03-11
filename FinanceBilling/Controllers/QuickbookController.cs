@@ -9,7 +9,6 @@ using System.Linq;
 using Microsoft.Net.Http.Headers;
 using System.Threading.Tasks;
 using DevExtremeAspNetCoreApp.Custom.Attributes;
-using Microsoft.Data.SqlClient;
 using System.Data;
 using Microsoft.Extensions.Configuration;
 using FinanceBillingService.Interface;
@@ -18,6 +17,7 @@ using Newtonsoft.Json;
 using System.Net;
 using DevExtreme.AspNet.Mvc;
 using DevExtreme.AspNet.Data;
+using Microsoft.Data.SqlClient;
 
 namespace FinaceBilling.Controllers
 {
