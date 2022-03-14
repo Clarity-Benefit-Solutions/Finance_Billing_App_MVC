@@ -18,6 +18,8 @@ using System.Net;
 using DevExtreme.AspNet.Mvc;
 using DevExtreme.AspNet.Data;
 using Microsoft.Data.SqlClient;
+using System.Net.Http;
+using System.Dynamic;
 
 namespace FinaceBilling.Controllers
 {
@@ -201,7 +203,7 @@ namespace FinaceBilling.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllQuickBookClientList(DataSourceLoadOptions loadOptions)//(int take, int skip)
         {
-            var result = DataSourceLoader.Load(await _iQuickBookClientsServices.GetAllQuickBookClientList(1000000000,0), loadOptions);
+            var result = DataSourceLoader.Load(await _iQuickBookClientsServices.GetAllQuickBookClientList(), loadOptions);
             var resultJson = JsonConvert.SerializeObject(result);
             return Content(resultJson, "application/json");
             //  return await _iQuickBookClientsServices.GetAllQuickBookClientList(0, 1000000000);
@@ -243,6 +245,16 @@ namespace FinaceBilling.Controllers
         public async Task DeleteQuickBookClient(int key)
         {
              await _iQuickBookClientsServices.DeleteQuickBookClient(key);
+        }
+        [HttpGet]
+        public IActionResult GetActiveInActiveDataSource(DataSourceLoadOptions loadOptions)
+        {
+            List<dynamic> myDynamicList = new List<dynamic>();
+            myDynamicList.Add(new { Key = "In-Active", Value = 0 });
+            myDynamicList.Add(new { Key = "Active", Value = 1 });
+            var result= DataSourceLoader.Load(myDynamicList, loadOptions);
+            var resultJson = JsonConvert.SerializeObject(result);
+            return Content(resultJson, "application/json");
         }
     }
 }

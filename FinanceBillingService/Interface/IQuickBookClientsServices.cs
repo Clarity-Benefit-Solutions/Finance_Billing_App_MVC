@@ -9,7 +9,7 @@ namespace FinanceBillingService.Interface
 {
     public interface IQuickBookClientsServices
     {
-        Task<List<TblQBClients>> GetAllQuickBookClientList(int take, int skip);
+        Task<List<TblQBClients>> GetAllQuickBookClientList();
         Task<TblQBClients> GetQuickBookClientById(int clientId);
         Task<TblQBClients> AddAndUpdateQuickBookClient(TblQBClients tblQBClients);
         Task<TblQBClients> AddNewQuickBookClient(TblQBClients tblQBClients);

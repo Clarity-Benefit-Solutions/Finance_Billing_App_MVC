@@ -11,9 +11,9 @@ namespace FinanceBillingData.Entities
     {
         [Key]
         public int ClientID { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string ClientName { get; set; }
         public string BenCode { get; set; }
+        public string ServiceID { get; set; }
         public string Status { get; set; }
         public bool? IsDeleted { get; set; }
         public DateTime? CreatedDate { get; set; }
