@@ -1,25 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "E:\\SmartData\\User 4\\FinanceBillingService\\FinanceBillingService.csproj": {}
+    "E:\\SmartData\\User 2\\Git\\MVC App\\FinanceBillingService\\FinanceBillingService.csproj": {}
   },
   "projects": {
-    "E:\\SmartData\\User 4\\FinanceBillingData\\FinanceBillingData.csproj": {
+    "E:\\SmartData\\User 2\\Git\\MVC App\\FinanceBillingData\\FinanceBillingData.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\SmartData\\User 4\\FinanceBillingData\\FinanceBillingData.csproj",
+        "projectUniqueName": "E:\\SmartData\\User 2\\Git\\MVC App\\FinanceBillingData\\FinanceBillingData.csproj",
         "projectName": "FinanceBillingData",
-        "projectPath": "E:\\SmartData\\User 4\\FinanceBillingData\\FinanceBillingData.csproj",
-        "packagesPath": "C:\\Users\\KKumar_Beneflex\\.nuget\\packages\\",
-        "outputPath": "E:\\SmartData\\User 4\\FinanceBillingData\\obj\\",
+        "projectPath": "E:\\SmartData\\User 2\\Git\\MVC App\\FinanceBillingData\\FinanceBillingData.csproj",
+        "packagesPath": "C:\\Users\\MJaswal_Beneflex\\.nuget\\packages\\",
+        "outputPath": "E:\\SmartData\\User 2\\Git\\MVC App\\FinanceBillingData\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\Offline Packages",
           "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
         ],
         "configFilePaths": [
-          "E:\\SmartData\\User 4\\NuGet.Config",
-          "C:\\Users\\KKumar_Beneflex\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "E:\\SmartData\\User 2\\Git\\MVC App\\NuGet.Config",
+          "C:\\Users\\MJaswal_Beneflex\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 21.2.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
@@ -37,8 +37,8 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "E:\\SmartData\\User 4\\FinanceBillingModel\\FinanceBillingModel.csproj": {
-                "projectPath": "E:\\SmartData\\User 4\\FinanceBillingModel\\FinanceBillingModel.csproj"
+              "E:\\SmartData\\User 2\\Git\\MVC App\\FinanceBillingModel\\FinanceBillingModel.csproj": {
+                "projectPath": "E:\\SmartData\\User 2\\Git\\MVC App\\FinanceBillingModel\\FinanceBillingModel.csproj"
               }
             }
           }
@@ -83,22 +83,22 @@
         }
       }
     },
-    "E:\\SmartData\\User 4\\FinanceBillingModel\\FinanceBillingModel.csproj": {
+    "E:\\SmartData\\User 2\\Git\\MVC App\\FinanceBillingModel\\FinanceBillingModel.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\SmartData\\User 4\\FinanceBillingModel\\FinanceBillingModel.csproj",
+        "projectUniqueName": "E:\\SmartData\\User 2\\Git\\MVC App\\FinanceBillingModel\\FinanceBillingModel.csproj",
         "projectName": "FinanceBillingModel",
-        "projectPath": "E:\\SmartData\\User 4\\FinanceBillingModel\\FinanceBillingModel.csproj",
-        "packagesPath": "C:\\Users\\KKumar_Beneflex\\.nuget\\packages\\",
-        "outputPath": "E:\\SmartData\\User 4\\FinanceBillingModel\\obj\\",
+        "projectPath": "E:\\SmartData\\User 2\\Git\\MVC App\\FinanceBillingModel\\FinanceBillingModel.csproj",
+        "packagesPath": "C:\\Users\\MJaswal_Beneflex\\.nuget\\packages\\",
+        "outputPath": "E:\\SmartData\\User 2\\Git\\MVC App\\FinanceBillingModel\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\Offline Packages",
           "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
         ],
         "configFilePaths": [
-          "E:\\SmartData\\User 4\\NuGet.Config",
-          "C:\\Users\\KKumar_Beneflex\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "E:\\SmartData\\User 2\\Git\\MVC App\\NuGet.Config",
+          "C:\\Users\\MJaswal_Beneflex\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 21.2.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
@@ -146,22 +146,22 @@
         }
       }
     },
-    "E:\\SmartData\\User 4\\FinanceBillingService\\FinanceBillingService.csproj": {
+    "E:\\SmartData\\User 2\\Git\\MVC App\\FinanceBillingService\\FinanceBillingService.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\SmartData\\User 4\\FinanceBillingService\\FinanceBillingService.csproj",
+        "projectUniqueName": "E:\\SmartData\\User 2\\Git\\MVC App\\FinanceBillingService\\FinanceBillingService.csproj",
         "projectName": "FinanceBillingService",
-        "projectPath": "E:\\SmartData\\User 4\\FinanceBillingService\\FinanceBillingService.csproj",
-        "packagesPath": "C:\\Users\\KKumar_Beneflex\\.nuget\\packages\\",
-        "outputPath": "E:\\SmartData\\User 4\\FinanceBillingService\\obj\\",
+        "projectPath": "E:\\SmartData\\User 2\\Git\\MVC App\\FinanceBillingService\\FinanceBillingService.csproj",
+        "packagesPath": "C:\\Users\\MJaswal_Beneflex\\.nuget\\packages\\",
+        "outputPath": "E:\\SmartData\\User 2\\Git\\MVC App\\FinanceBillingService\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\Offline Packages",
           "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
         ],
         "configFilePaths": [
-          "E:\\SmartData\\User 4\\NuGet.Config",
-          "C:\\Users\\KKumar_Beneflex\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "E:\\SmartData\\User 2\\Git\\MVC App\\NuGet.Config",
+          "C:\\Users\\MJaswal_Beneflex\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 21.2.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
@@ -179,11 +179,11 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "E:\\SmartData\\User 4\\FinanceBillingData\\FinanceBillingData.csproj": {
-                "projectPath": "E:\\SmartData\\User 4\\FinanceBillingData\\FinanceBillingData.csproj"
+              "E:\\SmartData\\User 2\\Git\\MVC App\\FinanceBillingData\\FinanceBillingData.csproj": {
+                "projectPath": "E:\\SmartData\\User 2\\Git\\MVC App\\FinanceBillingData\\FinanceBillingData.csproj"
               },
-              "E:\\SmartData\\User 4\\FinanceBillingModel\\FinanceBillingModel.csproj": {
-                "projectPath": "E:\\SmartData\\User 4\\FinanceBillingModel\\FinanceBillingModel.csproj"
+              "E:\\SmartData\\User 2\\Git\\MVC App\\FinanceBillingModel\\FinanceBillingModel.csproj": {
+                "projectPath": "E:\\SmartData\\User 2\\Git\\MVC App\\FinanceBillingModel\\FinanceBillingModel.csproj"
               }
             }
           }
