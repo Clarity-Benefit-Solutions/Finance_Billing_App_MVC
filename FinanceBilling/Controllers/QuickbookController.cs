@@ -250,8 +250,8 @@ namespace FinaceBilling.Controllers
         public IActionResult GetActiveInActiveDataSource(DataSourceLoadOptions loadOptions)
         {
             List<dynamic> myDynamicList = new List<dynamic>();
-            myDynamicList.Add(new { Key = "In-Active", Value = 0 });
-            myDynamicList.Add(new { Key = "Active", Value = 1 });
+            myDynamicList.Add(new { Key = "In-Active", Value = "In-Active" });
+            myDynamicList.Add(new { Key = "Active", Value = "Active" });
             var result= DataSourceLoader.Load(myDynamicList, loadOptions);
             var resultJson = JsonConvert.SerializeObject(result);
             return Content(resultJson, "application/json");
