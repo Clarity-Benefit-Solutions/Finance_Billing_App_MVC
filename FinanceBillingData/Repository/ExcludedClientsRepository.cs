@@ -26,17 +26,36 @@ namespace FinanceBillingData.Repository
                 return tblExcludedClient;
             });
         }
-        public async Task<bool> DeleteExculdedClient(int id)
+        public async Task<TblExcludedClient> DeleteExculdedClient(int id)
         {
-            return await Task.Run<bool>(() =>
+            return await Task.Run<TblExcludedClient>(() =>
             {
-                bool isSucess = true;
-                TblExcludedClient tblExcludedClient = new TblExcludedClient();
-                tblExcludedClient = _db.TblExcludedClients.Where(m => m.Id == id).FirstOrDefault();
-                tblExcludedClient.isDeleted = true;
-                _db.TblExcludedClients.Update(tblExcludedClient);
-                _db.SaveChanges();
-                return isSucess;
+                TblExcludedClient tblExcludedClient = _db.TblExcludedClients.AsQueryable().Where(m => m.Id == id
+                 && m.isDeleted == false).FirstOrDefault();
+                if (tblExcludedClient != null)
+                {
+                    tblExcludedClient.isDeleted = true;
+                    //tblExcludedClient.ModifiedDate = DateTime.UtcNow;
+                    _db.SaveChanges();
+                }
+                return tblExcludedClient;
+            });
+            //return await Task.Run<bool>(() =>
+            //{
+            //    bool isSucess = true;
+            //    TblExcludedClient tblExcludedClient = new TblExcludedClient();
+            //    tblExcludedClient = _db.TblExcludedClients.Where(m => m.Id == id).FirstOrDefault();
+            //    tblExcludedClient.isDeleted = true;
+            //    _db.TblExcludedClients.Update(tblExcludedClient);
+            //    _db.SaveChanges();
+            //    return isSucess;
+            //});
+        }
+        public async Task <List<TblExcludedClient>> GetAllExcludedClient(int take, int skip)
+        {
+            return await Task.Run(() =>
+            {
+                return _db.TblExcludedClients.Where(m=>m.isDeleted == null).Take(take).Skip(skip).ToList();
             });
         }
     }

@@ -61,6 +61,8 @@ namespace FinaceBilling.Controllers
             uploadFile.TerminatedClients = new List<TerminatedClient>();
             uploadFile.clientToClientViewModels = new List<ClientToClientViewModel>();
             uploadFile.clientToProductViewModels = new List<ClientToProductViewModel>();
+            uploadFile.ClientViewModels = new List<ClientViewModel>();
+
 
             return View(uploadFile);
         }
@@ -218,19 +220,20 @@ namespace FinaceBilling.Controllers
             uploadFile.clientToProductViewModels = new List<ClientToProductViewModel>();
             uploadFile.clientToClientViewModels = new List<ClientToClientViewModel>();
 
-            List<VwNewClient> vwNewClients = await _iclientService.GetNewClientList();
-            _mapper.Map(vwNewClients, uploadFile.NewClientViewModels);
+            //List<VwNewClient> vwNewClients = await _iclientService.GetNewClientList();
+            //_mapper.Map(vwNewClients, uploadFile.NewClientViewModels);
 
-            List<VwTerminatedClient>  vwTerminatedClients = await _iclientService.GetTerminatedClientList();
-            _mapper.Map(vwTerminatedClients, uploadFile.TerminatedClients);
+            //List<VwTerminatedClient>  vwTerminatedClients = await _iclientService.GetTerminatedClientList();
+            //_mapper.Map(vwTerminatedClients, uploadFile.TerminatedClients);
 
-            List<VwExistingClient>  vwExistingClients = await _iclientService.GetExistingClientList();
-            _mapper.Map(vwExistingClients, uploadFile.ExistingClients);
+            //List<VwExistingClient>  vwExistingClients = await _iclientService.GetExistingClientList();
+            //_mapper.Map(vwExistingClients, uploadFile.ExistingClients);
 
-            List<ClientProductComparison> clientProductComparisons = await _iAnalyticsService.GetListClientProductComparison();
-            _mapper.Map(clientProductComparisons, uploadFile.clientToProductViewModels);
-            List<ClientToClientComparison> ClientToClientComparison = await _iAnalyticsService.GetListClientToClientComparison();
-            _mapper.Map(ClientToClientComparison, uploadFile.clientToClientViewModels);
+            //List<ClientProductComparison> clientProductComparisons = await _iAnalyticsService.GetListClientProductComparison();
+            //_mapper.Map(clientProductComparisons, uploadFile.clientToProductViewModels);
+
+            //List<ClientToClientComparison> ClientToClientComparison = await _iAnalyticsService.GetListClientToClientComparison();
+            //_mapper.Map(ClientToClientComparison, uploadFile.clientToClientViewModels);
         
 
 

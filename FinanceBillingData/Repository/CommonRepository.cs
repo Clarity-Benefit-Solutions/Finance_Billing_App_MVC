@@ -58,7 +58,7 @@ namespace FinanceBillingData.Repository
                     }
                     else
                     {
-                        return true;
+                        return false;
                         //ViewBag.Message = "File Uploaded Successfully";
                     }
                     sql_cmnd.ExecuteNonQuery();

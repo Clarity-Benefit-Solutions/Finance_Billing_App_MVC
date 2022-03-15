@@ -16,16 +16,16 @@ namespace FinanceBillingData.Repository
         {
             _db = db;
         }
-        public async Task<List<ClientProductComparison>> GetListClientProductComparison()
+        public async Task<List<ClientProductComparison>> GetListClientProductComparison(int take, int skip)
         {
             return await Task.Run(() => {
-                return _db.ClientProductComparisons.ToList();
+                return _db.ClientProductComparisons.Take(take).Skip(skip).ToList(); 
             });
         }
-        public async Task<List<ClientToClientComparison>> GetListClientToClientComparison()
+        public async Task<List<ClientToClientComparison>> GetListClientToClientComparison(int take, int skip)
         {
             return await Task.Run(() => {
-                return _db.ClientToClientComparisons.ToList();
+                return _db.ClientToClientComparisons.Take(take).Skip(skip).ToList();
             });
         }
     }

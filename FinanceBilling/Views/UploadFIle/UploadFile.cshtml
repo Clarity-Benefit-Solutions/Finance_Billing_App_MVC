@@ -80,7 +80,7 @@
             <div class="modal-header">
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link active " id="excluded-tab" data-bs-toggle="tab" data-bs-target="#excluded" type="button" role="tab" aria-controls="excluded" aria-selected="true">New</button>
+                        <button class="nav-link active " id="new-tab" data-bs-toggle="tab" data-bs-target="#new" type="button" role="tab" aria-controls="new" aria-selected="true">New</button>
                     </li>
                     <li class="nav-item" role="presentation">
                         <button class="nav-link" id="existing-tab" data-bs-toggle="tab" data-bs-target="#existing" type="button" role="tab" aria-controls="existing" aria-selected="false">Existing</button>
@@ -98,221 +98,461 @@
             </div>
             <div class="modal-body">
                 <div class="tab-content" id="myTabContent" style="width:100%;">
-                    <div class="tab-pane fade show active" id="excluded" role="tabpanel" aria-labelledby="excluded-tab" style="overflow:auto; width:100%;">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th scope="col">ClientName</th>
-                                    <th scope="col">ClientGroupName</th>
-                                    <th scope="col">BillingStartDate</th>
-                                    <th scope="col">EIN</th>
-                                    <th scope="col">ClientDivisionName</th>
-                                    <th scope="col">ClientID</th>
-                                    <th scope="col">ClientDivisionID</th>
-                                    <th scope="col">Active</th>
-                                    <th scope="col">ClientAlternate</th>
-                                    <th scope="col">DeactivationDate</th>
-                                    <th scope="col">TPACode</th>
-                                    <th scope="col">Linetype</th>
-                                    <th scope="col">AccountTypeCode</th>
-                                    <th scope="col">MyProperty</th>
-                                    <th scope="col">PlanID</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in Model.NewClientViewModels)
-                                {
-                                    <tr>
-                                        <td>@item.ClientName</td>
-                                        <td>@item.ClientGroupName</td>
-                                        <td>@item.BillingStartDate</td>
-                                        <td>@item.EIN</td>
-                                        <td>@item.ClientDivisionName</td>
-                                        <td>@item.ClientID</td>
-                                        <td>@item.ClientDivisionID</td>
-                                        <td>@item.Active</td>
-                                        <td>@item.ClientAlternate</td>
-                                        <td>@item.DeactivationDate</td>
-                                        <td>@item.TPACode</td>
-                                        <td>@item.Linetype</td>
-                                        <td>@item.AccountTypeCode</td>
-                                        <td>@item.DivisionName</td>
-                                        <td>@item.PlanID</td>
-
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="tab-pane fade" id="existing" role="tabpanel" aria-labelledby="existing-tab" style="overflow:auto; width:100%;">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th scope="col">ClientName</th>
-                                <th scope="col">ClientGroupName</th>
-                                <th scope="col">BillingStartDate</th>
-                                <th scope="col">EIN</th>
-                                <th scope="col">ClientDivisionName</th>
-                                <th scope="col">ClientID</th>
-                                <th scope="col">ClientDivisionID</th>
-                                <th scope="col">Active</th>
-                                <th scope="col">ClientAlternate</th>
-                                <th scope="col">DeactivationDate</th>
-                                <th scope="col">TPACode</th>
-                                <th scope="col">Linetype</th>
-                                <th scope="col">AccountTypeCode</th>
-                                <th scope="col">MyProperty</th>
-                                <th scope="col">PlanID</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model.ExistingClients)
-                            {
-                                <tr>
-                                    <td>@item.ClientName</td>
-                                    <td>@item.ClientGroupName</td>
-                                    <td>@item.BillingStartDate</td>
-                                    <td>@item.EIN</td>
-                                    <td>@item.ClientDivisionName</td>
-                                    <td>@item.ClientID</td>
-                                    <td>@item.ClientDivisionID</td>
-                                    <td>@item.Active</td>
-                                    <td>@item.ClientAlternate</td>
-                                    <td>@item.DeactivationDate</td>
-                                    <td>@item.TPACode</td>
-                                    <td>@item.Linetype</td>
-                                    <td>@item.AccountTypeCode</td>
-                                    <td>@item.MyProperty</td>
-                                    <td>@item.PlanID</td>
-
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
-                <div class="tab-pane fade" id="terminated" role="tabpanel" aria-labelledby="terminated-tab" style="overflow:auto; width:100%;">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th scope="col">ClientName</th>
-                                <th scope="col">ClientGroupName</th>
-                                <th scope="col">BillingStartDate</th>
-                                <th scope="col">EIN</th>
-                                <th scope="col">ClientDivisionName</th>
-                                <th scope="col">ClientID</th>
-                                <th scope="col">ClientDivisionID</th>
-                                <th scope="col">Active</th>
-                                <th scope="col">ClientAlternate</th>
-                                <th scope="col">DeactivationDate</th>
-                                <th scope="col">TPACode</th>
-                                <th scope="col">Linetype</th>
-                                <th scope="col">AccountTypeCode</th>
-                                <th scope="col">MyProperty</th>
-                                <th scope="col">PlanID</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model.TerminatedClients)
-                            {
-                                <tr>
-                                    <td>@item.ClientName</td>
-                                    <td>@item.ClientGroupName</td>
-                                    <td>@item.BillingStartDate</td>
-                                    <td>@item.EIN</td>
-                                    <td>@item.ClientDivisionName</td>
-                                    <td>@item.ClientID</td>
-                                    <td>@item.ClientDivisionID</td>
-                                    <td>@item.Active</td>
-                                    <td>@item.ClientAlternate</td>
-                                    <td>@item.DeactivationDate</td>
-                                    <td>@item.TPACode</td>
-                                    <td>@item.Linetype</td>
-                                    <td>@item.AccountTypeCode</td>
-                                    <td>@item.MyProperty</td>
-                                    <td>@item.PlanID</td>
-
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
-                @*<div class="container">
-                        <div class="col-md-6"></div>
-                        <div class="col-md-6"></div>
-                    </div>*@
-                <div class="tab-pane fade" id="analytics" role="tabpanel" aria-labelledby="analytics-tab" style="overflow:auto; width:100%;">
-                    <div class="container" style="overflow:auto; width:100%;float:left;">
-                        <div class="col-md-6" style="overflow:auto; width:100% ;float:left;">
-                            <h4 class="form-inline">Client To Product Comaprison</h4>
-                            <table class="table table-hover">
+                    <div class="tab-pane fade show active" id="new" role="tabpanel" aria-labelledby="new-tab" style="overflow:auto; width:100%;">
+                        @*<table class="table table-hover">
                                 <thead>
                                     <tr>
-                                        <th scope="col">SourceFileBencode</th>
-                                        <th scope="col">SourceFileClientName</th>
-                                        <th scope="col">SourceFileProducts</th>
-                                        <th scope="col">BillingAppBenCode</th>
-                                        <th scope="col">BillingAppClientName</th>
-                                        <th scope="col">StartBillingDate</th>
-                                        <th scope="col">EndBillingDate</th>
-                                        <th scope="col">iNotExistInBillingAppTable</th>
+                                        <th scope="col">ClientName</th>
+                                        <th scope="col">ClientGroupName</th>
+                                        <th scope="col">BillingStartDate</th>
+                                        <th scope="col">EIN</th>
+                                        <th scope="col">ClientDivisionName</th>
+                                        <th scope="col">ClientID</th>
+                                        <th scope="col">ClientDivisionID</th>
+                                        <th scope="col">Active</th>
+                                        <th scope="col">ClientAlternate</th>
+                                        <th scope="col">DeactivationDate</th>
+                                        <th scope="col">TPACode</th>
+                                        <th scope="col">Linetype</th>
+                                        <th scope="col">AccountTypeCode</th>
+                                        <th scope="col">MyProperty</th>
+                                        <th scope="col">PlanID</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (var item in Model.clientToProductViewModels)
+                                    @foreach (var item in Model.NewClientViewModels)
                                     {
                                         <tr>
-                                            <td>@item.SourceFileBencode</td>
-                                            <td>@item.SourceFileClientName</td>
-                                            <td>@item.SourceFileProducts</td>
-                                            <td>@item.BillingAppBenCode</td>
-                                            <td>@item.BillingAppClientName</td>
-                                            <td>@item.StartBillingDate</td>
-                                            <td>@item.EndBillingDate</td>
-                                            <td>@item.iNotExistInBillingAppTable</td>
+                                            <td>@item.ClientName</td>
+                                            <td>@item.ClientGroupName</td>
+                                            <td>@item.BillingStartDate</td>
+                                            <td>@item.EIN</td>
+                                            <td>@item.ClientDivisionName</td>
+                                            <td>@item.ClientID</td>
+                                            <td>@item.ClientDivisionID</td>
+                                            <td>@item.Active</td>
+                                            <td>@item.ClientAlternate</td>
+                                            <td>@item.DeactivationDate</td>
+                                            <td>@item.TPACode</td>
+                                            <td>@item.Linetype</td>
+                                            <td>@item.AccountTypeCode</td>
+                                            <td>@item.DivisionName</td>
+                                            <td>@item.PlanID</td>
 
                                         </tr>
                                     }
-
                                 </tbody>
-                            </table>
-                        </div>
-                        <div class="col-md-6" style="overflow:auto; width:100%;float:left;">
-                            <h4 class="form-inline">Client To Client Comparison</h4>
-                            <table class="table table-hover">
+                            </table>*@
+                        @(Html.DevExtreme().DataGrid<FinaceBilling.Models.NewClientViewModel>()
+    .DataSource(ds => ds.Mvc()
+        .Controller("Client")
+        //.Key("ClientID")
+        .LoadAction("NewClient")
+    //.InsertAction("AddNewQuickBookClient")
+    //.UpdateAction("UpdateQuickBookClient")
+    //.DeleteAction("DeleteQuickBookClient")
+    )
+    .RemoteOperations(true)
+    .Columns(columns => {
+
+
+        columns.AddFor(m => m.ClientName);
+
+        columns.AddFor(m => m.ClientGroupName);
+
+        columns.AddFor(m => m.BillingStartDate);
+
+        columns.AddFor(m => m.EIN);
+        columns.AddFor(m => m.ClientDivisionName);
+        columns.AddFor(m => m.ClientID);
+
+        columns.AddFor(m => m.ClientDivisionID);
+
+        columns.AddFor(m => m.Active);
+
+        columns.AddFor(m => m.ClientAlternate);
+        columns.AddFor(m => m.DeactivationDate);
+
+        columns.AddFor(m => m.TPACode);
+
+        columns.AddFor(m => m.Linetype);
+
+        columns.AddFor(m => m.AccountTypeCode);
+        columns.AddFor(m => m.DivisionName);
+        columns.AddFor(m => m.PlanID);
+
+    })
+    .Editing(e => e
+        .AllowAdding(false)
+        .AllowUpdating(false)
+        .AllowDeleting(false)
+    )
+)
+
+                    </div>
+
+                    <div class="tab-pane fade" id="existing" role="tabpanel" aria-labelledby="existing-tab" style="overflow:auto; width:100%;">
+                        @*<table class="table table-hover">
                                 <thead>
                                     <tr>
-                                        <th scope="col">SourceFileBencode</th>
-                                        <th scope="col">SourceFileClientName</th>
-                                        <th scope="col">BillingAppBenCode</th>
-                                        <th scope="col">BillingAppClientName</th>
-                                        <th scope="col">StartBillingDate</th>
-                                        <th scope="col">EndBillingDate</th>
-                                        <th scope="col">iNotExistInBillingAppTable</th>
+                                        <th scope="col">ClientName</th>
+                                        <th scope="col">ClientGroupName</th>
+                                        <th scope="col">BillingStartDate</th>
+                                        <th scope="col">EIN</th>
+                                        <th scope="col">ClientDivisionName</th>
+                                        <th scope="col">ClientID</th>
+                                        <th scope="col">ClientDivisionID</th>
+                                        <th scope="col">Active</th>
+                                        <th scope="col">ClientAlternate</th>
+                                        <th scope="col">DeactivationDate</th>
+                                        <th scope="col">TPACode</th>
+                                        <th scope="col">Linetype</th>
+                                        <th scope="col">AccountTypeCode</th>
+                                        <th scope="col">MyProperty</th>
+                                        <th scope="col">PlanID</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (var item in Model.clientToClientViewModels)
+                                    @foreach (var item in Model.ExistingClients)
                                     {
                                         <tr>
-                                            <td>@item.SourceFileBenCode</td>
-                                            <td>@item.SourceFileClientName</td>
-                                            <td>@item.BillingAppBenCode</td>
-                                            <td>@item.BillingAppClientName</td>
-                                            <td>@item.StartBillingDate</td>
-                                            <td>@item.EndBillingDate</td>
-                                            <td>@item.iNotExistInBillingAppTable</td>
+                                            <td>@item.ClientName</td>
+                                            <td>@item.ClientGroupName</td>
+                                            <td>@item.BillingStartDate</td>
+                                            <td>@item.EIN</td>
+                                            <td>@item.ClientDivisionName</td>
+                                            <td>@item.ClientID</td>
+                                            <td>@item.ClientDivisionID</td>
+                                            <td>@item.Active</td>
+                                            <td>@item.ClientAlternate</td>
+                                            <td>@item.DeactivationDate</td>
+                                            <td>@item.TPACode</td>
+                                            <td>@item.Linetype</td>
+                                            <td>@item.AccountTypeCode</td>
+                                            <td>@item.MyProperty</td>
+                                            <td>@item.PlanID</td>
 
                                         </tr>
                                     }
-
                                 </tbody>
-                            </table>
-                        </div>
+                            </table>*@
+                        @(Html.DevExtreme().DataGrid<FinaceBilling.Models.NewClientViewModel>()
+    .DataSource(ds => ds.Mvc()
+        .Controller("Client")
+        .LoadAction("ExistingClient")
+    )
+    .RemoteOperations(true)
+    .Columns(columns => {
+
+
+        columns.AddFor(m => m.ClientName);
+
+        columns.AddFor(m => m.ClientGroupName);
+
+        columns.AddFor(m => m.BillingStartDate);
+
+        columns.AddFor(m => m.EIN);
+        columns.AddFor(m => m.ClientDivisionName);
+        columns.AddFor(m => m.ClientID);
+
+        columns.AddFor(m => m.ClientDivisionID);
+
+        columns.AddFor(m => m.Active);
+
+        columns.AddFor(m => m.ClientAlternate);
+        columns.AddFor(m => m.DeactivationDate);
+
+        columns.AddFor(m => m.TPACode);
+
+        columns.AddFor(m => m.Linetype);
+
+        columns.AddFor(m => m.AccountTypeCode);
+        columns.AddFor(m => m.DivisionName);
+        columns.AddFor(m => m.PlanID);
+
+    })
+    .Paging(p => p.PageSize(10))
+        .FilterRow(f => f.Visible(true))
+        //.HeaderFilter(f => f.Visible(true))
+        //.GroupPanel(p => p.Visible(true))
+        //.Grouping(g => g.AutoExpandAll(false))
+        //.RemoteOperations(true)
+        .Summary(s => s
+        .TotalItems(totalItems =>
+        {
+            totalItems.AddFor(m => m.ClientName).SummaryType(SummaryType.Count);
+        })
+    .GroupItems(groupItems =>
+    {
+        groupItems.Add().SummaryType(SummaryType.Count);
+    })
+    //.Editing(e => e
+    //    .AllowAdding(false)
+    //    .AllowUpdating(false)
+    //    .AllowDeleting(false)
+
+
+    //
+
+    )
+)
                     </div>
+                    <div class="tab-pane fade" id="terminated" role="tabpanel" aria-labelledby="terminated-tab" style="overflow:auto; width:100%;">
+                        @*<table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">ClientName</th>
+                                        <th scope="col">ClientGroupName</th>
+                                        <th scope="col">BillingStartDate</th>
+                                        <th scope="col">EIN</th>
+                                        <th scope="col">ClientDivisionName</th>
+                                        <th scope="col">ClientID</th>
+                                        <th scope="col">ClientDivisionID</th>
+                                        <th scope="col">Active</th>
+                                        <th scope="col">ClientAlternate</th>
+                                        <th scope="col">DeactivationDate</th>
+                                        <th scope="col">TPACode</th>
+                                        <th scope="col">Linetype</th>
+                                        <th scope="col">AccountTypeCode</th>
+                                        <th scope="col">MyProperty</th>
+                                        <th scope="col">PlanID</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.TerminatedClients)
+                                    {
+                                        <tr>
+                                            <td>@item.ClientName</td>
+                                            <td>@item.ClientGroupName</td>
+                                            <td>@item.BillingStartDate</td>
+                                            <td>@item.EIN</td>
+                                            <td>@item.ClientDivisionName</td>
+                                            <td>@item.ClientID</td>
+                                            <td>@item.ClientDivisionID</td>
+                                            <td>@item.Active</td>
+                                            <td>@item.ClientAlternate</td>
+                                            <td>@item.DeactivationDate</td>
+                                            <td>@item.TPACode</td>
+                                            <td>@item.Linetype</td>
+                                            <td>@item.AccountTypeCode</td>
+                                            <td>@item.MyProperty</td>
+                                            <td>@item.PlanID</td>
 
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>*@
+                        @(Html.DevExtreme().DataGrid<FinaceBilling.Models.TerminatedClient>()
+    .DataSource(ds => ds.Mvc()
+        .Controller("Client")
+        .LoadAction("TerminatedClient")
+    )
+    .RemoteOperations(true)
+    .Columns(columns => {
+
+
+        columns.AddFor(m => m.ClientName);
+
+        columns.AddFor(m => m.ClientGroupName);
+
+        columns.AddFor(m => m.BillingStartDate);
+
+        columns.AddFor(m => m.EIN);
+        columns.AddFor(m => m.ClientDivisionName);
+        columns.AddFor(m => m.ClientID);
+
+        columns.AddFor(m => m.ClientDivisionID);
+
+        columns.AddFor(m => m.Active);
+
+        columns.AddFor(m => m.ClientAlternate);
+        columns.AddFor(m => m.DeactivationDate);
+
+        columns.AddFor(m => m.TPACode);
+
+        columns.AddFor(m => m.Linetype);
+
+        columns.AddFor(m => m.AccountTypeCode);
+        columns.AddFor(m => m.MyProperty);
+        columns.AddFor(m => m.PlanID);
+
+    })
+    .Paging(p => p.PageSize(10))
+        .FilterRow(f => f.Visible(true))
+        //.HeaderFilter(f => f.Visible(true))
+        //.GroupPanel(p => p.Visible(true))
+        //.Grouping(g => g.AutoExpandAll(false))
+        //.RemoteOperations(true)
+        .Summary(s => s
+        .TotalItems(totalItems =>
+        {
+            totalItems.AddFor(m => m.ClientName).SummaryType(SummaryType.Count);
+        })
+    .GroupItems(groupItems =>
+    {
+        groupItems.Add().SummaryType(SummaryType.Count);
+    })
+    //.Editing(e => e
+    //    .AllowAdding(false)
+    //    .AllowUpdating(false)
+    //    .AllowDeleting(false)
+
+
+    //
+
+    )
+)
+                    </div>
+                    @*<div class="container">
+                            <div class="col-md-6"></div>
+                            <div class="col-md-6"></div>
+                        </div>*@
+                    <div class="tab-pane fade" id="analytics" role="tabpanel" aria-labelledby="analytics-tab" style="overflow:auto; width:100%;">
+                        <div class="container" style="overflow:auto; width:100%;float:left;">
+                            <div class="col-md-6" style="overflow:auto; width:100% ;float:left;">
+                                <h4 class="form-inline">Client To Product Comaprison</h4>
+                                @*<table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">SourceFileBencode</th>
+                                                <th scope="col">SourceFileClientName</th>
+                                                <th scope="col">SourceFileProducts</th>
+                                                <th scope="col">BillingAppBenCode</th>
+                                                <th scope="col">BillingAppClientName</th>
+                                                <th scope="col">StartBillingDate</th>
+                                                <th scope="col">EndBillingDate</th>
+                                                <th scope="col">iNotExistInBillingAppTable</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model.clientToProductViewModels)
+                                            {
+                                                <tr>
+                                                    <td>@item.SourceFileBencode</td>
+                                                    <td>@item.SourceFileClientName</td>
+                                                    <td>@item.SourceFileProducts</td>
+                                                    <td>@item.BillingAppBenCode</td>
+                                                    <td>@item.BillingAppClientName</td>
+                                                    <td>@item.StartBillingDate</td>
+                                                    <td>@item.EndBillingDate</td>
+                                                    <td>@item.iNotExistInBillingAppTable</td>
+
+                                                </tr>
+                                            }
+
+                                        </tbody>
+                                    </table>*@
+                                @(Html.DevExtreme().DataGrid<FinaceBilling.Models.ClientToProductViewModel>()
+    .DataSource(ds => ds.Mvc()
+        .Controller("Analytics")
+        .LoadAction("GetListClientProductComparison")
+    )
+    .RemoteOperations(true)
+    .Columns(columns => {
+
+
+        columns.AddFor(m => m.SourceFileBencode);
+
+        columns.AddFor(m => m.SourceFileClientName);
+
+        columns.AddFor(m => m.SourceFileProducts);
+
+        columns.AddFor(m => m.BillingAppBenCode);
+        columns.AddFor(m => m.BillingAppClientName);
+        columns.AddFor(m => m.StartBillingDate);
+
+        columns.AddFor(m => m.EndBillingDate);
+
+        columns.AddFor(m => m.iNotExistInBillingAppTable);
+
+
+    })
+    .Paging(p => p.PageSize(10))
+        .FilterRow(f => f.Visible(true))
+        .Summary(s => s
+        .TotalItems(totalItems =>
+        {
+            totalItems.AddFor(m => m.SourceFileBencode).SummaryType(SummaryType.Count);
+        })
+    .GroupItems(groupItems =>
+    {
+        groupItems.Add().SummaryType(SummaryType.Count);
+    })
+    )
+)
+                            </div>
+                            <div class="col-md-6" style="overflow:auto; width:100%;float:left;">
+                                <h4 class="form-inline">Client To Client Comparison</h4>
+                                @*<table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">SourceFileBencode</th>
+                                                <th scope="col">SourceFileClientName</th>
+                                                <th scope="col">BillingAppBenCode</th>
+                                                <th scope="col">BillingAppClientName</th>
+                                                <th scope="col">StartBillingDate</th>
+                                                <th scope="col">EndBillingDate</th>
+                                                <th scope="col">iNotExistInBillingAppTable</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model.clientToClientViewModels)
+                                            {
+                                                <tr>
+                                                    <td>@item.SourceFileBenCode</td>
+                                                    <td>@item.SourceFileClientName</td>
+                                                    <td>@item.BillingAppBenCode</td>
+                                                    <td>@item.BillingAppClientName</td>
+                                                    <td>@item.StartBillingDate</td>
+                                                    <td>@item.EndBillingDate</td>
+                                                    <td>@item.iNotExistInBillingAppTable</td>
+
+                                                </tr>
+                                            }
+
+                                        </tbody>
+                                    </table>*@
+                                @(Html.DevExtreme().DataGrid<FinaceBilling.Models.ClientToClientViewModel>()
+    .DataSource(ds => ds.Mvc()
+        .Controller("Analytics")
+        .LoadAction("GetListClientToClientComparison")
+    )
+    .RemoteOperations(true)
+    .Columns(columns => {
+
+
+        columns.AddFor(m => m.SourceFileBenCode);
+
+        columns.AddFor(m => m.SourceFileClientName);
+
+        columns.AddFor(m => m.BillingAppBenCode);
+
+        columns.AddFor(m => m.BillingAppClientName);
+        columns.AddFor(m => m.StartBillingDate);
+        columns.AddFor(m => m.StartBillingDate);
+
+        columns.AddFor(m => m.iNotExistInBillingAppTable);
+
+
+    })
+    .Paging(p => p.PageSize(10))
+        .FilterRow(f => f.Visible(true))
+        .Summary(s => s
+        .TotalItems(totalItems =>
+        {
+            totalItems.AddFor(m => m.SourceFileBenCode).SummaryType(SummaryType.Count);
+        })
+    .GroupItems(groupItems =>
+    {
+        groupItems.Add().SummaryType(SummaryType.Count);
+    })
+    )
+)
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
-
 
             </div>
             <div class="modal-footer">
@@ -338,9 +578,9 @@
         }
     });
 
-    $("#excluded-tab").click(function () {
-        $("#excluded").addClass("show active")
-        $("#excluded-tab").addClass("active")
+    $("#new-tab").click(function () {
+        $("#new").addClass("show active")
+        $("#new-tab").addClass("active")
         $("#existing").removeClass("show active")
         $("#terminated").removeClass("show active")
         $("#analytics").removeClass("show active")
@@ -354,11 +594,11 @@
     $("#existing-tab").click(function () {
         $("#existing").addClass("show active")
         $("#existing-tab").addClass("active")
-        $("#excluded").removeClass("show active")
+        $("#new").removeClass("show active")
         $("#terminated").removeClass("show active")
         $("#analytics").removeClass("show active")
 
-        $("#excluded-tab").removeClass("active")
+        $("#new-tab").removeClass("active")
         $("#terminated-tab").removeClass("active")
         $("#analytics-tab").removeClass("active")
 
@@ -368,10 +608,10 @@
         $("#terminated").addClass("show active")
         $("#terminated-tab").addClass("active")
         $("#existing").removeClass("show active")
-        $("#excluded").removeClass("show active")
+        $("#new").removeClass("show active")
         $("#analytics").removeClass("show active")
 
-        $("#excluded-tab").removeClass("active")
+        $("#new-tab").removeClass("active")
         $("#existing-tab").removeClass("active")
         $("#analytics-tab").removeClass("active")
 
@@ -382,9 +622,9 @@
         $("#analytics-tab").addClass("show active")
         $("#terminated").removeClass("show active")
         $("#existing").removeClass("show active")
-        $("#excluded").removeClass("show active")
+        $("#new").removeClass("show active")
 
-        $("#excluded-tab").removeClass("show active")
+        $("#new-tab").removeClass("show active")
         $("#existing-tab").removeClass("show active")
         $("#terminated-tab").removeClass("show active")
     })

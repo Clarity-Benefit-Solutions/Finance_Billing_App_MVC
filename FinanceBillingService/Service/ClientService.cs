@@ -14,17 +14,17 @@ namespace FinanceBillingService.Service
         public ClientService(IClientRepository iClientRepository) {
             _iClientRepository = iClientRepository;
         }
-        public async Task<List<VwNewClient>> GetNewClientList()
+        public async Task<List<VwNewClient>> GetNewClientList(int take,int skip)
         {
-            return await _iClientRepository.GetNewClientList();
+            return await _iClientRepository.GetNewClientList(take,skip);
         }
-        public async Task<List<VwExistingClient>> GetExistingClientList()
+        public async Task<List<VwExistingClient>> GetExistingClientList(int take, int skip)
         {
-            return await _iClientRepository.GetExistingClientList();
+            return await _iClientRepository.GetExistingClientList(take,skip);
         }
-        public async Task<List<VwTerminatedClient>> GetTerminatedClientList()
+        public async Task<List<VwTerminatedClient>> GetTerminatedClientList(int take, int skip)
         {
-            return await _iClientRepository.GetTerminatedClientList();
+            return await _iClientRepository.GetTerminatedClientList(take,skip);
         }
         
         public async Task<List<SpClientDropDownData>> GetClientDropDownData()

@@ -11,7 +11,7 @@ namespace FinanceBillingData.Interface
     public interface IExcludedClientsRepository
     {
         Task<TblExcludedClient> AddNewExcludedClient(TblExcludedClient tblExcludedClient);
-        Task<bool> DeleteExculdedClient(int id);
-
+        Task<TblExcludedClient> DeleteExculdedClient(int id);
+        Task<List<TblExcludedClient>> GetAllExcludedClient(int take, int skip);
     }
 }

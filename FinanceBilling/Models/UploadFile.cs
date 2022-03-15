@@ -22,6 +22,8 @@ namespace DevExtremeAspNetCoreApp.Models
         public List<Analytics> Analytics { get; set; }
         public List<ClientToProductViewModel> clientToProductViewModels { get; set; }
         public List<ClientToClientViewModel> clientToClientViewModels { get; set; }
+        public List<ClientViewModel> ClientViewModels { get; set; }
+
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
