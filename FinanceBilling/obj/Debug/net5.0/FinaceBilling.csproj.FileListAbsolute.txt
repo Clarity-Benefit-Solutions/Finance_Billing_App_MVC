@@ -445,14 +445,6 @@ E:\SmartData\User 2\Git\MVC App\FinanceBilling\obj\Debug\net5.0\FinaceBilling.dl
 E:\SmartData\User 2\Git\MVC App\FinanceBilling\obj\Debug\net5.0\ref\FinaceBilling.dll
 E:\SmartData\User 2\Git\MVC App\FinanceBilling\obj\Debug\net5.0\FinaceBilling.pdb
 E:\SmartData\User 2\Git\MVC App\FinanceBilling\obj\Debug\net5.0\FinaceBilling.genruntimeconfig.cache
-E:\SmartData\User 4\FinanceBilling\obj\Debug\net5.0\FinaceBilling.csproj.AssemblyReference.cache
-E:\SmartData\User 4\FinanceBilling\obj\Debug\net5.0\FinaceBilling.GeneratedMSBuildEditorConfig.editorconfig
-E:\SmartData\User 4\FinanceBilling\obj\Debug\net5.0\FinaceBilling.AssemblyInfoInputs.cache
-E:\SmartData\User 4\FinanceBilling\obj\Debug\net5.0\FinaceBilling.AssemblyInfo.cs
-E:\SmartData\User 4\FinanceBilling\obj\Debug\net5.0\FinaceBilling.csproj.CoreCompileInputs.cache
-E:\SmartData\User 4\FinanceBilling\obj\Debug\net5.0\FinaceBilling.MvcApplicationPartsAssemblyInfo.cache
-E:\SmartData\User 4\FinanceBilling\obj\Debug\net5.0\FinaceBilling.RazorAssemblyInfo.cache
-E:\SmartData\User 4\FinanceBilling\obj\Debug\net5.0\FinaceBilling.RazorAssemblyInfo.cs
 E:\SmartData\User 4\FinanceBilling\bin\Debug\net5.0\web.config
 E:\SmartData\User 4\FinanceBilling\bin\Debug\net5.0\appsettings.Development.json
 E:\SmartData\User 4\FinanceBilling\bin\Debug\net5.0\appsettings.json
@@ -867,6 +859,15 @@ E:\SmartData\User 4\FinanceBilling\bin\Debug\net5.0\FinanceBillingService.dll
 E:\SmartData\User 4\FinanceBilling\bin\Debug\net5.0\FinanceBillingData.pdb
 E:\SmartData\User 4\FinanceBilling\bin\Debug\net5.0\FinanceBillingModel.pdb
 E:\SmartData\User 4\FinanceBilling\bin\Debug\net5.0\FinanceBillingService.pdb
+E:\SmartData\User 4\FinanceBilling\obj\Debug\net5.0\FinaceBilling.csproj.AssemblyReference.cache
+E:\SmartData\User 4\FinanceBilling\obj\Debug\net5.0\FinaceBilling.GeneratedMSBuildEditorConfig.editorconfig
+E:\SmartData\User 4\FinanceBilling\obj\Debug\net5.0\FinaceBilling.AssemblyInfoInputs.cache
+E:\SmartData\User 4\FinanceBilling\obj\Debug\net5.0\FinaceBilling.AssemblyInfo.cs
+E:\SmartData\User 4\FinanceBilling\obj\Debug\net5.0\FinaceBilling.csproj.CoreCompileInputs.cache
+E:\SmartData\User 4\FinanceBilling\obj\Debug\net5.0\FinaceBilling.MvcApplicationPartsAssemblyInfo.cs
+E:\SmartData\User 4\FinanceBilling\obj\Debug\net5.0\FinaceBilling.MvcApplicationPartsAssemblyInfo.cache
+E:\SmartData\User 4\FinanceBilling\obj\Debug\net5.0\FinaceBilling.RazorAssemblyInfo.cache
+E:\SmartData\User 4\FinanceBilling\obj\Debug\net5.0\FinaceBilling.RazorAssemblyInfo.cs
 E:\SmartData\User 4\FinanceBilling\obj\Debug\net5.0\scopedcss\bundle\FinaceBilling.styles.css
 E:\SmartData\User 4\FinanceBilling\obj\Debug\net5.0\staticwebassets\FinaceBilling.StaticWebAssets.Manifest.cache
 E:\SmartData\User 4\FinanceBilling\obj\Debug\net5.0\FinaceBilling.TagHelpers.input.cache
@@ -878,6 +879,7 @@ E:\SmartData\User 4\FinanceBilling\obj\Debug\net5.0\Razor\Views\Client\NewClient
 E:\SmartData\User 4\FinanceBilling\obj\Debug\net5.0\Razor\Views\Client\TerminatedClient.cshtml.g.cs
 E:\SmartData\User 4\FinanceBilling\obj\Debug\net5.0\Razor\Views\Home\Index.cshtml.g.cs
 E:\SmartData\User 4\FinanceBilling\obj\Debug\net5.0\Razor\Views\Quickbook\Quickbook.cshtml.g.cs
+E:\SmartData\User 4\FinanceBilling\obj\Debug\net5.0\Razor\Views\Quickbook\QuickbookClients.cshtml.g.cs
 E:\SmartData\User 4\FinanceBilling\obj\Debug\net5.0\Razor\Views\Shared\Error.cshtml.g.cs
 E:\SmartData\User 4\FinanceBilling\obj\Debug\net5.0\Razor\Views\Shared\_Layout.cshtml.g.cs
 E:\SmartData\User 4\FinanceBilling\obj\Debug\net5.0\Razor\Views\UploadFIle\UploadFile.cshtml.g.cs
@@ -891,4 +893,3 @@ E:\SmartData\User 4\FinanceBilling\obj\Debug\net5.0\FinaceBilling.dll
 E:\SmartData\User 4\FinanceBilling\obj\Debug\net5.0\ref\FinaceBilling.dll
 E:\SmartData\User 4\FinanceBilling\obj\Debug\net5.0\FinaceBilling.pdb
 E:\SmartData\User 4\FinanceBilling\obj\Debug\net5.0\FinaceBilling.genruntimeconfig.cache
-E:\SmartData\User 4\FinanceBilling\obj\Debug\net5.0\FinaceBilling.MvcApplicationPartsAssemblyInfo.cs

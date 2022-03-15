@@ -15,11 +15,6 @@ E:\SmartData\User 2\Git\MVC App\FinanceBillingService\obj\Debug\net5.0\FinanceBi
 E:\SmartData\User 2\Git\MVC App\FinanceBillingService\obj\Debug\net5.0\FinanceBillingService.dll
 E:\SmartData\User 2\Git\MVC App\FinanceBillingService\obj\Debug\net5.0\ref\FinanceBillingService.dll
 E:\SmartData\User 2\Git\MVC App\FinanceBillingService\obj\Debug\net5.0\FinanceBillingService.pdb
-E:\SmartData\User 4\FinanceBillingService\obj\Debug\net5.0\FinanceBillingService.csproj.AssemblyReference.cache
-E:\SmartData\User 4\FinanceBillingService\obj\Debug\net5.0\FinanceBillingService.GeneratedMSBuildEditorConfig.editorconfig
-E:\SmartData\User 4\FinanceBillingService\obj\Debug\net5.0\FinanceBillingService.AssemblyInfoInputs.cache
-E:\SmartData\User 4\FinanceBillingService\obj\Debug\net5.0\FinanceBillingService.AssemblyInfo.cs
-E:\SmartData\User 4\FinanceBillingService\obj\Debug\net5.0\FinanceBillingService.csproj.CoreCompileInputs.cache
 E:\SmartData\User 4\FinanceBillingService\bin\Debug\net5.0\FinanceBillingService.deps.json
 E:\SmartData\User 4\FinanceBillingService\bin\Debug\net5.0\FinanceBillingService.dll
 E:\SmartData\User 4\FinanceBillingService\bin\Debug\net5.0\ref\FinanceBillingService.dll
@@ -28,6 +23,11 @@ E:\SmartData\User 4\FinanceBillingService\bin\Debug\net5.0\FinanceBillingData.dl
 E:\SmartData\User 4\FinanceBillingService\bin\Debug\net5.0\FinanceBillingModel.dll
 E:\SmartData\User 4\FinanceBillingService\bin\Debug\net5.0\FinanceBillingData.pdb
 E:\SmartData\User 4\FinanceBillingService\bin\Debug\net5.0\FinanceBillingModel.pdb
+E:\SmartData\User 4\FinanceBillingService\obj\Debug\net5.0\FinanceBillingService.csproj.AssemblyReference.cache
+E:\SmartData\User 4\FinanceBillingService\obj\Debug\net5.0\FinanceBillingService.GeneratedMSBuildEditorConfig.editorconfig
+E:\SmartData\User 4\FinanceBillingService\obj\Debug\net5.0\FinanceBillingService.AssemblyInfoInputs.cache
+E:\SmartData\User 4\FinanceBillingService\obj\Debug\net5.0\FinanceBillingService.AssemblyInfo.cs
+E:\SmartData\User 4\FinanceBillingService\obj\Debug\net5.0\FinanceBillingService.csproj.CoreCompileInputs.cache
 E:\SmartData\User 4\FinanceBillingService\obj\Debug\net5.0\FinanceBillingService.csproj.CopyComplete
 E:\SmartData\User 4\FinanceBillingService\obj\Debug\net5.0\FinanceBillingService.dll
 E:\SmartData\User 4\FinanceBillingService\obj\Debug\net5.0\ref\FinanceBillingService.dll
