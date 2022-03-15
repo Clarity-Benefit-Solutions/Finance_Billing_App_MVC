@@ -24,7 +24,7 @@ namespace FinanceBillingData.Entities
         public virtual DbSet<TblEdiBillingGroupCount> TblEdiBillingGroupCounts { get; set; }
         public virtual DbSet<TblErrorLog> TblErrorLogs { get; set; }
         public virtual DbSet<TblErrorMsg> TblErrorMsgs { get; set; }
-        public virtual DbSet<TblExcludedClient> TblExcludedClients { get; set; } 
+        public virtual DbSet<TblExcludedClient> TblExcludedClients { get; set; }
         public virtual DbSet<TblFilesNameToUpload> TblFilesNameToUploads { get; set; }
         public virtual DbSet<TblInvoiceDateTable> TblInvoiceDateTables { get; set; }
         public virtual DbSet<TblLogging> TblLoggings { get; set; }
@@ -70,7 +70,7 @@ namespace FinanceBillingData.Entities
         public virtual DbSet<VwNewClient> VwNewClient { get; set; }
         public virtual DbSet<VwExistingClient> VwExistingClient { get; set; }
         public virtual DbSet<VwTerminatedClient> VwTerminatedClient { get; set; }
-        
+
         public virtual DbSet<ClientProductComparison> ClientProductComparisons { get; set; }
         public virtual DbSet<ClientToClientComparison> ClientToClientComparisons { get; set; }
 
@@ -167,7 +167,7 @@ namespace FinanceBillingData.Entities
                     .IsUnicode(false)
                     .HasColumnName("Total Cards");
             });
-           
+
             modelBuilder.Entity<TblBackupReportingExportTable>(entity =>
             {
                 entity.HasNoKey();
@@ -3420,7 +3420,7 @@ namespace FinanceBillingData.Entities
                     .HasColumnType("numeric(38, 2)")
                     .HasColumnName("INVOICE TOTAL");
             });
-            
+
             modelBuilder.Entity<VwNewClient>(entity =>
             {
                 entity.HasNoKey();
@@ -3533,7 +3533,7 @@ namespace FinanceBillingData.Entities
                 entity.Property(e => e.PlanID)
                 .HasColumnName("Plan ID");
             });
-            
+
             modelBuilder.Entity<ClientProductComparison>(entity =>
             {
                 entity.HasNoKey();
@@ -3556,7 +3556,7 @@ namespace FinanceBillingData.Entities
                 .HasColumnName("END_BILLING_DATE");
                 entity.Property(e => e.iNotExistInBillingAppTable)
                 .HasColumnName("NOTEXIST_IN_BILLINGAPPTABLE");
-               
+
             });
             //
             modelBuilder.Entity<ClientToClientComparison>(entity =>
@@ -3613,22 +3613,21 @@ namespace FinanceBillingData.Entities
             {
                 entity.HasKey("ClientID");
                 entity.ToTable("TBL_QB_CLIENTS");
-                entity.Property(e => e.FirstName)
-                   .HasMaxLength(50)
-                   .HasColumnName("First Name");
-                entity.Property(e => e.LastName)
-                    .HasMaxLength(50)
-                    .HasColumnName("Last Name");
+                entity.Property(e => e.ClientName)
+                   .HasMaxLength(255)
+                   .HasColumnName("Client Name");
                 entity.Property(e => e.BenCode)
                     .HasMaxLength(255)
                     .HasColumnName("Ben Code");
+                entity.Property(e => e.ServiceID)
+                .HasColumnName("ServiceID")
+                .HasMaxLength(255);
 
                 entity.Property(e => e.IsDeleted).HasColumnName("IsDeleted");
                 entity.Property(e => e.Status).HasMaxLength(255);
                 entity.Property(e => e.CreatedDate).HasColumnName("CreatedDate");
                 entity.Property(e => e.ModifiedDate).HasColumnName("ModifiedDate");
             });
-
             OnModelCreatingPartial(modelBuilder);
         }
 

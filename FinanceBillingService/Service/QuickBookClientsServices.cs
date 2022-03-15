@@ -23,9 +23,9 @@ namespace FinanceBillingService.Service
         /// <param name="take"></param>
         /// <param name="skip"></param>
         /// <returns></returns>
-        public async Task<List<TblQBClients>> GetAllQuickBookClientList(int take, int skip)
+        public async Task<List<TblQBClients>> GetAllQuickBookClientList()
         {
-            return await _iQuickBookClientsRepository.GetAllQuickBookClientList(take, skip);
+            return await _iQuickBookClientsRepository.GetAllQuickBookClientList();
         }
         /// <summary>
         /// Get Quickbook Client by Id

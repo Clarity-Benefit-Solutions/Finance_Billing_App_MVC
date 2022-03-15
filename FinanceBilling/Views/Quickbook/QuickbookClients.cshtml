@@ -14,13 +14,17 @@
     .Columns(columns => {
 
 
-        columns.AddFor(m => m.FirstName);
-
-        columns.AddFor(m => m.LastName);
+        columns.AddFor(m => m.ClientName);
 
         columns.AddFor(m => m.BenCode);
-
-        columns.AddFor(m => m.Status);
+        columns.AddFor(m => m.ServiceID);
+        columns.AddFor(m => m.Status)
+            .Width(125)
+            .Lookup(lookup => lookup
+                .DataSource(ds => ds.WebApi().Controller("Quickbook").LoadAction("GetActiveInActiveDataSource"))
+                .DisplayExpr("Key")
+                .ValueExpr("Value")
+            );
     })
     .Editing(e => e
         .AllowAdding(true)
