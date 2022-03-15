@@ -31,7 +31,7 @@ namespace FinanceBillingData.Repository
             return await Task.Run<TblExcludedClient>(() =>
             {
                 TblExcludedClient tblExcludedClient = _db.TblExcludedClients.AsQueryable().Where(m => m.Id == id
-                 && m.isDeleted == false).FirstOrDefault();
+                 && m.isDeleted == null).FirstOrDefault();
                 if (tblExcludedClient != null)
                 {
                     tblExcludedClient.isDeleted = true;
