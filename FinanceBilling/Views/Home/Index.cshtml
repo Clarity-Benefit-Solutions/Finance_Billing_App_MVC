@@ -1,0 +1,146 @@
+
+@using DevExtremeAspNetCoreApp.Models
+
+@{
+	ViewBag.Title = "Finance Dashboard";
+}
+
+<div class="container">
+	<div class="row row-centered pos">
+		<div class="col-lg-6 col-xs-12 col-centered">
+			@(Html.DevExtreme().DataGrid<FinanceBillingData.Entities.VwInvoiceByMonth>()
+			.DataSource(new JS("dataSource"))
+		//.DataSource(ds => ds.Mvc()
+		//		.Controller("SampleData")
+		//		.LoadAction("Get")
+		////.InsertAction("Post")
+		////.UpdateAction("Put")
+		////.DeleteAction("Delete")
+		//)
+		.RemoteOperations(true)
+		.Columns(columns => {
+
+		columns.AddFor(m => m.Year);
+
+		columns.AddFor(m => m.Month);
+
+		columns.AddFor(m => m.EmployerName);
+
+		columns.AddFor(m => m.InvoiceTotal);
+
+		columns.AddFor(m => m.InvoiceCount);
+		}).Paging(p => p.PageSize(10))
+		.FilterRow(f => f.Visible(true))
+		.HeaderFilter(f => f.Visible(true))
+		.GroupPanel(p => p.Visible(true))
+		.Grouping(g => g.AutoExpandAll(false))
+		.RemoteOperations(true)
+		.Summary(s => s
+		.TotalItems(totalItems => {
+		totalItems.AddFor(m => m.EmployerName).SummaryType(SummaryType.Count);
+		})
+		.GroupItems(groupItems => {
+		groupItems.Add().SummaryType(SummaryType.Count);
+		})
+		)
+		)
+
+		</div>
+		<div class="col-lg-6 col-xs-12 col-centered">
+
+
+
+			@(Html.DevExtreme().Chart()
+		.ID("chart").Rotated(true)
+		.CommonSeriesSettings(s => s
+				.ArgumentField("EmployerName")
+				.Type(SeriesType.StackedBar)
+		)
+		.Series(s => {
+			//s.Add().ValueField("Year").Name("Year");
+			//s.Add().ValueField("Month").Name("Month");
+
+			s.Add().ValueField("InvoiceTotal").Name("InvoiceTotal");
+			s.Add().ValueField("InvoiceCount").Name("InvoiceCount");
+		})
+		.Legend(l => l
+				.VerticalAlignment(VerticalEdge.Bottom)
+				.HorizontalAlignment(HorizontalAlignment.Center)
+				.ItemTextPosition(Position.Top)
+		)
+		.ValueAxis(a => a
+				.Add()
+				//.Title(t => t.Text(""))
+				.Position(Position.Right)
+		).ZoomAndPan(z => z
+		.ArgumentAxis(ChartZoomAndPanMode.Both)
+		.ValueAxis(ChartZoomAndPanMode.Both)
+		.DragToZoom(true)
+		.AllowMouseWheel(true)
+		.PanKey(EventKeyModifier.Shift)
+)
+.Crosshair(c => c
+		.Enabled(true)
+		.Color("#949494")
+		.Width(3)
+		.DashStyle(DashStyle.Dot)
+		.Label(l => l
+				.Visible(true)
+				.BackgroundColor("#949494")
+				.Font(f => f.Color("#fff").Size(12))
+
+		)
+)
+		.Title("Employer Invoice")
+		.Export(e => e.Enabled(true))
+		.Tooltip(t => t
+				.Enabled(true)
+				.Location(ChartTooltipLocation.Edge)
+				.CustomizeTooltip(@<text>
+            function(arg) {
+                return {
+                    text: arg.seriesName + " : " + arg.valueText 
+                };
+            }
+        </text>)
+				).DataSource(new JS("dataSource"))
+		//).DataSource(ds => ds.Mvc()
+		//.Controller("SampleData")
+		//.LoadAction("Get")
+		////.InsertAction("Post")
+		////.UpdateAction("Put")
+		////.DeleteAction("Delete")
+		//)
+
+		)
+			@*)*@
+		</div>
+
+	</div>
+</div>
+
+
+@*</div>*@
+
+<script type="text/javascript">
+
+	//<![CDATA[
+	var dataSource = new DevExpress.data.DataSource({
+		searchExpr: "EmployerName",
+		store: DevExpress.data.AspNet.createStore({
+			/*"key": "EmployerName",*/
+			"loadUrl": "api/Data/"
+		})
+	});
+
+	function onValueChanged(e) {
+		dataSource.searchValue(e.value);
+		dataSource.reload();
+	}
+		//]]>
+</script>
+
+@(Html.DevExtreme().TextBox()
+   .OnValueChanged("onValueChanged")
+   .ValueChangeEvent("keyup")
+)  

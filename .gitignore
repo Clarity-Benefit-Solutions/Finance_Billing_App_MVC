@@ -1,5 +1,16 @@
 ﻿################################################################################
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
-################################################################################
-
-/.vs/FinanceBilling/config
+#################################################################################
+/DevExtremeAspNetCoreApp/bin/Debug/net5.0
+/DevExtremeAspNetCoreApp/obj
+/.vs
+/FinanceBillingAppMVC/DevExtremeAspNetCoreApp/obj/Release/net5.0/FinaceBilling.RazorAssemblyInfo.cs
+/FinanceBillingAppMVC/DevExtremeAspNetCoreApp/obj/Release/net5.0/FinaceBilling.RazorAssemblyInfo.cache
+/FinanceBillingAppMVC/DevExtremeAspNetCoreApp/obj/Release/net5.0/FinaceBilling.GeneratedMSBuildEditorConfig.editorconfig
+/FinanceBillingAppMVC/DevExtremeAspNetCoreApp/obj/Release/net5.0/FinaceBilling.assets.cache
+/FinanceBillingAppMVC/DevExtremeAspNetCoreApp/obj/Release/net5.0/FinaceBilling.AssemblyInfoInputs.cache
+/FinanceBillingAppMVC/DevExtremeAspNetCoreApp/obj/Release/net5.0/FinaceBilling.AssemblyInfo.cs
+/FinanceBillingAppMVC/DevExtremeAspNetCoreApp/obj/Release/net5.0/.NETCoreApp,Version=v5.0.AssemblyAttributes.cs
+/DevExtremeAspNetCoreApp/bin/Release/net5.0
+/DevExtremeAspNetCoreApp/Properties/PublishProfiles
+/FinanceBilling/obj/Debug/net5.0/Razor/Views/Quickbook

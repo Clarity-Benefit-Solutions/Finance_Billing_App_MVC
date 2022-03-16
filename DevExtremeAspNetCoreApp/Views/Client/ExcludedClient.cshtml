@@ -1,0 +1,54 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model DevExtremeAspNetCoreApp.Models.ExcludedClientViewModel;
+<h2>Excluded Client</h2>
+
+
+
+<div class="form-group">
+    <label asp-for="SpClientDropDownData">Excluded Clients</label>
+    
+    @Html.DropDownListFor(x => x.SpClientDropDownData, new SelectList(Model.SpClientDropDownData, "ClientID", "ClientName"), "Select Client", new { @class = "form-control dropDownSelect2", @id = "idExcludedClient", @data_filter_select = "true" })
+    @Html.ValidationMessageFor(x => x.SpClientDropDownData)
+    
+</div>
+<button id="idAddClient" >Add Client </button>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">ClientName</th>
+            <th scope="col">Bencode</th>
+            <th scope="col">Description</th>
+            <th scope="col">UserID</th>
+            <th scope="col">UserName</th>
+            <th scope="col">Create Date & Time </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        
+        @{
+            foreach (var item in @Model.spExcludeClientDatas)
+            {
+                <tr>
+                    
+
+                    <td>@item.ClientName</td>
+                    <td>@item.Bencode</td>
+                    <td>@item.Description</td>
+                    <td>@item.UserID</td>
+                    <td>@item.UserName</td>
+                    <td>@item.CreateDate</td>
+                </tr>
+            }
+        }
+
+    </tbody>
+</table>
+<script src="~/js/Client/ExcludedClient.js">
+    
+</script>
+

@@ -1,0 +1,483 @@
+﻿@using Microsoft.AspNetCore.Http
+@model UploadFile
+@*@model DevExtremeAspNetCoreApp.Models.TblLoggingViewModel*@
+@{
+
+    ViewBag.Title = "Upload Files";
+
+
+}
+
+<div class="row" style="border:1px solid green">
+    <div class="col-md-5">
+        <div class="card text-center">
+
+
+            <div class="card-header">
+                Upload Files using below dropzone area
+            </div>
+            <div class="card-body text-center">
+                <form method="post" enctype="multipart/form-data" asp-controller="UploadFile" asp-action="UploadFile">
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            <div class="drop-zone d-flex justify-content-center align-items-center">
+                                @*<img id="Logo" src="@logoImage" style="max-height:100%;max-width:100%;align-content:center;" />*@
+                                <span class="drop-zone-prompt">Drag and drop , Browse</span>
+                                @*<div style="visibility:hidden;">*@
+                                <input asp-for="UploadedFiles" type="file" id="file" class="drop-zone-input" onchange="readURL(this);" multiple />
+                                @*</div>*@
+                            </div>
+                            @*<input asp-for="UploadedFiles" multiple />*@
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            <input class="btn btn-success" id="Upload" type="submit" disabled value="Upload" /><br />
+                            <label id="msglabel" type="hidden">@ViewBag.Message</label>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer text-muted">
+
+            </div>
+        </div>
+
+
+    </div>
+
+    @if (ViewBag.missingFile != null)
+    {
+        <div class="col-md-5">
+            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+            <div class="col-sm=12" style="padding-top: 11em; margin-left: 29px;">
+                <span class="alert-heading"><b>Please upload missing files:-</b></span>
+            </div>
+            <div class="col-sm-12">
+                <ul class="text-danger">
+                    @foreach (var modelSate in ViewBag.missingFile)
+                    {
+                        <li>@modelSate.FileName</li>
+
+                    }
+                </ul>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="col-md-5">
+            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+        </div>
+    }
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active " id="excluded-tab" data-bs-toggle="tab" data-bs-target="#excluded" type="button" role="tab" aria-controls="excluded" aria-selected="true">New</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="existing-tab" data-bs-toggle="tab" data-bs-target="#existing" type="button" role="tab" aria-controls="existing" aria-selected="false">Existing</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="terminated-tab" data-bs-toggle="tab" data-bs-target="#terminated" type="button" role="tab" aria-controls="terminated" aria-selected="false">Terminated</button>
+                    </li>
+                    <li class="nav-item" role="analytics">
+                        <button class="nav-link" id="analytics-tab" data-bs-toggle="tab" data-bs-target="#analytics" type="button" role="tab" aria-controls="analytics" aria-selected="false">Analytics</button>
+                    </li>
+                </ul>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="tab-content" id="myTabContent" style="width:100%;">
+                    <div class="tab-pane fade show active" id="excluded" role="tabpanel" aria-labelledby="excluded-tab" style="overflow:auto; width:100%;">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">ClientName</th>
+                                    <th scope="col">ClientGroupName</th>
+                                    <th scope="col">BillingStartDate</th>
+                                    <th scope="col">EIN</th>
+                                    <th scope="col">ClientDivisionName</th>
+                                    <th scope="col">ClientID</th>
+                                    <th scope="col">ClientDivisionID</th>
+                                    <th scope="col">Active</th>
+                                    <th scope="col">ClientAlternate</th>
+                                    <th scope="col">DeactivationDate</th>
+                                    <th scope="col">TPACode</th>
+                                    <th scope="col">Linetype</th>
+                                    <th scope="col">AccountTypeCode</th>
+                                    <th scope="col">MyProperty</th>
+                                    <th scope="col">PlanID</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.NewClientViewModels)
+                                {
+                                    <tr>
+                                        <td>@item.ClientName</td>
+                                        <td>@item.ClientGroupName</td>
+                                        <td>@item.BillingStartDate</td>
+                                        <td>@item.EIN</td>
+                                        <td>@item.ClientDivisionName</td>
+                                        <td>@item.ClientID</td>
+                                        <td>@item.ClientDivisionID</td>
+                                        <td>@item.Active</td>
+                                        <td>@item.ClientAlternate</td>
+                                        <td>@item.DeactivationDate</td>
+                                        <td>@item.TPACode</td>
+                                        <td>@item.Linetype</td>
+                                        <td>@item.AccountTypeCode</td>
+                                        <td>@item.DivisionName</td>
+                                        <td>@item.PlanID</td>
+
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="existing" role="tabpanel" aria-labelledby="existing-tab" style="overflow:auto; width:100%;">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">ClientName</th>
+                                <th scope="col">ClientGroupName</th>
+                                <th scope="col">BillingStartDate</th>
+                                <th scope="col">EIN</th>
+                                <th scope="col">ClientDivisionName</th>
+                                <th scope="col">ClientID</th>
+                                <th scope="col">ClientDivisionID</th>
+                                <th scope="col">Active</th>
+                                <th scope="col">ClientAlternate</th>
+                                <th scope="col">DeactivationDate</th>
+                                <th scope="col">TPACode</th>
+                                <th scope="col">Linetype</th>
+                                <th scope="col">AccountTypeCode</th>
+                                <th scope="col">MyProperty</th>
+                                <th scope="col">PlanID</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.ExistingClients)
+                            {
+                                <tr>
+                                    <td>@item.ClientName</td>
+                                    <td>@item.ClientGroupName</td>
+                                    <td>@item.BillingStartDate</td>
+                                    <td>@item.EIN</td>
+                                    <td>@item.ClientDivisionName</td>
+                                    <td>@item.ClientID</td>
+                                    <td>@item.ClientDivisionID</td>
+                                    <td>@item.Active</td>
+                                    <td>@item.ClientAlternate</td>
+                                    <td>@item.DeactivationDate</td>
+                                    <td>@item.TPACode</td>
+                                    <td>@item.Linetype</td>
+                                    <td>@item.AccountTypeCode</td>
+                                    <td>@item.MyProperty</td>
+                                    <td>@item.PlanID</td>
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tab-pane fade" id="terminated" role="tabpanel" aria-labelledby="terminated-tab" style="overflow:auto; width:100%;">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">ClientName</th>
+                                <th scope="col">ClientGroupName</th>
+                                <th scope="col">BillingStartDate</th>
+                                <th scope="col">EIN</th>
+                                <th scope="col">ClientDivisionName</th>
+                                <th scope="col">ClientID</th>
+                                <th scope="col">ClientDivisionID</th>
+                                <th scope="col">Active</th>
+                                <th scope="col">ClientAlternate</th>
+                                <th scope="col">DeactivationDate</th>
+                                <th scope="col">TPACode</th>
+                                <th scope="col">Linetype</th>
+                                <th scope="col">AccountTypeCode</th>
+                                <th scope="col">MyProperty</th>
+                                <th scope="col">PlanID</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.TerminatedClients)
+                            {
+                                <tr>
+                                    <td>@item.ClientName</td>
+                                    <td>@item.ClientGroupName</td>
+                                    <td>@item.BillingStartDate</td>
+                                    <td>@item.EIN</td>
+                                    <td>@item.ClientDivisionName</td>
+                                    <td>@item.ClientID</td>
+                                    <td>@item.ClientDivisionID</td>
+                                    <td>@item.Active</td>
+                                    <td>@item.ClientAlternate</td>
+                                    <td>@item.DeactivationDate</td>
+                                    <td>@item.TPACode</td>
+                                    <td>@item.Linetype</td>
+                                    <td>@item.AccountTypeCode</td>
+                                    <td>@item.MyProperty</td>
+                                    <td>@item.PlanID</td>
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                @*<div class="container">
+                        <div class="col-md-6"></div>
+                        <div class="col-md-6"></div>
+                    </div>*@
+                <div class="tab-pane fade" id="analytics" role="tabpanel" aria-labelledby="analytics-tab" style="overflow:auto; width:100%;">
+                    <div class="container" style="overflow:auto; width:100%;float:left;">
+                        <div class="col-md-6" style="overflow:auto; width:100% ;float:left;">
+                            <h4 class="form-inline">Client To Product Comaprison</h4>
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">SourceFileBencode</th>
+                                        <th scope="col">SourceFileClientName</th>
+                                        <th scope="col">SourceFileProducts</th>
+                                        <th scope="col">BillingAppBenCode</th>
+                                        <th scope="col">BillingAppClientName</th>
+                                        <th scope="col">StartBillingDate</th>
+                                        <th scope="col">EndBillingDate</th>
+                                        <th scope="col">iNotExistInBillingAppTable</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.clientToProductViewModels)
+                                    {
+                                        <tr>
+                                            <td>@item.SourceFileBencode</td>
+                                            <td>@item.SourceFileClientName</td>
+                                            <td>@item.SourceFileProducts</td>
+                                            <td>@item.BillingAppBenCode</td>
+                                            <td>@item.BillingAppClientName</td>
+                                            <td>@item.StartBillingDate</td>
+                                            <td>@item.EndBillingDate</td>
+                                            <td>@item.iNotExistInBillingAppTable</td>
+
+                                        </tr>
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-6" style="overflow:auto; width:100%;float:left;">
+                            <h4 class="form-inline">Client To Client Comparison</h4>
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">SourceFileBencode</th>
+                                        <th scope="col">SourceFileClientName</th>
+                                        <th scope="col">BillingAppBenCode</th>
+                                        <th scope="col">BillingAppClientName</th>
+                                        <th scope="col">StartBillingDate</th>
+                                        <th scope="col">EndBillingDate</th>
+                                        <th scope="col">iNotExistInBillingAppTable</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.clientToClientViewModels)
+                                    {
+                                        <tr>
+                                            <td>@item.SourceFileBenCode</td>
+                                            <td>@item.SourceFileClientName</td>
+                                            <td>@item.BillingAppBenCode</td>
+                                            <td>@item.BillingAppClientName</td>
+                                            <td>@item.StartBillingDate</td>
+                                            <td>@item.EndBillingDate</td>
+                                            <td>@item.iNotExistInBillingAppTable</td>
+
+                                        </tr>
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+<script>
+
+
+
+    $(document).ready(function () {
+        var res = '@ViewBag.Message';
+
+        if (res == "File Uploaded Successfully" ) {
+        $("#exampleModal").modal("show")
+
+        }
+    });
+
+    $("#excluded-tab").click(function () {
+        $("#excluded").addClass("show active")
+        $("#excluded-tab").addClass("active")
+        $("#existing").removeClass("show active")
+        $("#terminated").removeClass("show active")
+        $("#analytics").removeClass("show active")
+
+        $("#existing-tab").removeClass("active")
+        $("#terminated-tab").removeClass("active")
+        $("#analytics-tab").removeClass("active")
+
+
+    })
+    $("#existing-tab").click(function () {
+        $("#existing").addClass("show active")
+        $("#existing-tab").addClass("active")
+        $("#excluded").removeClass("show active")
+        $("#terminated").removeClass("show active")
+        $("#analytics").removeClass("show active")
+
+        $("#excluded-tab").removeClass("active")
+        $("#terminated-tab").removeClass("active")
+        $("#analytics-tab").removeClass("active")
+
+
+    })
+    $("#terminated-tab").click(function () {
+        $("#terminated").addClass("show active")
+        $("#terminated-tab").addClass("active")
+        $("#existing").removeClass("show active")
+        $("#excluded").removeClass("show active")
+        $("#analytics").removeClass("show active")
+
+        $("#excluded-tab").removeClass("active")
+        $("#existing-tab").removeClass("active")
+        $("#analytics-tab").removeClass("active")
+
+
+    })
+    $("#analytics-tab").click(function () {
+        $("#analytics").addClass("show active")
+        $("#analytics-tab").addClass("show active")
+        $("#terminated").removeClass("show active")
+        $("#existing").removeClass("show active")
+        $("#excluded").removeClass("show active")
+
+        $("#excluded-tab").removeClass("show active")
+        $("#existing-tab").removeClass("show active")
+        $("#terminated-tab").removeClass("show active")
+    })
+    document.querySelectorAll(".drop-zone-input").forEach((inputElement) => {
+        const dropZoneElement = inputElement.closest(".drop-zone");
+
+        dropZoneElement.addEventListener("click", (e) => {
+            inputElement.click();
+        });
+
+        inputElement.addEventListener("change", (e) => {
+            if (inputElement.files.length) {
+                updateThumbnail(dropZoneElement, inputElement.files.length);
+                inputElement.files = e.dataTransfer.files;
+            }
+        });
+
+        dropZoneElement.addEventListener("dragover", (e) => {
+            e.preventDefault();
+            dropZoneElement.classList.add("drop-zone--over");
+        });
+
+        ["dragleave", "dragend"].forEach((type) => {
+            dropZoneElement.addEventListener(type, (e) => {
+                dropZoneElement.classList.remove("drop-zone--over");
+            });
+        });
+
+        dropZoneElement.addEventListener("drop", (e) => {
+            e.preventDefault();
+
+            if (e.dataTransfer.files.length) {
+                inputElement.files = e.dataTransfer.files;
+                updateThumbnail(dropZoneElement, e.dataTransfer.files.length);
+            }
+            dropZoneElement.classList.remove("drop-zone--over");
+        });
+    });
+
+    /**
+     * Updates the thumbnail on a drop zone element.
+     *
+     *
+     */
+    function updateThumbnail(dropZoneElement, filelength) {
+        let thumbnailElement = dropZoneElement.querySelector(".drop-zone__thumb");
+
+        // First time - remove the prompt
+        if (dropZoneElement.querySelector(".drop-zone-prompt")) {
+            dropZoneElement.querySelector(".drop-zone-prompt").remove();
+        }
+
+        // First time - there is no thumbnail element, so lets create it
+        if (!thumbnailElement) {
+            thumbnailElement = document.createElement("div");
+            thumbnailElement.classList.add("drop-zone__thumb");
+            dropZoneElement.appendChild(thumbnailElement);
+        }
+
+        thumbnailElement.dataset.label = filelength + " Files Selected";
+
+
+        thumbnailElement.style.backgroundImage = null;
+
+    }
+
+
+    function readURL(input) {
+        var bt = document.getElementById('Upload');
+        if (file.value != '') {
+            bt.disabled = false;
+
+        }
+        else {
+            bt.disabled = true;
+        }
+
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#Logo')
+                    .attr('src', e.target.result)
+                $('#Logo').css("visible:true;")
+            };
+            reader.readAsDataURL(input.files[0]);
+            $('#Logo').attr("visibility", "false");
+
+        }
+
+    }
+
+
+
+</script>
+

@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_PublishTargetUrl>E:\Hetram\PublishedCode</_PublishTargetUrl>
+    <History>True|2022-02-14T16:16:58.0591867Z;True|2022-02-14T11:07:56.9027414-05:00;True|2022-02-14T11:00:36.5783726-05:00;False|2022-02-14T10:59:26.2954014-05:00;True|2022-02-14T07:51:42.9211678-05:00;True|2022-02-11T12:28:26.3381030-05:00;True|2022-02-11T12:16:21.1434263-05:00;</History>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="web.config">
+      <publishTime>02/14/2022 10:54:05</publishTime>
+    </File>
+  </ItemGroup>
+</Project>
