@@ -1,7 +1,6 @@
 ﻿################################################################################
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
-################################################################################
-
+#################################################################################
 /DevExtremeAspNetCoreApp/bin/Debug/net5.0
 /DevExtremeAspNetCoreApp/obj
 /.vs
