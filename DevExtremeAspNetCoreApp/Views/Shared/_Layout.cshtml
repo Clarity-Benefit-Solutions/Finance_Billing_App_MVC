@@ -179,16 +179,17 @@
 					<a class="nav-link" asp-action="OpenBalStatus" asp-controller="OpenBalance">Open Balance Status</a>
 				</li>
 				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
-						Client
-					</a>
-					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<a class="dropdown-item" asp-action="ExistingClient" asp-controller="Client">Existing CLient </a>
-						<a class="dropdown-item" asp-action="TerminatedClient" asp-controller="Client">Terminated Client </a>
-						<a class="dropdown-item" asp-action="NewClient" asp-controller="Client">New CLient</a>
-						<a class="dropdown-item" asp-action="ExcludedClient" asp-controller="Client">Excluded Client </a>
-					</div>
-				</li>
+				<a class="nav-link dropdown-toggle" href="#navbarDropdown"   role="button" data-toggle="collapse" aria-expanded="false">
+					Client
+				</a>
+				<ul class="dropdown-menu" aria-labelledby="navbarDropdown" id="navbarDropdown">
+					<li><a class="dropdown-item" asp-action="NewClient" asp-controller="Client">New CLient</a></li>
+					<li><a class="dropdown-item" asp-action="ExistingClient" asp-controller="Client">Existing CLient </a></li>
+					<li><a class="dropdown-item" asp-action="TerminatedClient" asp-controller="Client">Terminated Client </a></li>
+					<li><a class="dropdown-item" asp-action="ExcludedClient" asp-controller="Client">Excluded Client </a></li>
+					
+				</ul>
+			</li>
 			</ul>
 		</div>
 
@@ -210,7 +211,14 @@
 				document.getElementById("mySidebar").style.width = "250px";
 				document.getElementById("main").style.marginLeft = "250px";
 			}
-
+			$(document).ready(function () {
+						$(".openbtn").click(function () {
+							$(this).hide();
+						});
+						$(".closebtn").click(function () {
+							$(".openbtn").show();
+						});
+					});
 			function closeNav() {
 				document.getElementById("mySidebar").style.width = "0";
 				document.getElementById("main").style.marginLeft = "0";
