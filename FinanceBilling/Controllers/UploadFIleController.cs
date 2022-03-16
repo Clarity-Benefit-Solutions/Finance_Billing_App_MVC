@@ -193,8 +193,9 @@ namespace FinaceBilling.Controllers
                 }
 
                 //call the store procedure to run SSIS package
-                Guid newGuid = new Guid();
-                bool isExecuted = await _iCommonService.ExecuteSSISPackage(newGuid.ToString());
+                Guid newGuid = Guid.NewGuid();
+                var guid= newGuid.ToString();
+                bool isExecuted = await _iCommonService.ExecuteSSISPackage(guid);
                 if (isExecuted)
                 {
                     ViewBag.Message = "File Uploaded Successfully";

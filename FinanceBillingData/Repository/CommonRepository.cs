@@ -23,6 +23,9 @@ namespace FinanceBillingData.Repository
         }
         public async Task<bool> ExecuteSSISPackage(string guid) {
             bool isSuccess = false;
+            int intervalTime = Convert.ToInt32(_config.GetSection("SSISTiming:TotalInterval").Value);
+            int sleepTime = Convert.ToInt32(_config.GetSection("SSISTiming:SleepTime").Value);
+
             return await Task.Run(() =>
             {
                 SqlConnection sqlCon = null;
@@ -41,20 +44,21 @@ namespace FinanceBillingData.Repository
                     sql_cmnd.Parameters.Add(parm3);
                     var lblsmsg = sql_cmnd.ExecuteNonQuery();
                     DateTime currentTime = DateTime.Now;
-                    DateTime MinsLater = currentTime.AddMinutes(5);
-                    var isCompleted = false;
+                    DateTime MinsLater = currentTime.AddMinutes(intervalTime);
+                    bool isCompleted = false; 
                     do
                     {
-                        Thread.Sleep(1000 * 10);
+                        Thread.Sleep(1000 * sleepTime);
                         TblLogging tblLogging = _db.TblLoggings.Where(c => c.Guid == guid).FirstOrDefault();
-                        //tblLogging.IsCompleted = isCompleted;
+                        if (tblLogging.IsSuccess ==true)
+                            break;
+
+                        tblLogging.IsCompleted = isCompleted;
                     } while (MinsLater <= currentTime || isCompleted);
 
                     if (lblsmsg > 0)
                     {
-
                         return true;
-
                     }
                     else
                     {
