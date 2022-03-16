@@ -45,31 +45,31 @@ namespace DevExtremeAspNetCoreApp
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             //Repositories
             //services.AddInternalRepositories();
-            services.AddTransient<IErrorLogsRepository, ErrorLogsRepository>();
-            services.AddTransient<ICommonRepository, CommonRepository>();
-            services.AddTransient<IInvoiceRepository, InvoiceRepository>();
-            services.AddTransient<IClientRepository, ClientRepository>();
-            services.AddTransient<IFileNameRepository, FileNameRepository>();
-            services.AddTransient<ITblLoggingRepository, TblLoggingRepository>();
-            services.AddTransient<IAnalyticsRepository, AnalyticsRepository>();
-            services.AddTransient<IQuickBookClientsRepository, QuickBookClientsRepository>();
-            services.AddTransient<IClientMasterRepository,ClientMasterRepository>();
-            services.AddTransient<IExcludedClientsRepository,ExcludedClientsRepository>();
+            services.AddScoped<IErrorLogsRepository, ErrorLogsRepository>();
+            services.AddScoped<ICommonRepository, CommonRepository>();
+            services.AddScoped<IInvoiceRepository, InvoiceRepository>();
+            services.AddScoped<IClientRepository, ClientRepository>();
+            services.AddScoped<IFileNameRepository, FileNameRepository>();
+            services.AddScoped<ITblLoggingRepository, TblLoggingRepository>();
+            services.AddScoped<IAnalyticsRepository, AnalyticsRepository>();
+            services.AddScoped<IQuickBookClientsRepository, QuickBookClientsRepository>();
+            services.AddScoped<IClientMasterRepository,ClientMasterRepository>();
+            services.AddScoped<IExcludedClientsRepository,ExcludedClientsRepository>();
 
             //Services
             //services.AddInternalServices();
 
-            services.AddTransient<IErrorLogService, ErrorLogService>();
-            services.AddTransient<ICommonService, CommonService>();
-            services.AddTransient<IInvoiceService, InvoiceService>();
-            services.AddTransient<IClientService, ClientService>();
-            services.AddTransient<IFileNameService, FileNameService>();
-            services.AddTransient<ITblLoggingService, TblLoggingService>();
-            services.AddTransient<IAnalyticsService, AnalyticsService>();
+            services.AddScoped<IErrorLogService, ErrorLogService>();
+            services.AddScoped<ICommonService, CommonService>();
+            services.AddScoped<IInvoiceService, InvoiceService>();
+            services.AddScoped<IClientService, ClientService>();
+            services.AddScoped<IFileNameService, FileNameService>();
+            services.AddScoped<ITblLoggingService, TblLoggingService>();
+            services.AddScoped<IAnalyticsService, AnalyticsService>();
 
-            services.AddTransient<IQuickBookClientsServices,QuickBookClientsServices>();
-            services.AddTransient<IClientMasterService,ClientMasterService>();
-            services.AddTransient<IExcludedClientsService,ExcludedClientsService>();
+            services.AddScoped<IQuickBookClientsServices,QuickBookClientsServices>();
+            services.AddScoped<IClientMasterService,ClientMasterService>();
+            services.AddScoped<IExcludedClientsService,ExcludedClientsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -10,22 +10,20 @@ using System.Threading.Tasks;
 
 namespace FinanceBillingData.Repository
 {
-    public class CommonRepository: ICommonRepository
+    public class CommonRepository : ICommonRepository
     {
         private readonly IConfiguration _config;
         private readonly ITblLoggingRepository _tblLoggingRepository;
-        private Finance_BillingContext _db;
+        private readonly Finance_BillingContext _db;
         public CommonRepository(Finance_BillingContext db, IConfiguration config, ITblLoggingRepository tblLoggingRepository)
         {
             _db = db;
             _config = config;
             _tblLoggingRepository = tblLoggingRepository;
         }
-        public async Task<bool> ExecuteSSISPackage(string guid) {
+        public async Task<bool> ExecuteSSISPackage(string guid)
+        {
             bool isSuccess = false;
-            int intervalTime = Convert.ToInt32(_config.GetSection("SSISTiming:TotalInterval").Value);
-            int sleepTime = Convert.ToInt32(_config.GetSection("SSISTiming:SleepTime").Value);
-
             return await Task.Run(() =>
             {
                 SqlConnection sqlCon = null;
@@ -38,34 +36,10 @@ namespace FinanceBillingData.Repository
                     SqlCommand sql_cmnd = new SqlCommand("dbo.EXECUTE_SSIS_FINANCEBILLING", sqlCon);
                     sql_cmnd.CommandType = CommandType.StoredProcedure;
                     sql_cmnd.Parameters.AddWithValue("@inputParameter", SqlDbType.NVarChar).Value = guid;
-                    // sql_cmnd.Parameters.AddWithValue("@output_execution_id", SqlDbType.NVarChar).Value = NewGuid.ToString();
                     SqlParameter parm3 = new SqlParameter("@output_execution_id", SqlDbType.Int);
                     parm3.Direction = ParameterDirection.Output;
                     sql_cmnd.Parameters.Add(parm3);
                     var lblsmsg = sql_cmnd.ExecuteNonQuery();
-                    DateTime currentTime = DateTime.Now;
-                    DateTime MinsLater = currentTime.AddMinutes(intervalTime);
-                    bool isCompleted = false; 
-                    do
-                    {
-                        Thread.Sleep(1000 * sleepTime);
-                        TblLogging tblLogging = _db.TblLoggings.Where(c => c.Guid == guid).FirstOrDefault();
-                        if (tblLogging.IsSuccess ==true)
-                            break;
-
-                        tblLogging.IsCompleted = isCompleted;
-                    } while (MinsLater <= currentTime || isCompleted);
-
-                    if (lblsmsg > 0)
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                        //ViewBag.Message = "File Uploaded Successfully";
-                    }
-                    sql_cmnd.ExecuteNonQuery();
                     sqlCon.Close();
                     isSuccess = true;
 

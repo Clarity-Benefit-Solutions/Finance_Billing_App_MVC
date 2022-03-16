@@ -1577,12 +1577,9 @@ namespace FinanceBillingData.Entities
             });
             modelBuilder.Entity<TblLogging>(entity =>
             {
-
-
                 entity.ToTable("TBL_LOGGINGDB");
-
-                entity.Property(e => e.Id)
-                    .HasColumnName("Id");
+                entity.HasKey("Id");
+                entity.Property(e => e.Id).HasColumnName("Id");
 
                 entity.Property(e => e.PackageName)
                     .HasColumnName("PackageName");
