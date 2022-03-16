@@ -184,16 +184,6 @@ namespace DevExtremeAspNetCoreApp.Controllers
 
                 //Check the errors in error table fetch and show to the end user.
                 var packageerrors = _db.TblErrorLogs.ToList();
-                //@declare @Guid varchar;
-                var getGuid = "afbc9e17-4e07-4bec-8311-345308d80c42";
-                var logdb = _db.TBL_LOGGINGDBs.ToList();
-                var errolog = _db.TBLERRORLOGSs.ToList();
-                
-                //var lstdetailerrors = _db.TBL_LOGGINGDBs.ToList();
-                var detailerrors = from l in _db.TBL_LOGGINGDBs
-                                   join e in _db.TBLERRORLOGSs on l.Id equals e.LoggingDbID
-                                   where l.Guid == getGuid
-                                   select l;
 
                 for (int i = 0; i < packageerrors.Count; i++) {
                     ModelState.AddModelError(packageerrors[i].LogId.ToString(), packageerrors[i].ErrMsg.ToString());
