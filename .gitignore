@@ -14,3 +14,16 @@
 /DevExtremeAspNetCoreApp/bin/Release/net5.0
 /DevExtremeAspNetCoreApp/Properties/PublishProfiles
 /FinanceBilling/obj/Debug/net5.0/Razor/Views/Quickbook
+/FinanceBilling/bin/Release/net5.0
+/FinanceBilling/obj
+/FinanceBillingData/bin/Release/net5.0
+/FinanceBillingData/obj/Release/net5.0
+/FinanceBillingModel/bin/Release/net5.0
+/FinanceBillingModel/obj/Release/net5.0/ref
+/FinanceBillingModel/obj/Release/net5.0
+/FinanceBillingModel/obj/Debug/net5.0/FinanceBillingModel.csproj.AssemblyReference.cache
+/FinanceBillingModel/obj/Debug/net5.0
+/FinanceBillingService/obj/Release/net5.0
+/FinanceBillingService/bin/Release/net5.0
+/FinanceBillingService/obj
+/FinanceBillingData/obj

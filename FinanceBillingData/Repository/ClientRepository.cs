@@ -17,26 +17,28 @@ namespace FinanceBillingData.Repository
             _db = db;
         }
 
-        public async Task<List<VwNewClient>> GetNewClientList()
+        public async Task<List<VwNewClient>> GetNewClientList(int take, int skip)
         {
             return await Task.Run(() =>
             {
-                return _db.VwNewClient.ToList();
+                return _db.VwNewClient.Take(take).Skip(skip).ToList();
             });
         }
-        public async Task<List<VwExistingClient>> GetExistingClientList()
+        public async Task<List<VwExistingClient>> GetExistingClientList(int take, int skip)
         {
             return await Task.Run(() =>
             {
-                return _db.VwExistingClient.ToList();
+               // return _db.VwExistingClient.ToList();
+                List<VwExistingClient> result = _db.VwExistingClient.AsQueryable().Take(take).Skip(skip).ToList();
+                return result;
             });
         }
 
-        public async Task<List<VwTerminatedClient>> GetTerminatedClientList()
+        public async Task<List<VwTerminatedClient>> GetTerminatedClientList(int take, int skip)
         {
             return await Task.Run(() =>
             {
-                return _db.VwTerminatedClient.ToList();
+                return _db.VwTerminatedClient.ToList().Take(take).Skip(skip).ToList();
             });
         }
         public async Task<List<SpClientDropDownData>> GetClientDropDownData()

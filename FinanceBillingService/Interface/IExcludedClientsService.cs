@@ -12,7 +12,8 @@ namespace FinanceBillingService.Interface
     {
         Task<TblExcludedClient> AddNewExcludedClient(TblExcludedClient tblExcludedClient);
         Task<bool> AddExcludedClientFromMasterClient(string id);
-        Task<bool> DeleteExculdedClient(int id);
+        Task<TblExcludedClient> DeleteExculdedClient(int id);
+        Task<List<TblExcludedClient>> GetAllExcludedClient(int take,int skip);
     }
 
 }

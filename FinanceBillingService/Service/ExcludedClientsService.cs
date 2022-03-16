@@ -3,6 +3,7 @@ using FinanceBillingData.Entities;
 using FinanceBillingData.Interface;
 using FinanceBillingService.Interface;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace FinanceBillingService.Service
@@ -41,9 +42,15 @@ namespace FinanceBillingService.Service
             }
             return result;
         }
-        public async Task<bool> DeleteExculdedClient(int id)
+        public async Task<TblExcludedClient> DeleteExculdedClient(int id)
         {
             return await _iExcludedClientsRepository.DeleteExculdedClient(id);
         }
+        
+        public async Task<List<TblExcludedClient>> GetAllExcludedClient(int take, int skip)
+        {
+            return await _iExcludedClientsRepository.GetAllExcludedClient(take,skip);
+        }
+
     }
 }

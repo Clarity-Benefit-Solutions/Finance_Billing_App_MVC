@@ -45,7 +45,7 @@ namespace FinanceBillingData.Repository
                     var isCompleted = false;
                     do
                     {
-                        Thread.Sleep(1000 * 2);
+                        Thread.Sleep(1000 * 10);
                         TblLogging tblLogging = _db.TblLoggings.Where(c => c.Guid == guid).FirstOrDefault();
                         //tblLogging.IsCompleted = isCompleted;
                     } while (MinsLater <= currentTime || isCompleted);
@@ -58,7 +58,7 @@ namespace FinanceBillingData.Repository
                     }
                     else
                     {
-                        return true;
+                        return false;
                         //ViewBag.Message = "File Uploaded Successfully";
                     }
                     sql_cmnd.ExecuteNonQuery();

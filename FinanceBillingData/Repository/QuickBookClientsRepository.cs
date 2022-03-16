@@ -21,11 +21,11 @@ namespace FinanceBillingData.Repository
         /// <param name="take"></param>
         /// <param name="skip"></param>
         /// <returns></returns>
-        public async Task<List<TblQBClients>> GetAllQuickBookClientList(int take, int skip)
+        public async Task<List<TblQBClients>> GetAllQuickBookClientList()
         {
             return await Task.Run<List<TblQBClients>>(() =>
             {
-                List<TblQBClients> result = _db.TblQBClients.AsQueryable().Where(x => x.IsDeleted == false).Take(take).Skip(skip).ToList();
+                List<TblQBClients> result = _db.TblQBClients.AsQueryable().Where(x => x.IsDeleted == false).ToList();
                 return result;
             });
         }
@@ -77,12 +77,12 @@ namespace FinanceBillingData.Repository
                  && x.IsDeleted == false).FirstOrDefault();
                 if (tblQBClientsResult != null)
                 {
-                    if (!string.IsNullOrEmpty(tblQBClients.FirstName))
-                        tblQBClientsResult.FirstName = tblQBClients.FirstName;
-                    if (!string.IsNullOrEmpty(tblQBClients.LastName))
-                        tblQBClientsResult.LastName = tblQBClients.LastName;
+                    if (!string.IsNullOrEmpty(tblQBClients.ClientName))
+                        tblQBClientsResult.ClientName = tblQBClients.ClientName;
                     if (!string.IsNullOrEmpty(tblQBClients.BenCode))
                         tblQBClientsResult.BenCode = tblQBClients.BenCode;
+                    if (!string.IsNullOrEmpty(tblQBClients.ServiceID))
+                        tblQBClientsResult.ServiceID = tblQBClients.ServiceID;
                     if (!string.IsNullOrEmpty(tblQBClients.Status))
                         tblQBClientsResult.Status = tblQBClients.Status;
                     tblQBClientsResult.ModifiedDate = DateTime.UtcNow;

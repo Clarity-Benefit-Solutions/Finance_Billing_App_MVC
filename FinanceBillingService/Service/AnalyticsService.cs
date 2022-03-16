@@ -16,13 +16,13 @@ namespace FinanceBillingService.Service
         {
             _analyticsRepository = analyticsRepository;
         }
-        public async Task<List<ClientProductComparison>> GetListClientProductComparison()
+        public async Task<List<ClientProductComparison>> GetListClientProductComparison(int take,int skip)
         {
-            return await _analyticsRepository.GetListClientProductComparison();
+            return await _analyticsRepository.GetListClientProductComparison(take,skip);
         }
-        public async Task<List<ClientToClientComparison>> GetListClientToClientComparison()
+        public async Task<List<ClientToClientComparison>> GetListClientToClientComparison(int take, int skip)
         {
-            return await _analyticsRepository.GetListClientToClientComparison();
+            return await _analyticsRepository.GetListClientToClientComparison(take,skip);
         }
     }
 }

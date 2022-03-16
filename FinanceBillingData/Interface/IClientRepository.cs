@@ -8,9 +8,9 @@ namespace FinanceBillingData.Interface
 {
     public interface IClientRepository
     {
-        Task<List<VwNewClient>> GetNewClientList();
-        Task<List<VwExistingClient>> GetExistingClientList();
-        Task<List<VwTerminatedClient>> GetTerminatedClientList();
+        Task<List<VwNewClient>> GetNewClientList(int take, int skip);
+        Task<List<VwExistingClient>> GetExistingClientList(int take, int skip);
+        Task<List<VwTerminatedClient>> GetTerminatedClientList(int take, int skip);
         Task<List<SpClientDropDownData>> GetClientDropDownData();
         Task<List<SpExcludeClientData>> GetExcludeClientDataList(); 
         Task<TblStagingClientsMaster> GetTblStagingClientById(string clientId);

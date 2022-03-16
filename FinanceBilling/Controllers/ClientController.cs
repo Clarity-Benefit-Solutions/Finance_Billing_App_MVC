@@ -1,10 +1,13 @@
 ﻿using AutoMapper;
+using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
 using DevExtremeAspNetCoreApp.Models;
+using FinaceBilling.Models;
 using FinanceBillingData.Entities;
 using FinanceBillingData.Interface;
 using FinanceBillingService.Interface;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -28,12 +31,15 @@ namespace FinaceBilling.Controllers
         [HttpGet]
         public async Task<IActionResult> NewClient(DataSourceLoadOptions loadOptions)
         {
-            List<ClientViewModel> clientViewModels = new List<ClientViewModel>();
+            List<NewClientViewModel> clientViewModels = new List<NewClientViewModel>();
             try
             {
-                List<VwNewClient> vwNewClient = new List<VwNewClient>();
-                vwNewClient = await _iClientService.GetNewClientList();
-                _mapper.Map(vwNewClient, clientViewModels);
+                //List<VwNewClient> vwNewClient = new List<VwNewClient>();
+                var result = DataSourceLoader.Load(await _iClientService.GetNewClientList(1000000000, 0), loadOptions);
+                //var result = await _iClientService.GetNewClientList();
+                var resultJson = JsonConvert.SerializeObject(result);
+                return Content(resultJson, "application/json");
+                //_mapper.Map(vwNewClient, clientViewModels);
             }
             catch (Exception ex)
             {
@@ -43,14 +49,17 @@ namespace FinaceBilling.Controllers
 
         }
         [HttpGet]
-        public async Task<IActionResult> ExistingClient()
+        public async Task<IActionResult> ExistingClient(DataSourceLoadOptions loadOptions)
         {
             List<ClientViewModel> clientViewModels = new List<ClientViewModel>();
             try
             {
-                List<VwExistingClient> vwExistingClients = new List<VwExistingClient>();
-                vwExistingClients = await _iClientService.GetExistingClientList();
-                _mapper.Map(vwExistingClients, clientViewModels);
+                //List<VwExistingClient> vwExistingClients = new List<VwExistingClient>();
+                //vwExistingClients = await _iClientService.GetExistingClientList();
+                //_mapper.Map(vwExistingClients, clientViewModels);
+                 var result = DataSourceLoader.Load(await _iClientService.GetExistingClientList(1000000000, 0), loadOptions);
+                var resultJson = JsonConvert.SerializeObject(result);
+                return Content(resultJson, "application/json");
 
             }
             catch (Exception ex)
@@ -60,15 +69,18 @@ namespace FinaceBilling.Controllers
             return View(clientViewModels);
         }
         [HttpGet]
-        public async Task<IActionResult> TerminatedClient()
+        public async Task<IActionResult> TerminatedClient(DataSourceLoadOptions loadOptions)
         {
             List<ClientViewModel> clientViewModels = new List<ClientViewModel>();
             try
             {
                 List<VwTerminatedClient> vwTerminatedClients = new List<VwTerminatedClient>();
-                vwTerminatedClients = await _iClientService.GetTerminatedClientList();
+                //vwTerminatedClients = await _iClientService.GetTerminatedClientList();
+                //_mapper.Map(vwTerminatedClients, clientViewModels);
+                var result = DataSourceLoader.Load(await _iClientService.GetTerminatedClientList(1000000000, 0), loadOptions);
+                var resultJson = JsonConvert.SerializeObject(result);
+                return Content(resultJson, "application/json");
 
-                _mapper.Map(vwTerminatedClients, clientViewModels);
             }
             catch (Exception ex)
             {
@@ -138,21 +150,41 @@ namespace FinaceBilling.Controllers
                 return ReturnAjaxErrorMessage(ex.Message);
             }     
         }
-        [HttpGet]
-        public async Task<IActionResult> DeleteExculdedClient(int id)
+        [HttpDelete]
+        public async Task DeleteExculdedClient(int Key)
         {
+            //try
+            //{
+
+            await _iExcludedClientsService.DeleteExculdedClient(Key);
+
+            //return RedirectToAction("ExcludedClient");
+            //    }
+            //    catch (Exception ex)
+            //    {
+
+            //        return ex.Message;
+            //    }
+        }
+        [HttpGet]
+        public async Task<IActionResult> GetAllExcludedClient(DataSourceLoadOptions loadOptions)
+        {
+            List<TblExcludedClient> tblExcludedClients = new List<TblExcludedClient>();
             try
             {
-                
-                    await _iExcludedClientsService.DeleteExculdedClient( id);
-                
-                return RedirectToAction("ExcludedClient");
+                List<VwTerminatedClient> vwTerminatedClients = new List<VwTerminatedClient>();
+                //vwTerminatedClients = await _iClientService.GetTerminatedClientList();
+                //_mapper.Map(vwTerminatedClients, clientViewModels);
+                var result = DataSourceLoader.Load(await _iExcludedClientsService.GetAllExcludedClient(1000000000, 0), loadOptions);
+                var resultJson = JsonConvert.SerializeObject(result);
+                return Content(resultJson, "application/json");
+
             }
             catch (Exception ex)
             {
-
                 return View(ex.Message);
             }
+            return View(tblExcludedClients);
         }
 
     }
