@@ -50,6 +50,7 @@ namespace DevExtremeAspNetCoreApp
             services.AddScoped<IInvoiceRepository, InvoiceRepository>();
             services.AddScoped<IClientRepository, ClientRepository>();
             services.AddScoped<IFileNameRepository, FileNameRepository>();
+            services.AddScoped<ILoggingdbRepository, LoggingdbRepository>();
             services.AddScoped<ITblLoggingRepository, TblLoggingRepository>();
             services.AddScoped<IAnalyticsRepository, AnalyticsRepository>();
             services.AddScoped<IQuickBookClientsRepository, QuickBookClientsRepository>();

@@ -25,6 +25,7 @@ namespace FinaceBilling.Controllers
 
         private readonly IConfiguration _config;
         private readonly IFileNameRepository _iFileNameRepository;
+        private readonly ILoggingdbRepository _iLoggingdbRepository;
         private readonly IErrorLogService _iErrorLogService;
         private readonly ICommonService _iCommonService;
        // private readonly IUploadService _iUploadService;
@@ -33,7 +34,7 @@ namespace FinaceBilling.Controllers
         private readonly IAnalyticsService _iAnalyticsService;
 
         public UploadFIleController(IMapper mapper,IHostingEnvironment env, IConfiguration config, IFileNameRepository iFileNameRepository,
-            IErrorLogService iErrorLogService,
+            IErrorLogService iErrorLogService, ILoggingdbRepository iLoggingdbRepository,
             ICommonService iCommonService
             //, IUploadService iUploadService
             , IClientService iclientService
@@ -48,6 +49,7 @@ namespace FinaceBilling.Controllers
             _iclientService = iclientService;
             _iAnalyticsService = iAnalyticsService;
             _mapper = mapper;
+            _iLoggingdbRepository = iLoggingdbRepository;
         }
 
 
@@ -196,6 +198,9 @@ namespace FinaceBilling.Controllers
                 Guid newGuid = Guid.NewGuid();
                 var guid= newGuid.ToString();
                 bool isExecuted = await _iCommonService.ExecuteSSISPackage(guid);
+                List<TBL_LOGGINGDB> LoggingdbList = await _iLoggingdbRepository.GetLoggingdbList();
+                List<TBLERRORLOGS> errorList = await _iLoggingdbRepository.GeterrorsList();
+
                 if (isExecuted)
                 {
                     ViewBag.Message = "File Uploaded Successfully";
@@ -203,10 +208,18 @@ namespace FinaceBilling.Controllers
                 else
                 {
                     ViewBag.Message = "Failed To Upload File, Please check and try again.";
+
+                    ViewData.Model = from l in LoggingdbList
+                                       join e in errorList on l.Id equals e.LoggingDbID 
+                                       where l.Guid == newGuid.ToString() select l;
+
+                    
                 }
 
                 //Check the errors in error table fetch and show to the end user.
                 List<TblErrorLog> packageerrors = await _iErrorLogService.GetErrorLogs();
+                
+               
                 for (int i = 0; i < packageerrors.Count; i++)
                 {
                     ModelState.AddModelError(packageerrors[i].LogId.ToString(), packageerrors[i].ErrMsg.ToString());

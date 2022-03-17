@@ -33,7 +33,7 @@ namespace FinanceBillingData.Repository
                 using (sqlCon = new SqlConnection(SqlconString))
                 {
                     sqlCon.Open();
-                    SqlCommand sql_cmnd = new SqlCommand("dbo.EXECUTE_SSIS_FINANCEBILLING", sqlCon);
+                    SqlCommand sql_cmnd = new SqlCommand("dbo.SPS_EXECUTE_FINANCEBILLING", sqlCon);
                     sql_cmnd.CommandType = CommandType.StoredProcedure;
                     sql_cmnd.Parameters.AddWithValue("@inputParameter", SqlDbType.NVarChar).Value = guid;
                     SqlParameter parm3 = new SqlParameter("@output_execution_id", SqlDbType.Int);
