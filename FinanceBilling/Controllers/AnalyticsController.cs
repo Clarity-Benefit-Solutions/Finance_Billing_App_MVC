@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FinaceBilling.Controllers
+namespace Financebilling.Controllers
 {
     public class AnalyticsController : Controller
     {
