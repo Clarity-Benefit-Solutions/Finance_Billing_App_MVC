@@ -14,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using FinanceBillingData.Interface;
 using FinanceBillingData.Entities;
 using FinanceBillingService.Interface;
+using Microsoft.EntityFrameworkCore;
 
 namespace FinaceBilling.Controllers
 {
@@ -173,20 +174,18 @@ namespace FinaceBilling.Controllers
                 if (isExecuted)
                 {
                     ViewBag.Message = "File Uploaded Successfully";
+                    ViewBag.color = "Green";
                 }
                 else
                 {
                     ViewBag.Message = "Failed To Upload File, Please check and try again.";
+                    ViewBag.color = "Red";
                 }
                 //var testGuid = "d0a12815-c092-4624-a13f-52add69b57e2";
                 //Check the errors in error table fetch and show to the end user.
                 List<TblErrorLog> packageerrors = await _iErrorLogService.GetErrorLogs();
 
-                //List<TBL_LOGGINGDB> loggindbList = _db.TBL_LOGGINGDBs.ToList();
-                //List<TBLERRORLOGS> errorLogsList = _db.TBLERRORLOGSs.ToList();
-
-                //var detailsError = from l in loggindbList join e in errorLogsList on l.Id equals e.LoggingDbID where l.Guid == newGuid.ToString() select l;
-
+                
 
                 for (int i = 0; i < packageerrors.Count; i++)
                 {
