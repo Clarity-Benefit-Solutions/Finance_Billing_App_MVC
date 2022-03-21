@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
-using DevExtremeAspNetCoreApp.Models;
-using FinaceBilling.Models;
+using FinanceBilling.Models;
+using FinanceBilling.Models;
 using FinanceBillingData.Entities;
 using FinanceBillingData.Interface;
 using FinanceBillingService.Interface;
@@ -12,7 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace FinaceBilling.Controllers
+namespace FinanceBilling.Controllers
 {
     public class ClientController : BaseController
     {

@@ -9,5 +9,6 @@ namespace FinanceBillingService.Interface
     public interface IErrorLogService
     {
         Task<List<TblErrorLog>> GetErrorLogs();
+        Task<List<TBLERRORLOGS>> GetErrorLogsByGuId(string guid);
     }
 }

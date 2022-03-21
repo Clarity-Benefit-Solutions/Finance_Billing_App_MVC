@@ -1,4 +1,4 @@
-﻿using DevExtremeAspNetCoreApp.Models;
+﻿using FinanceBilling.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -8,7 +8,7 @@ using System.IO;
 using System.Linq;
 using Microsoft.Net.Http.Headers;
 using System.Threading.Tasks;
-using DevExtremeAspNetCoreApp.Custom.Attributes;
+using FinanceBilling.Custom.Attributes;
 using System.Data;
 using Microsoft.Extensions.Configuration;
 using FinanceBillingService.Interface;
@@ -21,7 +21,7 @@ using Microsoft.Data.SqlClient;
 using System.Net.Http;
 using System.Dynamic;
 
-namespace FinaceBilling.Controllers
+namespace FinanceBilling.Controllers
 {
     public class QuickbookController : Controller
     {

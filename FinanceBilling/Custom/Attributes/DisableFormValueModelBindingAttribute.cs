@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DevExtremeAspNetCoreApp.Custom.Attributes
+namespace FinanceBilling.Custom.Attributes
 {
     /// <summary>
     /// https://stackoverflow.com/questions/49867343/unexpected-end-of-stream-the-content-may-have-already-been-read-by-another-comp

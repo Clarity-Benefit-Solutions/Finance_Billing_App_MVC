@@ -22,6 +22,13 @@ namespace FinanceBillingData.Repository
                 return _db.TblErrorLogs.ToList();
             });
         }
+        public async Task<List<TBLERRORLOGS>> GetErrorLogsByLogId(long logId)
+        {
+            return await Task.Run(() =>
+            {
+                return _db.TBLERRORLOGSs.AsQueryable().Where(x=>x.LoggingDbID== logId).ToList();
+            });
+        }
 
     }
 }

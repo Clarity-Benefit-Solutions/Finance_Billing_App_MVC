@@ -1,6 +1,6 @@
 ﻿using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
-using FinaceBilling.Models;
+using FinanceBilling.Models;
 using FinanceBillingService.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;

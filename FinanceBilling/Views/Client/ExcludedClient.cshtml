@@ -1,5 +1,5 @@
 ﻿
-@model DevExtremeAspNetCoreApp.Models.ExcludedClientViewModel;
+@model FinanceBilling.Models.ExcludedClientViewModel;
 <h2>Excluded Client</h2>
 
 
@@ -45,7 +45,7 @@
         }
 
     </tbody>*@
-@(Html.DevExtreme().DataGrid<FinaceBilling.Models.TblExcludedClientViewModel>
+@(Html.DevExtreme().DataGrid<FinanceBilling.Models.TblExcludedClientViewModel>
     ()
     .DataSource(ds => ds.Mvc()
     .Controller("Client")

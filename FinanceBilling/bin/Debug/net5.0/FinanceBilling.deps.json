@@ -31,7 +31,7 @@
   },
   "targets": {
     ".NETCoreApp,Version=v5.0": {
-      "FinaceBilling/1.0.0": {
+      "FinanceBilling/1.0.0": {
         "dependencies": {
           "AutoMapper": "11.0.1",
           "BuildBundlerMinifier": "2.9.406",
@@ -325,10 +325,10 @@
           "WindowsBase": "4.0.0.0"
         },
         "runtime": {
-          "FinaceBilling.dll": {}
+          "FinanceBilling.dll": {}
         },
         "compile": {
-          "FinaceBilling.dll": {}
+          "FinanceBilling.dll": {}
         }
       },
       "AutoMapper/11.0.1": {
@@ -4225,7 +4225,7 @@
     }
   },
   "libraries": {
-    "FinaceBilling/1.0.0": {
+    "FinanceBilling/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

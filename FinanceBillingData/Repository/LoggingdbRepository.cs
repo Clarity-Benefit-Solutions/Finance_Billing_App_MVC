@@ -16,10 +16,10 @@ namespace FinanceBillingData.Repository
             _db = db;
         }
 
-        public async Task<List<TBL_LOGGINGDB>> GetLoggingdbList()
+        public async Task<List<TblLogging>> GetLoggingdbList()
         {
             return await Task.Run(() => {
-                return _db.TBL_LOGGINGDBs.ToList();
+                return _db.TblLoggings.ToList();
             });
         }
         public async Task<List<TBLERRORLOGS>> GeterrorsList()

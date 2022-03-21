@@ -1,145 +1,149 @@
 ﻿@using Microsoft.AspNetCore.Http
 @model UploadFile
-@*@model DevExtremeAspNetCoreApp.Models.TblLoggingViewModel*@
+@*@model FinanceBilling.Models.TblLoggingViewModel*@
 @{
 
-	ViewBag.Title = "Upload Files";
+    ViewBag.Title = "Upload Files";
 
 
 }
 
 <div class="row" style="border:1px solid green">
-	<div class="col-md-5">
-		<div class="card text-center">
+    <div class="col-md-5">
+        <div class="card text-center">
 
 
-			<div class="card-header">
-				Upload Files using below dropzone area
-			</div>
-			<div class="card-body text-center">
-				<form method="post" enctype="multipart/form-data" asp-controller="UploadFile" asp-action="UploadFile">
-					<div class="form-group">
-						<div class="col-md-10">
-							<div class="drop-zone d-flex justify-content-center align-items-center">
-								@*<img id="Logo" src="@logoImage" style="max-height:100%;max-width:100%;align-content:center;" />*@
-								<span class="drop-zone-prompt">Drag and drop , Browse</span>
-								@*<div style="visibility:hidden;">*@
-								<input asp-for="UploadedFiles" type="file" id="file" class="drop-zone-input" onchange="readURL(this);" multiple />
-								@*</div>*@
-							</div>
-							@*<input asp-for="UploadedFiles" multiple />*@
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="col-md-10">
-							<input class="btn btn-success" id="Upload" type="submit" disabled value="Upload" /><br />
-							<label id="msglabel" type="hidden">@ViewBag.Message</label>
+            <div class="card-header">
+                Upload Files using below dropzone area
+            </div>
+            <div class="card-body text-center">
+                <form method="post" enctype="multipart/form-data" asp-controller="UploadFile" asp-action="UploadFile">
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            <div class="drop-zone d-flex justify-content-center align-items-center">
+                                @*<img id="Logo" src="@logoImage" style="max-height:100%;max-width:100%;align-content:center;" />*@
+                                <span class="drop-zone-prompt">Drag and drop , Browse</span>
+                                @*<div style="visibility:hidden;">*@
+                                <input asp-for="UploadedFiles" type="file" id="file" class="drop-zone-input" onchange="readURL(this);" multiple />
+                                @*</div>*@
+                            </div>
+                            @*<input asp-for="UploadedFiles" multiple />*@
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            <input class="btn btn-success" id="Upload" type="submit" disabled value="Upload" /><br />
+                            <label id="msglabel" type="hidden">@ViewBag.Message</label>
 
-						</div>
-					</div>
-				</form>
-			</div>
-			<div class="card-footer text-muted">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer text-muted">
 
-			</div>
-		</div>
+            </div>
+        </div>
 
 
-	</div>
+    </div>
 
-	@if (ViewBag.missingFile != null) {
-		<div class="col-md-5">
-			@Html.ValidationSummary(false, "", new { @class = "text-danger" })
+    @if (ViewBag.missingFile != null)
+    {
+        <div class="col-md-5">
+            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
 
-			<div class="col-sm=12" style="padding-top: 11em; margin-left: 29px;">
-				<span class="alert-heading"><b>Please upload missing files:-</b></span>
-			</div>
-			<div class="col-sm-12">
-				<ul class="text-danger">
-					@foreach (var modelSate in ViewBag.missingFile) {
-						<li>@modelSate.FileName</li>
+            <div class="col-sm=12" style="padding-top: 11em; margin-left: 29px;">
+                <span class="alert-heading"><b>Please upload missing files:-</b></span>
+            </div>
+            <div class="col-sm-12">
+                <ul class="text-danger">
+                    @foreach (var modelSate in ViewBag.missingFile)
+                    {
+                        <li>@modelSate.FileName</li>
 
-					}
-				</ul>
-			</div>
-		</div>
-	} else {
-		<div class="col-md-5">
-			@Html.ValidationSummary(false, "", new { @class = "text-danger" })
-		</div>
-	}
+                    }
+                </ul>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="col-md-5">
+            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+        </div>
+    }
 </div>
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-xl">
-		<div class="modal-content">
-			<div class="modal-header">
-				<ul class="nav nav-tabs" id="myTab" role="tablist">
-					<li class="nav-item" role="presentation">
-						<button class="nav-link active " id="new-tab" data-bs-toggle="tab" data-bs-target="#new" type="button" role="tab" aria-controls="new" aria-selected="true">New</button>
-					</li>
-					<li class="nav-item" role="presentation">
-						<button class="nav-link" id="existing-tab" data-bs-toggle="tab" data-bs-target="#existing" type="button" role="tab" aria-controls="existing" aria-selected="false">Existing</button>
-					</li>
-					<li class="nav-item" role="presentation">
-						<button class="nav-link" id="terminated-tab" data-bs-toggle="tab" data-bs-target="#terminated" type="button" role="tab" aria-controls="terminated" aria-selected="false">Terminated</button>
-					</li>
-					<li class="nav-item" role="analytics">
-						<button class="nav-link" id="analytics-tab" data-bs-toggle="tab" data-bs-target="#analytics" type="button" role="tab" aria-controls="analytics" aria-selected="false">Analytics</button>
-					</li>
-				</ul>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<div class="tab-content" id="myTabContent" style="width:100%;">
-					<div class="tab-pane fade show active" id="new" role="tabpanel" aria-labelledby="new-tab" style="overflow:auto; width:100%;">
-						@*<table class="table table-hover">
-									<thead>
-											<tr>
-													<th scope="col">ClientName</th>
-													<th scope="col">ClientGroupName</th>
-													<th scope="col">BillingStartDate</th>
-													<th scope="col">EIN</th>
-													<th scope="col">ClientDivisionName</th>
-													<th scope="col">ClientID</th>
-													<th scope="col">ClientDivisionID</th>
-													<th scope="col">Active</th>
-													<th scope="col">ClientAlternate</th>
-													<th scope="col">DeactivationDate</th>
-													<th scope="col">TPACode</th>
-													<th scope="col">Linetype</th>
-													<th scope="col">AccountTypeCode</th>
-													<th scope="col">MyProperty</th>
-													<th scope="col">PlanID</th>
-											</tr>
-									</thead>
-									<tbody>
-											@foreach (var item in Model.NewClientViewModels)
-											{
-													<tr>
-															<td>@item.ClientName</td>
-															<td>@item.ClientGroupName</td>
-															<td>@item.BillingStartDate</td>
-															<td>@item.EIN</td>
-															<td>@item.ClientDivisionName</td>
-															<td>@item.ClientID</td>
-															<td>@item.ClientDivisionID</td>
-															<td>@item.Active</td>
-															<td>@item.ClientAlternate</td>
-															<td>@item.DeactivationDate</td>
-															<td>@item.TPACode</td>
-															<td>@item.Linetype</td>
-															<td>@item.AccountTypeCode</td>
-															<td>@item.DivisionName</td>
-															<td>@item.PlanID</td>
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active " id="new-tab" data-bs-toggle="tab" data-bs-target="#new" type="button" role="tab" aria-controls="new" aria-selected="true">New</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="existing-tab" data-bs-toggle="tab" data-bs-target="#existing" type="button" role="tab" aria-controls="existing" aria-selected="false">Existing</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="terminated-tab" data-bs-toggle="tab" data-bs-target="#terminated" type="button" role="tab" aria-controls="terminated" aria-selected="false">Terminated</button>
+                    </li>
+                    <li class="nav-item" role="analytics">
+                        <button class="nav-link" id="analytics-tab" data-bs-toggle="tab" data-bs-target="#analytics" type="button" role="tab" aria-controls="analytics" aria-selected="false">Analytics</button>
+                    </li>
+                </ul>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="tab-content" id="myTabContent" style="width:100%;">
+                    <div class="tab-pane fade show active" id="new" role="tabpanel" aria-labelledby="new-tab" style="overflow:auto; width:100%;">
+                        @*<table class="table table-hover">
+                                    <thead>
+                                            <tr>
+                                                    <th scope="col">ClientName</th>
+                                                    <th scope="col">ClientGroupName</th>
+                                                    <th scope="col">BillingStartDate</th>
+                                                    <th scope="col">EIN</th>
+                                                    <th scope="col">ClientDivisionName</th>
+                                                    <th scope="col">ClientID</th>
+                                                    <th scope="col">ClientDivisionID</th>
+                                                    <th scope="col">Active</th>
+                                                    <th scope="col">ClientAlternate</th>
+                                                    <th scope="col">DeactivationDate</th>
+                                                    <th scope="col">TPACode</th>
+                                                    <th scope="col">Linetype</th>
+                                                    <th scope="col">AccountTypeCode</th>
+                                                    <th scope="col">MyProperty</th>
+                                                    <th scope="col">PlanID</th>
+                                            </tr>
+                                    </thead>
+                                    <tbody>
+                                            @foreach (var item in Model.NewClientViewModels)
+                                            {
+                                                    <tr>
+                                                            <td>@item.ClientName</td>
+                                                            <td>@item.ClientGroupName</td>
+                                                            <td>@item.BillingStartDate</td>
+                                                            <td>@item.EIN</td>
+                                                            <td>@item.ClientDivisionName</td>
+                                                            <td>@item.ClientID</td>
+                                                            <td>@item.ClientDivisionID</td>
+                                                            <td>@item.Active</td>
+                                                            <td>@item.ClientAlternate</td>
+                                                            <td>@item.DeactivationDate</td>
+                                                            <td>@item.TPACode</td>
+                                                            <td>@item.Linetype</td>
+                                                            <td>@item.AccountTypeCode</td>
+                                                            <td>@item.DivisionName</td>
+                                                            <td>@item.PlanID</td>
 
-													</tr>
-											}
-									</tbody>
-							</table>*@
-						@(Html.DevExtreme().DataGrid<FinaceBilling.Models.NewClientViewModel>()
+                                                    </tr>
+                                            }
+                                    </tbody>
+                            </table>*@
+                        @(Html.DevExtreme().DataGrid<FinanceBilling.Models.NewClientViewModel>()
     .DataSource(ds => ds.Mvc()
         .Controller("Client")
         //.Key("ClientID")
@@ -185,54 +189,54 @@
     )
 )
 
-					</div>
+                    </div>
 
-					<div class="tab-pane fade" id="existing" role="tabpanel" aria-labelledby="existing-tab" style="overflow:auto; width:100%;">
-						@*<table class="table table-hover">
-									<thead>
-											<tr>
-													<th scope="col">ClientName</th>
-													<th scope="col">ClientGroupName</th>
-													<th scope="col">BillingStartDate</th>
-													<th scope="col">EIN</th>
-													<th scope="col">ClientDivisionName</th>
-													<th scope="col">ClientID</th>
-													<th scope="col">ClientDivisionID</th>
-													<th scope="col">Active</th>
-													<th scope="col">ClientAlternate</th>
-													<th scope="col">DeactivationDate</th>
-													<th scope="col">TPACode</th>
-													<th scope="col">Linetype</th>
-													<th scope="col">AccountTypeCode</th>
-													<th scope="col">MyProperty</th>
-													<th scope="col">PlanID</th>
-											</tr>
-									</thead>
-									<tbody>
-											@foreach (var item in Model.ExistingClients)
-											{
-													<tr>
-															<td>@item.ClientName</td>
-															<td>@item.ClientGroupName</td>
-															<td>@item.BillingStartDate</td>
-															<td>@item.EIN</td>
-															<td>@item.ClientDivisionName</td>
-															<td>@item.ClientID</td>
-															<td>@item.ClientDivisionID</td>
-															<td>@item.Active</td>
-															<td>@item.ClientAlternate</td>
-															<td>@item.DeactivationDate</td>
-															<td>@item.TPACode</td>
-															<td>@item.Linetype</td>
-															<td>@item.AccountTypeCode</td>
-															<td>@item.MyProperty</td>
-															<td>@item.PlanID</td>
+                    <div class="tab-pane fade" id="existing" role="tabpanel" aria-labelledby="existing-tab" style="overflow:auto; width:100%;">
+                        @*<table class="table table-hover">
+                                    <thead>
+                                            <tr>
+                                                    <th scope="col">ClientName</th>
+                                                    <th scope="col">ClientGroupName</th>
+                                                    <th scope="col">BillingStartDate</th>
+                                                    <th scope="col">EIN</th>
+                                                    <th scope="col">ClientDivisionName</th>
+                                                    <th scope="col">ClientID</th>
+                                                    <th scope="col">ClientDivisionID</th>
+                                                    <th scope="col">Active</th>
+                                                    <th scope="col">ClientAlternate</th>
+                                                    <th scope="col">DeactivationDate</th>
+                                                    <th scope="col">TPACode</th>
+                                                    <th scope="col">Linetype</th>
+                                                    <th scope="col">AccountTypeCode</th>
+                                                    <th scope="col">MyProperty</th>
+                                                    <th scope="col">PlanID</th>
+                                            </tr>
+                                    </thead>
+                                    <tbody>
+                                            @foreach (var item in Model.ExistingClients)
+                                            {
+                                                    <tr>
+                                                            <td>@item.ClientName</td>
+                                                            <td>@item.ClientGroupName</td>
+                                                            <td>@item.BillingStartDate</td>
+                                                            <td>@item.EIN</td>
+                                                            <td>@item.ClientDivisionName</td>
+                                                            <td>@item.ClientID</td>
+                                                            <td>@item.ClientDivisionID</td>
+                                                            <td>@item.Active</td>
+                                                            <td>@item.ClientAlternate</td>
+                                                            <td>@item.DeactivationDate</td>
+                                                            <td>@item.TPACode</td>
+                                                            <td>@item.Linetype</td>
+                                                            <td>@item.AccountTypeCode</td>
+                                                            <td>@item.MyProperty</td>
+                                                            <td>@item.PlanID</td>
 
-													</tr>
-											}
-									</tbody>
-							</table>*@
-						@(Html.DevExtreme().DataGrid<FinaceBilling.Models.NewClientViewModel>()
+                                                    </tr>
+                                            }
+                                    </tbody>
+                            </table>*@
+                        @(Html.DevExtreme().DataGrid<FinanceBilling.Models.NewClientViewModel>()
     .DataSource(ds => ds.Mvc()
         .Controller("Client")
         .LoadAction("ExistingClient")
@@ -292,53 +296,53 @@
 
     )
 )
-					</div>
-					<div class="tab-pane fade" id="terminated" role="tabpanel" aria-labelledby="terminated-tab" style="overflow:auto; width:100%;">
-						@*<table class="table table-hover">
-									<thead>
-											<tr>
-													<th scope="col">ClientName</th>
-													<th scope="col">ClientGroupName</th>
-													<th scope="col">BillingStartDate</th>
-													<th scope="col">EIN</th>
-													<th scope="col">ClientDivisionName</th>
-													<th scope="col">ClientID</th>
-													<th scope="col">ClientDivisionID</th>
-													<th scope="col">Active</th>
-													<th scope="col">ClientAlternate</th>
-													<th scope="col">DeactivationDate</th>
-													<th scope="col">TPACode</th>
-													<th scope="col">Linetype</th>
-													<th scope="col">AccountTypeCode</th>
-													<th scope="col">MyProperty</th>
-													<th scope="col">PlanID</th>
-											</tr>
-									</thead>
-									<tbody>
-											@foreach (var item in Model.TerminatedClients)
-											{
-													<tr>
-															<td>@item.ClientName</td>
-															<td>@item.ClientGroupName</td>
-															<td>@item.BillingStartDate</td>
-															<td>@item.EIN</td>
-															<td>@item.ClientDivisionName</td>
-															<td>@item.ClientID</td>
-															<td>@item.ClientDivisionID</td>
-															<td>@item.Active</td>
-															<td>@item.ClientAlternate</td>
-															<td>@item.DeactivationDate</td>
-															<td>@item.TPACode</td>
-															<td>@item.Linetype</td>
-															<td>@item.AccountTypeCode</td>
-															<td>@item.MyProperty</td>
-															<td>@item.PlanID</td>
+                    </div>
+                    <div class="tab-pane fade" id="terminated" role="tabpanel" aria-labelledby="terminated-tab" style="overflow:auto; width:100%;">
+                        @*<table class="table table-hover">
+                                    <thead>
+                                            <tr>
+                                                    <th scope="col">ClientName</th>
+                                                    <th scope="col">ClientGroupName</th>
+                                                    <th scope="col">BillingStartDate</th>
+                                                    <th scope="col">EIN</th>
+                                                    <th scope="col">ClientDivisionName</th>
+                                                    <th scope="col">ClientID</th>
+                                                    <th scope="col">ClientDivisionID</th>
+                                                    <th scope="col">Active</th>
+                                                    <th scope="col">ClientAlternate</th>
+                                                    <th scope="col">DeactivationDate</th>
+                                                    <th scope="col">TPACode</th>
+                                                    <th scope="col">Linetype</th>
+                                                    <th scope="col">AccountTypeCode</th>
+                                                    <th scope="col">MyProperty</th>
+                                                    <th scope="col">PlanID</th>
+                                            </tr>
+                                    </thead>
+                                    <tbody>
+                                            @foreach (var item in Model.TerminatedClients)
+                                            {
+                                                    <tr>
+                                                            <td>@item.ClientName</td>
+                                                            <td>@item.ClientGroupName</td>
+                                                            <td>@item.BillingStartDate</td>
+                                                            <td>@item.EIN</td>
+                                                            <td>@item.ClientDivisionName</td>
+                                                            <td>@item.ClientID</td>
+                                                            <td>@item.ClientDivisionID</td>
+                                                            <td>@item.Active</td>
+                                                            <td>@item.ClientAlternate</td>
+                                                            <td>@item.DeactivationDate</td>
+                                                            <td>@item.TPACode</td>
+                                                            <td>@item.Linetype</td>
+                                                            <td>@item.AccountTypeCode</td>
+                                                            <td>@item.MyProperty</td>
+                                                            <td>@item.PlanID</td>
 
-													</tr>
-											}
-									</tbody>
-							</table>*@
-						@(Html.DevExtreme().DataGrid<FinaceBilling.Models.TerminatedClient>()
+                                                    </tr>
+                                            }
+                                    </tbody>
+                            </table>*@
+                        @(Html.DevExtreme().DataGrid<FinanceBilling.Models.TerminatedClient>()
     .DataSource(ds => ds.Mvc()
         .Controller("Client")
         .LoadAction("TerminatedClient")
@@ -398,47 +402,47 @@
 
     )
 )
-					</div>
-					@*<div class="container">
-								<div class="col-md-6"></div>
-								<div class="col-md-6"></div>
-						</div>*@
-					<div class="tab-pane fade" id="analytics" role="tabpanel" aria-labelledby="analytics-tab" style="overflow:auto; width:100%;">
-						<div class="container" style="overflow:auto; width:100%;float:left;">
-							<div class="col-md-6" style="overflow:auto; width:100% ;float:left;">
-								<h4 class="form-inline">Client To Product Comaprison</h4>
-								@*<table class="table table-hover">
-											<thead>
-													<tr>
-															<th scope="col">SourceFileBencode</th>
-															<th scope="col">SourceFileClientName</th>
-															<th scope="col">SourceFileProducts</th>
-															<th scope="col">BillingAppBenCode</th>
-															<th scope="col">BillingAppClientName</th>
-															<th scope="col">StartBillingDate</th>
-															<th scope="col">EndBillingDate</th>
-															<th scope="col">iNotExistInBillingAppTable</th>
-													</tr>
-											</thead>
-											<tbody>
-													@foreach (var item in Model.clientToProductViewModels)
-													{
-															<tr>
-																	<td>@item.SourceFileBencode</td>
-																	<td>@item.SourceFileClientName</td>
-																	<td>@item.SourceFileProducts</td>
-																	<td>@item.BillingAppBenCode</td>
-																	<td>@item.BillingAppClientName</td>
-																	<td>@item.StartBillingDate</td>
-																	<td>@item.EndBillingDate</td>
-																	<td>@item.iNotExistInBillingAppTable</td>
+                    </div>
+                    @*<div class="container">
+                                <div class="col-md-6"></div>
+                                <div class="col-md-6"></div>
+                        </div>*@
+                    <div class="tab-pane fade" id="analytics" role="tabpanel" aria-labelledby="analytics-tab" style="overflow:auto; width:100%;">
+                        <div class="container" style="overflow:auto; width:100%;float:left;">
+                            <div class="col-md-6" style="overflow:auto; width:100% ;float:left;">
+                                <h4 class="form-inline">Client To Product Comaprison</h4>
+                                @*<table class="table table-hover">
+                                            <thead>
+                                                    <tr>
+                                                            <th scope="col">SourceFileBencode</th>
+                                                            <th scope="col">SourceFileClientName</th>
+                                                            <th scope="col">SourceFileProducts</th>
+                                                            <th scope="col">BillingAppBenCode</th>
+                                                            <th scope="col">BillingAppClientName</th>
+                                                            <th scope="col">StartBillingDate</th>
+                                                            <th scope="col">EndBillingDate</th>
+                                                            <th scope="col">iNotExistInBillingAppTable</th>
+                                                    </tr>
+                                            </thead>
+                                            <tbody>
+                                                    @foreach (var item in Model.clientToProductViewModels)
+                                                    {
+                                                            <tr>
+                                                                    <td>@item.SourceFileBencode</td>
+                                                                    <td>@item.SourceFileClientName</td>
+                                                                    <td>@item.SourceFileProducts</td>
+                                                                    <td>@item.BillingAppBenCode</td>
+                                                                    <td>@item.BillingAppClientName</td>
+                                                                    <td>@item.StartBillingDate</td>
+                                                                    <td>@item.EndBillingDate</td>
+                                                                    <td>@item.iNotExistInBillingAppTable</td>
 
-															</tr>
-													}
+                                                            </tr>
+                                                    }
 
-											</tbody>
-									</table>*@
-								@(Html.DevExtreme().DataGrid<FinaceBilling.Models.ClientToProductViewModel>()
+                                            </tbody>
+                                    </table>*@
+                                @(Html.DevExtreme().DataGrid<FinanceBilling.Models.ClientToProductViewModel>()
     .DataSource(ds => ds.Mvc()
         .Controller("Analytics")
         .LoadAction("GetListClientProductComparison")
@@ -476,39 +480,39 @@
     })
     )
 )
-							</div>
-							<div class="col-md-6" style="overflow:auto; width:100%;float:left;">
-								<h4 class="form-inline">Client To Client Comparison</h4>
-								@*<table class="table table-hover">
-											<thead>
-													<tr>
-															<th scope="col">SourceFileBencode</th>
-															<th scope="col">SourceFileClientName</th>
-															<th scope="col">BillingAppBenCode</th>
-															<th scope="col">BillingAppClientName</th>
-															<th scope="col">StartBillingDate</th>
-															<th scope="col">EndBillingDate</th>
-															<th scope="col">iNotExistInBillingAppTable</th>
-													</tr>
-											</thead>
-											<tbody>
-													@foreach (var item in Model.clientToClientViewModels)
-													{
-															<tr>
-																	<td>@item.SourceFileBenCode</td>
-																	<td>@item.SourceFileClientName</td>
-																	<td>@item.BillingAppBenCode</td>
-																	<td>@item.BillingAppClientName</td>
-																	<td>@item.StartBillingDate</td>
-																	<td>@item.EndBillingDate</td>
-																	<td>@item.iNotExistInBillingAppTable</td>
+                            </div>
+                            <div class="col-md-6" style="overflow:auto; width:100%;float:left;">
+                                <h4 class="form-inline">Client To Client Comparison</h4>
+                                @*<table class="table table-hover">
+                                            <thead>
+                                                    <tr>
+                                                            <th scope="col">SourceFileBencode</th>
+                                                            <th scope="col">SourceFileClientName</th>
+                                                            <th scope="col">BillingAppBenCode</th>
+                                                            <th scope="col">BillingAppClientName</th>
+                                                            <th scope="col">StartBillingDate</th>
+                                                            <th scope="col">EndBillingDate</th>
+                                                            <th scope="col">iNotExistInBillingAppTable</th>
+                                                    </tr>
+                                            </thead>
+                                            <tbody>
+                                                    @foreach (var item in Model.clientToClientViewModels)
+                                                    {
+                                                            <tr>
+                                                                    <td>@item.SourceFileBenCode</td>
+                                                                    <td>@item.SourceFileClientName</td>
+                                                                    <td>@item.BillingAppBenCode</td>
+                                                                    <td>@item.BillingAppClientName</td>
+                                                                    <td>@item.StartBillingDate</td>
+                                                                    <td>@item.EndBillingDate</td>
+                                                                    <td>@item.iNotExistInBillingAppTable</td>
 
-															</tr>
-													}
+                                                            </tr>
+                                                    }
 
-											</tbody>
-									</table>*@
-								@(Html.DevExtreme().DataGrid<FinaceBilling.Models.ClientToClientViewModel>()
+                                            </tbody>
+                                    </table>*@
+                                @(Html.DevExtreme().DataGrid<FinanceBilling.Models.ClientToClientViewModel>()
     .DataSource(ds => ds.Mvc()
         .Controller("Analytics")
         .LoadAction("GetListClientToClientComparison")
@@ -544,67 +548,70 @@
     })
     )
 )
-							</div>
-						</div>
+                            </div>
+                        </div>
 
-					</div>
-				</div>
+                    </div>
+                </div>
 
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-			</div>
-		</div>
-	</div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
 
 </div>
 
 <!--error-->
 <!-- Button trigger modal -->
 @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
-	Launch demo modal
-</button>*@
+        Launch demo modal
+    </button>*@
 
 <!-- Modal -->
 <div class="modal fade" id="displayErrors" tabindex="-1" role="dialog" aria-labelledby="displayErrorsTitle" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="displayErrorsTitle">Display Errors</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				@if (ViewData.Model != null) {
-					foreach (var errors in ViewData.Model.ToString()) {
-				<div><span>@errors</span></div>
-					}
-				}
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>			
-			</div>
-		</div>
-	</div>
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="displayErrorsTitle">Display Errors</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                @(Html.DevExtreme().DataGrid<FinanceBilling.Models.ErrorLogViewModels>()
+    .DataSource(Model.ErrorList,"ID")   )
+                @*@if (ViewData.Model?.ErrorList != null)
+                {
+                    foreach (var errors in ViewData.Model.ErrorList)
+                    {
+                        <div><span>@errors.ErrorCode</span> : <span>@errors.MachineName</span></div>
+                        <div><span>@errors.ErrorDescription</span></div>
+                    }
+                }*@
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
 
 
 
-    $(document).ready(function () {
-        var res = '@ViewBag.Message';
-				var error = '@ViewData.Model';
-        if (res == "File Uploaded Successfully" ) {
-        $("#exampleModal").modal("show")
-
-			}
-
-				if (error!="") {
-					$("#displayErrors").modal("show");
-				}
-		
+	$(document).ready(function () {
+		var res = '@ViewBag.Message';
+		var error = '@(Model.ErrorList!=null)'
+		if (res == "File Uploaded Successfully") {
+            $("#successModal").modal("show")
+		}
+        if (error =="True") {
+		    $("#displayErrors").modal("show");
+		}
     });
 
     $("#new-tab").click(function () {

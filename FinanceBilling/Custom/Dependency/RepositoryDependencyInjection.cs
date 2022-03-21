@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FinaceBilling.Custom.Dependency
+namespace FinanceBilling.Custom.Dependency
 {
     public static class RepositoryDependencyInjection
     {

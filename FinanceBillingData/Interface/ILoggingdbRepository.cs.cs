@@ -9,7 +9,7 @@ namespace FinanceBillingData.Interface
 {
     public interface ILoggingdbRepository
     {
-        Task<List<TBL_LOGGINGDB>> GetLoggingdbList();
+        Task<List<TblLogging>> GetLoggingdbList();
         Task<List<TBLERRORLOGS>> GeterrorsList();
     }
 }

@@ -249,7 +249,7 @@ namespace FinanceBillingData.Entities
             });
 
             //
-            modelBuilder.Entity<TBL_LOGGINGDB>(entity => {
+            modelBuilder.Entity<TblLogging>(entity => {
                 //entity.HasNoKey();
                 entity.HasKey("Id");
                 entity.ToTable("TBL_LOGGINGDB");

@@ -1,4 +1,4 @@
-﻿using DevExtremeAspNetCoreApp.Models;
+﻿using FinanceBilling.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -8,16 +8,16 @@ using System.IO;
 using System.Linq;
 using Microsoft.Net.Http.Headers;
 using System.Threading.Tasks;
-using DevExtremeAspNetCoreApp.Custom.Attributes;
+using FinanceBilling.Custom.Attributes;
 using System.Data;
 using Microsoft.Extensions.Configuration;
 using FinanceBillingData.Interface;
 using FinanceBillingData.Entities;
 using FinanceBillingService.Interface;
-using FinaceBilling.Models;
+using FinanceBilling.Models;
 using AutoMapper;
 
-namespace FinaceBilling.Controllers
+namespace FinanceBilling.Controllers
 {
     public class UploadFIleController : Controller
     {
@@ -28,12 +28,12 @@ namespace FinaceBilling.Controllers
         private readonly ILoggingdbRepository _iLoggingdbRepository;
         private readonly IErrorLogService _iErrorLogService;
         private readonly ICommonService _iCommonService;
-       // private readonly IUploadService _iUploadService;
+        // private readonly IUploadService _iUploadService;
         private readonly IClientService _iclientService;
         private readonly IMapper _mapper;
         private readonly IAnalyticsService _iAnalyticsService;
 
-        public UploadFIleController(IMapper mapper,IHostingEnvironment env, IConfiguration config, IFileNameRepository iFileNameRepository,
+        public UploadFIleController(IMapper mapper, IHostingEnvironment env, IConfiguration config, IFileNameRepository iFileNameRepository,
             IErrorLogService iErrorLogService, ILoggingdbRepository iLoggingdbRepository,
             ICommonService iCommonService
             //, IUploadService iUploadService
@@ -170,9 +170,6 @@ namespace FinaceBilling.Controllers
                 //}
             }
 
-            //rootpath = Path.Combine(rootpath, "wwwroot");
-            //rootpath = Path.Combine(rootpath, "UserId_Name");
-            //rootpath = Path.Combine(rootpath, "1_Ram");
             string rootpath = _env.ContentRootPath;
             rootpath = @"E:\Finance_Billing\Starting_Files";
             if (!Directory.Exists(rootpath))
@@ -181,10 +178,10 @@ namespace FinaceBilling.Controllers
                 //Directory.CreateDirectory(rootpath);
             }
 
+            UploadFile uploadFile = new UploadFile();
             //checking vallidation is passed or not
             if (IsValidationPassed)
             {
-
                 for (int i = 0; i < Request.Form.Files.Count; i++)
                 {
                     filePath = Path.Combine(rootpath, Request.Form.Files[i].FileName);
@@ -196,63 +193,52 @@ namespace FinaceBilling.Controllers
 
                 //call the store procedure to run SSIS package
                 Guid newGuid = Guid.NewGuid();
-                var guid= newGuid.ToString();
+                string guid = newGuid.ToString();
                 bool isExecuted = await _iCommonService.ExecuteSSISPackage(guid);
-                List<TBL_LOGGINGDB> LoggingdbList = await _iLoggingdbRepository.GetLoggingdbList();
-                List<TBLERRORLOGS> errorList = await _iLoggingdbRepository.GeterrorsList();
 
                 if (isExecuted)
                 {
                     ViewBag.Message = "File Uploaded Successfully";
+
+                    uploadFile.NewClientViewModels = new List<NewClientViewModel>();
+                    uploadFile.ExistingClients = new List<ExistingClient>();
+                    uploadFile.TerminatedClients = new List<TerminatedClient>();
+                    uploadFile.clientToProductViewModels = new List<ClientToProductViewModel>();
+                    uploadFile.clientToClientViewModels = new List<ClientToClientViewModel>();
                 }
                 else
                 {
+                    //guid = "6d3f3a9d-9dca-48b2-aa37-c01c4a0a8cde //For Testing
                     ViewBag.Message = "Failed To Upload File, Please check and try again.";
+                    List<TBLERRORLOGS> tblErrorLog = await _iErrorLogService.GetErrorLogsByGuId(guid);
 
-                    ViewData.Model = from l in LoggingdbList
-                                       join e in errorList on l.Id equals e.LoggingDbID 
-                                       where l.Guid == newGuid.ToString() select l;
-
-                    
+                    //Check the errors in error table fetch and show to the end user.
+                    for (int i = 0; i < tblErrorLog.Count; i++)
+                    {
+                        ModelState.AddModelError(tblErrorLog[i].ErrorCode.ToString(), tblErrorLog[i].ErrorDescription.ToString());
+                    }
+                    ViewData.Model = tblErrorLog;
+                    if (tblErrorLog?.Count > 0)
+                    {
+                        uploadFile.ErrorList = new List<ErrorLogViewModels>();
+                        uploadFile.ErrorList = tblErrorLog.Select(x => new ErrorLogViewModels()
+                        {
+                           ID=x.ID,
+                           ErrorCode=x.ErrorCode,
+                           ErrorDescription=x.ErrorDescription,
+                           LoggingDbID=x.LoggingDbID,
+                           MachineName=x.MachineName,
+                           PackageName=x.PackageName,
+                           TaskName=x.TaskName,
+                           Dated=x.Dated
+                        }).ToList();
+                    }
                 }
-
-                //Check the errors in error table fetch and show to the end user.
-                List<TblErrorLog> packageerrors = await _iErrorLogService.GetErrorLogs();
-                
-               
-                for (int i = 0; i < packageerrors.Count; i++)
-                {
-                    ModelState.AddModelError(packageerrors[i].LogId.ToString(), packageerrors[i].ErrMsg.ToString());
-                }
-
             }
-            UploadFile uploadFile = new UploadFile();
-            Analytics analytics = new Analytics();
-            uploadFile.NewClientViewModels = new List<NewClientViewModel>();
-            uploadFile.ExistingClients = new List<ExistingClient>();
-            uploadFile.TerminatedClients = new List<TerminatedClient>();
-            uploadFile.clientToProductViewModels = new List<ClientToProductViewModel>();
-            uploadFile.clientToClientViewModels = new List<ClientToClientViewModel>();
-
-            //List<VwNewClient> vwNewClients = await _iclientService.GetNewClientList();
-            //_mapper.Map(vwNewClients, uploadFile.NewClientViewModels);
-
-            //List<VwTerminatedClient>  vwTerminatedClients = await _iclientService.GetTerminatedClientList();
-            //_mapper.Map(vwTerminatedClients, uploadFile.TerminatedClients);
-
-            //List<VwExistingClient>  vwExistingClients = await _iclientService.GetExistingClientList();
-            //_mapper.Map(vwExistingClients, uploadFile.ExistingClients);
-
-            //List<ClientProductComparison> clientProductComparisons = await _iAnalyticsService.GetListClientProductComparison();
-            //_mapper.Map(clientProductComparisons, uploadFile.clientToProductViewModels);
-
-            //List<ClientToClientComparison> ClientToClientComparison = await _iAnalyticsService.GetListClientToClientComparison();
-            //_mapper.Map(ClientToClientComparison, uploadFile.clientToClientViewModels);
-        
 
 
             return View(uploadFile);
-            
+
         }
     }
 

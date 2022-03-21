@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DevExtremeAspNetCoreApp.Custom.Attributes
+namespace FinanceBilling.Custom.Attributes
 {
     public class MaxFileSizeAttribute : ValidationAttribute
     {

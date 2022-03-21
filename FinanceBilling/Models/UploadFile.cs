@@ -4,12 +4,12 @@ using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using DevExtremeAspNetCoreApp.Custom.Attributes;
-using FinaceBilling.Models;
+using FinanceBilling.Custom.Attributes;
+using FinanceBilling.Models;
 using Financebilling.Custom.Attributes;
 using Microsoft.AspNetCore.Http;
 
-namespace DevExtremeAspNetCoreApp.Models
+namespace FinanceBilling.Models
 {
     public class UploadFile : IValidatableObject
     {
@@ -24,6 +24,7 @@ namespace DevExtremeAspNetCoreApp.Models
         public List<ClientToProductViewModel> clientToProductViewModels { get; set; }
         public List<ClientToClientViewModel> clientToClientViewModels { get; set; }
         public List<ClientViewModel> ClientViewModels { get; set; }
+        public IEnumerable<ErrorLogViewModels> ErrorList { get; set; }
 
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)

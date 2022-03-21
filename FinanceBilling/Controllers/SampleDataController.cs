@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using FinanceBillingService.Interface;
 using System.Threading.Tasks;
 
-namespace FinaceBilling.Controllers {
+namespace FinanceBilling.Controllers {
 
     [Route("api/[controller]")]
     public class SampleDataController : Controller {

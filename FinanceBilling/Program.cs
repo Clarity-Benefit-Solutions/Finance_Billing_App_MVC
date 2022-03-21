@@ -13,7 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace DevExtremeAspNetCoreApp
+namespace FinanceBilling
 {
     public class Program
     {

@@ -1,6 +1,6 @@
 using AutoMapper;
-using FinaceBilling.Custom.Dependency;
-using FinaceBilling.Custom.Helpers;
+using FinanceBilling.Custom.Dependency;
+using FinanceBilling.Custom.Helpers;
 using FinanceBillingData.Entities;
 using FinanceBillingData.Interface;
 using FinanceBillingData.Repository;
@@ -13,7 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace DevExtremeAspNetCoreApp
+namespace FinanceBilling
 {
     public class Startup
     {

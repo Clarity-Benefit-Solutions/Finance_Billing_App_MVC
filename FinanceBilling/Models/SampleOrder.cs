@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DevExtremeAspNetCoreApp.Models {
+namespace FinanceBilling.Models {
     public class SampleOrder {
         public int OrderID { get; set; }
         public DateTime OrderDate { get; set; }
