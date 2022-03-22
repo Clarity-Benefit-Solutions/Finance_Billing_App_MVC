@@ -49,28 +49,28 @@
 
     @if (ViewBag.missingFile != null)
     {
-        <div class="col-md-5">
-            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+    <div class="col-md-5">
+        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
 
-            <div class="col-sm=12" style="padding-top: 11em; margin-left: 29px;">
-                <span class="alert-heading"><b>Please upload missing files:-</b></span>
-            </div>
-            <div class="col-sm-12">
-                <ul class="text-danger">
-                    @foreach (var modelSate in ViewBag.missingFile)
+        <div class="col-sm=12" style="padding-top: 11em; margin-left: 29px;">
+            <span class="alert-heading"><b>Please upload missing files:-</b></span>
+        </div>
+        <div class="col-sm-12">
+            <ul class="text-danger">
+                @foreach (var modelSate in ViewBag.missingFile)
                     {
-                        <li>@modelSate.FileName</li>
+                <li>@modelSate.FileName</li>
 
                     }
-                </ul>
-            </div>
+            </ul>
         </div>
+    </div>
     }
     else
     {
-        <div class="col-md-5">
-            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
-        </div>
+    <div class="col-md-5">
+        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+    </div>
     }
 </div>
 <!-- Modal -->
@@ -582,15 +582,28 @@
             <div class="modal-body">
 
                 @(Html.DevExtreme().DataGrid<FinanceBilling.Models.ErrorLogViewModels>()
-    .DataSource(Model.ErrorList,"ID")   )
+    .DataSource(Model.ErrorList,"ID")
+                .AllowColumnResizing(true)
+    .ColumnMinWidth(50)
+    .ColumnAutoWidth(true)
+    .ShowBorders(true)
+    .Columns(c => {
+        c.Add().DataField("MachineName");
+        c.Add().DataField("PackageName");
+        c.Add().DataField("TaskName");
+        c.Add().DataField("ErrorCode");
+        c.Add().DataField("ErrorDescription");
+                c.Add().DataField("Dated");
+    })
+                )
                 @*@if (ViewData.Model?.ErrorList != null)
-                {
-                    foreach (var errors in ViewData.Model.ErrorList)
                     {
-                        <div><span>@errors.ErrorCode</span> : <span>@errors.MachineName</span></div>
-                        <div><span>@errors.ErrorDescription</span></div>
-                    }
-                }*@
+                        foreach (var errors in ViewData.Model.ErrorList)
+                        {
+                            <div><span>@errors.ErrorCode</span> : <span>@errors.MachineName</span></div>
+                            <div><span>@errors.ErrorDescription</span></div>
+                        }
+                    }*@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
