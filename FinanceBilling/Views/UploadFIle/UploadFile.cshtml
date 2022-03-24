@@ -20,13 +20,14 @@
                 <form method="post" enctype="multipart/form-data" asp-controller="UploadFile" asp-action="UploadFile">
                     <div class="form-group">
                         <div class="col-md-10">
-                            <div class="drop-zone d-flex justify-content-center align-items-center">
-                                @*<img id="Logo" src="@logoImage" style="max-height:100%;max-width:100%;align-content:center;" />*@
-                                <span class="drop-zone-prompt">Drag and drop , Browse</span>
-                                @*<div style="visibility:hidden;">*@
-                                <input asp-for="UploadedFiles" type="file" id="file" class="drop-zone-input" onchange="readURL(this);" multiple />
-                                @*</div>*@
-                            </div>
+                            <!--<div class="drop-zone d-flex justify-content-center align-items-center">-->
+                            @*<img id="Logo" src="@logoImage" style="max-height:100%;max-width:100%;align-content:center;" />*@
+                            <!--<span class="drop-zone-prompt">Drag and drop , Browse</span>-->
+                            @*<div style="visibility:hidden;">*@
+                            <!--<input asp-for="UploadedFiles" type="file" id="file" class="drop-zone-input" onchange="readURL(this);" multiple />-->
+                            @*</div>*@
+                            <!--</div>-->
+                            <input type="file" asp-for="UploadedFiles" id="file" onchange="readURL(this);" multiple />
                             @*<input asp-for="UploadedFiles" multiple />*@
                         </div>
                     </div>
