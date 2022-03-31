@@ -33,9 +33,14 @@
                     </div>
                     <div class="form-group">
                         <div class="col-md-10">
-                            <input class="btn btn-success" id="Upload" type="submit" disabled value="Upload" /><br />
+                            <input class="btn btn-success" id="Upload" type="submit" disabled value="Upload" onclick="return UploadeFiles()" /><br />
                             <label id="msglabel" type="hidden">@ViewBag.Message</label>
 
+                        </div>
+                        <div class="progress" >
+                            <div id="pb" class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                                0%
+                            </div>
                         </div>
                     </div>
                 </form>
@@ -452,7 +457,7 @@
             </div>
         </div>
     </div>
-</div>
+
 
 <script>
 	$(function () {
@@ -564,11 +569,60 @@
         });
     });
 
+    /*file*/
+    function UploadeFiles() {
+        debugger;
+        var fileUpload = $("#file").get(0);
+        var files = fileUpload.files;
+        var data = new FormData();
+
+        for (var i = 0; i < files.length; i++) {
+            var fname = files[i].name;
+            var re = /(\.doc|\.docx|\.csv|\.txt)$/i;
+            if (!re.exec(fname)) {
+                alert("File extension not supported!");
+                return false;
+            }
+            else {
+                data.append("Files", files[i]);
+            }
+        }
+        $.ajax({
+            xhr: function () {
+                var xhr = new window.XMLHttpRequest();
+                xhr.upload.addEventListener("progress", function (e) {
+                    if (e.lengthComputable) {
+                        var loaded = e.loaded;
+                        var total = e.total;
+                        var percent = Math.round((loaded / total) * 100);
+
+                        $("#pb").attr("aria-valuenow", percent).css("width", percent + "%").text(percent + "%");
+                    };
+
+                });
+                return xhr;
+            },
+            type: "post",
+            url: "/UploadFIle/UploadFile",
+            data: data,
+            dataType: "json",
+            contentType: false,
+            processData: false,
+            cache: false,
+            success: function (ss) {
+                debugger
+                alert(ss);
+            }
+        });
+    };
+
     /**
      * Updates the thumbnail on a drop zone element.
      *
      *
      */
+
+
     function updateThumbnail(dropZoneElement, filelength) {
         let thumbnailElement = dropZoneElement.querySelector(".drop-zone__thumb");
 
@@ -620,4 +674,3 @@
 
 
 </script>
-
