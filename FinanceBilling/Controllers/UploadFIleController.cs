@@ -215,7 +215,8 @@ namespace FinanceBilling.Controllers
                 {
                     //guid = "6d3f3a9d-9dca-48b2-aa37-c01c4a0a8cde //For Testing
                     ViewBag.Message = "Failed To Upload File, Please check and try again.";
-                    var ErrorLogsByGuid = await _itblLoggingService.GetLoggingByGuid(guid);
+                    var ErrorLogsByGuid = await _itblLoggingService.GetLoggByGuid(guid);
+                   
                     List<TBLERRORLOGS> tblErrorLog = await _iErrorLogService.GetErrorLogsByGuId(guid);
 
                     //Check the errors in error table fetch and show to the end user.

@@ -75,10 +75,11 @@ namespace FinanceBillingData.Entities
         public virtual DbSet<ClientProductComparison> ClientProductComparisons { get; set; }
         public virtual DbSet<ClientToClientComparison> ClientToClientComparisons { get; set; }
 
-
+        public virtual DbSet<LogsByGuid> LogsByGuid { get;set;}
 
         public virtual DbSet<SpClientDropDownData> SpClientDropDownData { get; set; }
         public virtual DbSet<SpExcludeClientData> SpExcludeClientData { get; set; }
+        
 
         public virtual DbSet<TblQBClients> TblQBClients { get; set; }
 
@@ -3671,6 +3672,47 @@ namespace FinanceBillingData.Entities
                 entity.Property(e => e.ModifiedDate).HasColumnName("ModifiedDate");
             });
             OnModelCreatingPartial(modelBuilder);
+
+            ///////////////
+            modelBuilder.Entity<LogsByGuid>(entity => {
+                
+                entity.HasNoKey();
+                entity.ToView("PSP_GETLOGBYGUID");
+
+                entity.Property(e => e.Id)
+                .HasColumnName("Id");                       
+
+                entity.Property(e => e.PackageName)
+                    .HasColumnName("PackageName");
+
+                entity.Property(e => e.PackageId)
+                    .HasColumnName("PackageId");
+
+                entity.Property(e => e.Guid)
+                    .HasColumnName("Guid");
+
+                entity.Property(e => e.MachineName)
+                    .HasColumnName("MachineName");
+
+                entity.Property(e => e.UserName)
+                    .HasColumnName("UserName");
+
+                entity.Property(e => e.DataSource)
+                    .HasColumnName("DataSource");
+
+                entity.Property(e => e.StartDateTime)
+                    .HasColumnName("StartDateTime");
+
+                entity.Property(e => e.EndDateTime)
+                    .HasColumnName("EndDateTime");
+
+                entity.Property(e => e.NumRowsInserted)
+                    .HasColumnName("NumRowsInserted");
+
+                entity.Property(e => e.NumRowsNotInserted)
+                    .HasColumnName("NumRowsNotInserted");
+
+            });
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

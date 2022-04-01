@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FinanceBillingData.Entities
+namespace FinanceBillingModel.Models
 {
     public class EcExtractError
     {
