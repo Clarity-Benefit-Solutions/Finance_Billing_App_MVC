@@ -11,6 +11,6 @@ namespace FinanceBillingService.Interface
     {
         Task<TblLogging> GetTblLoggingByGUID(string guid);
         Task<TblLogging> GetLoggingByGuid(string guid);
-
+        Task<TblLogging> GetAllLoggingByGuid(string guid, int? logId);
     }
 }

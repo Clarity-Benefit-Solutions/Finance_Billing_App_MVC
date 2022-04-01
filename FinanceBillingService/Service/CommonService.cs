@@ -35,7 +35,7 @@ namespace FinanceBillingService.Service
             do
             {
                 await Task.Delay(1000 * sleepTime);
-                var data = await _tblLoggingRepository.GetLoggingByGuid(guid);
+                var data = await _tblLoggingRepository.GetTblLoggingByGUID(guid);
                 if (data.IsCompleted == true)
                 {
                     tblLogging = data;
