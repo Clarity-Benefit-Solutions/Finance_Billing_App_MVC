@@ -8,7 +8,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace FinanceBillingData.Repository
@@ -61,54 +60,82 @@ namespace FinanceBillingData.Repository
                     using (SqlDataReader rdr = cmd.ExecuteReader())
                     {
                         // iterate through results, printing each to console
-                        var dataTable = new DataTable();
-                        dataTable.Load(rdr);
+                        var dataTable1 = new DataTable();
+                        dataTable1.Load(rdr);
                         //Retrive First File Error
                         List<PlanDocReportError> planDocReportErrorList = new List<PlanDocReportError>();
-                        if (dataTable.Rows.Count > 0)
+                        if (dataTable1.Rows.Count > 0)
                         {
-                            var serializedMyObjects = JsonConvert.SerializeObject(dataTable);
+                            var serializedMyObjects = JsonConvert.SerializeObject(dataTable1);
                             // Here you get the object
                             planDocReportErrorList = (List<PlanDocReportError>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<PlanDocReportError>));
                         }
                         //Retrive 2nd File Error
+                        rdr.NextResult();
+                        // iterate through results, printing each to console
+                        var dataTable2 = new DataTable();
+                        dataTable2.Load(rdr);
+
                         List<PlanDocReportPriorError> planDocReportPriorErrorList = new List<PlanDocReportPriorError>();
-                        if (dataTable.Rows.Count > 0)
+                        if (dataTable2.Rows.Count > 0)
                         {
-                            var serializedMyObjects = JsonConvert.SerializeObject(dataTable);
+                            var serializedMyObjects = JsonConvert.SerializeObject(dataTable2);
                             // Here you get the object
                             planDocReportPriorErrorList = (List<PlanDocReportPriorError>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<PlanDocReportPriorError>));
                         }
+
                         //Retrive 3rd File Error
+                        rdr.NextResult();
+                        // iterate through results, printing each to console
+                        var dataTable3 = new DataTable();
+                        dataTable3.Load(rdr);
+
                         List<DebitCardSummeryError> debitCardSummeryErrorList = new List<DebitCardSummeryError>();
-                        if (dataTable.Rows.Count > 0)
+                        if (dataTable3.Rows.Count > 0)
                         {
-                            var serializedMyObjects = JsonConvert.SerializeObject(dataTable);
+                            var serializedMyObjects = JsonConvert.SerializeObject(dataTable3);
                             // Here you get the object
                             debitCardSummeryErrorList = (List<DebitCardSummeryError>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<DebitCardSummeryError>));
                         }
                         //Retrive 4th File Error
+                        rdr.NextResult();
+                        // iterate through results, printing each to console
+                        var dataTable4 = new DataTable();
+                        dataTable4.Load(rdr);
+
                         List<StaggingNpmError> staggingNpmErrorList = new List<StaggingNpmError>();
-                        if (dataTable.Rows.Count > 0)
+                        if (dataTable4.Rows.Count > 0)
                         {
-                            var serializedMyObjects = JsonConvert.SerializeObject(dataTable);
+                            var serializedMyObjects = JsonConvert.SerializeObject(dataTable4);
                             // Here you get the object
                             staggingNpmErrorList = (List<StaggingNpmError>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<StaggingNpmError>));
+
                         }
                         //Retrive 5th File Error
+                        rdr.NextResult();
+                        // iterate through results, printing each to console
+                        var dataTable5 = new DataTable();
+                        dataTable5.Load(rdr);
+
                         List<StaggingQbDetailError> staggingQbDetailErrorList = new List<StaggingQbDetailError>();
-                        if (dataTable.Rows.Count > 0)
+                        if (dataTable5.Rows.Count > 0)
                         {
-                            var serializedMyObjects = JsonConvert.SerializeObject(dataTable);
+                            var serializedMyObjects = JsonConvert.SerializeObject(dataTable5);
                             // Here you get the object
                             staggingQbDetailErrorList = (List<StaggingQbDetailError>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<StaggingQbDetailError>));
 
                         }
+
                         //Retrive 6th File Error
+                        rdr.NextResult();
+                        // iterate through results, printing each to console
+                        var dataTable6 = new DataTable();
+                        dataTable6.Load(rdr);
+
                         List<BrokerClientListError> brokerClientListErrorList = new List<BrokerClientListError>();
-                        if (dataTable.Rows.Count > 0)
+                        if (dataTable6.Rows.Count > 0)
                         {
-                            var serializedMyObjects = JsonConvert.SerializeObject(dataTable);
+                            var serializedMyObjects = JsonConvert.SerializeObject(dataTable6);
                             // Here you get the object
                             brokerClientListErrorList = (List<BrokerClientListError>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<BrokerClientListError>));
 

@@ -14,7 +14,7 @@ namespace FinanceBillingModel.Models
         public String? FirstName { get; set; }
         public String? LastName { get; set; }
         public String? MiddleInitial { get; set; }
-        public DateTime? DOB { get; set; }
+        public String? DOB { get; set; }
         public String? SSN { get; set; }
         public String? IndividualIdentifier { get; set; }
         public String? Gender { get; set; }
@@ -26,8 +26,8 @@ namespace FinanceBillingModel.Models
         public String? StateOrProvince { get; set; }
         public String? EIN { get; set; }
         public String? PlanName { get; set; }
-        public DateTime? PlanStartDate { get; set; }
-        public DateTime? PlanEndDate { get; set; }
+        public String? PlanStartDate { get; set; }
+        public String? PlanEndDate { get; set; }
         public String? TobaccoUse { get; set; }
         public String? CarrierName { get; set; }
         public String? InsuranceType { get; set; }
@@ -38,7 +38,7 @@ namespace FinanceBillingModel.Models
         public String? SpecificRightsProcessedDate { get; set; }
         public String? EventType { get; set; }
         public String? EventCategory { get; set; }
-        public DateTime? QualifyingEventDate { get; set; }
+        public String? QualifyingEventDate { get; set; }
         public String? UsesHealthCoverageTaxCredit { get; set; }
         public String? Status { get; set; }
         public DateTime? FirstDayOfCOBRA { get; set; }
