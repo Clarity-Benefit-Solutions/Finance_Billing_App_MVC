@@ -10,5 +10,7 @@ namespace FinanceBillingData.Interface
     {
         Task<List<TblErrorLog>> GetErrorLogs();
         Task<List<TBLERRORLOGS>> GetErrorLogsByLogId(long logId);
+        
+
     }
 }

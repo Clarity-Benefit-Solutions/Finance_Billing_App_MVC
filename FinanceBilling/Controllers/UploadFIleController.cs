@@ -16,6 +16,7 @@ using FinanceBillingData.Entities;
 using FinanceBillingService.Interface;
 using FinanceBilling.Models;
 using AutoMapper;
+using FinanceBillingService.Service;
 
 namespace FinanceBilling.Controllers
 {
@@ -32,13 +33,16 @@ namespace FinanceBilling.Controllers
         private readonly IClientService _iclientService;
         private readonly IMapper _mapper;
         private readonly IAnalyticsService _iAnalyticsService;
+        private readonly ITblLoggingService _itblLoggingService;
 
         public UploadFIleController(IMapper mapper, IHostingEnvironment env, IConfiguration config, IFileNameRepository iFileNameRepository,
             IErrorLogService iErrorLogService, ILoggingdbRepository iLoggingdbRepository,
             ICommonService iCommonService
             //, IUploadService iUploadService
             , IClientService iclientService
-            , IAnalyticsService iAnalyticsService)
+            , IAnalyticsService iAnalyticsService
+            , ITblLoggingService itblLoggingService
+            )
         {
             _env = env;
             _config = config;
@@ -50,6 +54,7 @@ namespace FinanceBilling.Controllers
             _iAnalyticsService = iAnalyticsService;
             _mapper = mapper;
             _iLoggingdbRepository = iLoggingdbRepository;
+            _itblLoggingService = itblLoggingService;
         }
 
 
@@ -210,6 +215,7 @@ namespace FinanceBilling.Controllers
                 {
                     //guid = "6d3f3a9d-9dca-48b2-aa37-c01c4a0a8cde //For Testing
                     ViewBag.Message = "Failed To Upload File, Please check and try again.";
+                    var ErrorLogsByGuid = await _itblLoggingService.GetLoggingByGuid(guid);
                     List<TBLERRORLOGS> tblErrorLog = await _iErrorLogService.GetErrorLogsByGuId(guid);
 
                     //Check the errors in error table fetch and show to the end user.

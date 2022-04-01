@@ -10,5 +10,7 @@ namespace FinanceBillingService.Interface
     public interface ITblLoggingService
     {
         Task<TblLogging> GetTblLoggingByGUID(string guid);
-        }
+        Task<TblLogging> GetLoggingByGuid(string guid);
+
+    }
 }

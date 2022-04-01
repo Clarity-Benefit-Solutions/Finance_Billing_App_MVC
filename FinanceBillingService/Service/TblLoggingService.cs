@@ -16,6 +16,13 @@ namespace FinanceBillingService.Service
         {
             _tblLoggingRepository = tblLoggingRepository;
         }
+
+        public async Task<TblLogging> GetLoggingByGuid(string guid)
+        {
+            return await _tblLoggingRepository.GetLoggingByGuid(guid);
+
+        }
+
         public async Task<TblLogging> GetTblLoggingByGUID(string guid)
         {
             return await  _tblLoggingRepository.GetTblLoggingByGUID(guid);
