@@ -1,4 +1,5 @@
 ﻿using FinanceBillingData.Entities;
+using FinanceBillingModel.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,6 @@ namespace FinanceBillingData.Interface
     public interface ITblLoggingRepository
     {
         Task<TblLogging> GetTblLoggingByGUID(string guid);
-        //Task<TblLogging> GetLoggingByGuid(string guid);
-        Task<TblLogging> GetAllLoggingByGuid(string guid, int? logId);
+        Task<UploadFileErrorModel> GetAllLoggingByGuid(string guid, int? logId);
     }
 }

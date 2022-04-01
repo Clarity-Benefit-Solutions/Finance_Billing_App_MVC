@@ -8,19 +8,19 @@ namespace FinanceBillingModel.Models
 {
     public class UploadFileErrorModel
     {
-        public List<BrokerClientListError> BrokerClientListErrors { get; set; }
-        public List<SwiftBillingNumImportError> SwiftBillingNumImportErrors { get; set; }
-        public List<StaggingQbDetailError> StaggingQbDetailErrors { get; set; }
-        public List<StaggingNpmError> StaggingNpmErrors { get; set; }
-        public List<SpabyacareportError> SpabyacareportErrors { get; set; }
-        public List<PlanDocReportPriorError> PlanDocReportPriorErrors { get; set; }
-        public List<PlanDocReportError> PlanDocReportErrors { get; set; }
-        public List<EmployeeNavImportError> EmployeeNavImportErrors { get; set; }
-        public List<EcExtractError> EcExtractErrors { get; set; }
-        public List<EbExtractError> EbExtractErrors { get; set; }
-        public List<DebitCardSummeryError> DebitCardSummeryErrors { get; set; }
-        public List<CobraLettersError> CobraLettersErrors { get; set; }
-        public List<ClientListError> ClientListErrors { get; set; }
+        public List<BrokerClientListError> BrokerClientListErrorsList { get; set; }
+        public List<SwiftBillingNumImportError> SwiftBillingNumImportErrorsList { get; set; }
+        public List<StaggingQbDetailError> StaggingQbDetailErrorsList { get; set; }
+        public List<StaggingNpmError> StaggingNpmErrorsList { get; set; }
+        public List<SpabyacareportError> SpabyacareportErrorsList { get; set; }
+        public List<PlanDocReportPriorError> PlanDocReportPriorErrorsList { get; set; }
+        public List<PlanDocReportError> PlanDocReportErrorsList { get; set; }
+        public List<EmployeeNavImportError> EmployeeNavImportErrorsList { get; set; }
+        public List<EcExtractError> EcExtractErrorsList { get; set; }
+        public List<EbExtractError> EbExtractErrorsList { get; set; }
+        public List<DebitCardSummeryError> DebitCardSummeryErrorsList { get; set; }
+        public List<CobraLettersError> CobraLettersErrorsList { get; set; }
+        public List<ClientListError> ClientListErrorsList { get; set; }
 
     }
 }

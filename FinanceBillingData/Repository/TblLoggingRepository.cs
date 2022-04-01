@@ -32,8 +32,9 @@ namespace FinanceBillingData.Repository
             return tblLogging;
         }
 
-        public async Task<TblLogging> GetAllLoggingByGuid(string guid, int? logId)
+        public async Task<UploadFileErrorModel> GetAllLoggingByGuid(string guid, int? logId)
         {
+            UploadFileErrorModel uploadFileErrorModel = new UploadFileErrorModel();
             try
             {
                 string SqlconString = _config.GetConnectionString("SqlConnectionString");
@@ -63,92 +64,173 @@ namespace FinanceBillingData.Repository
                         var dataTable1 = new DataTable();
                         dataTable1.Load(rdr);
                         //Retrive First File Error
-                        List<PlanDocReportError> planDocReportErrorList = new List<PlanDocReportError>();
                         if (dataTable1.Rows.Count > 0)
                         {
                             var serializedMyObjects = JsonConvert.SerializeObject(dataTable1);
                             // Here you get the object
-                            planDocReportErrorList = (List<PlanDocReportError>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<PlanDocReportError>));
+                            uploadFileErrorModel.PlanDocReportErrorsList = (List<PlanDocReportError>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<PlanDocReportError>));
                         }
                         //Retrive 2nd File Error
-                        rdr.NextResult();
+                        //rdr.NextResult();
                         // iterate through results, printing each to console
                         var dataTable2 = new DataTable();
                         dataTable2.Load(rdr);
-
-                        List<PlanDocReportPriorError> planDocReportPriorErrorList = new List<PlanDocReportPriorError>();
                         if (dataTable2.Rows.Count > 0)
                         {
                             var serializedMyObjects = JsonConvert.SerializeObject(dataTable2);
                             // Here you get the object
-                            planDocReportPriorErrorList = (List<PlanDocReportPriorError>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<PlanDocReportPriorError>));
+                            uploadFileErrorModel.PlanDocReportPriorErrorsList = (List<PlanDocReportPriorError>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<PlanDocReportPriorError>));
                         }
 
                         //Retrive 3rd File Error
-                        rdr.NextResult();
+                        ////rdr.NextResult();
                         // iterate through results, printing each to console
                         var dataTable3 = new DataTable();
                         dataTable3.Load(rdr);
-
-                        List<DebitCardSummeryError> debitCardSummeryErrorList = new List<DebitCardSummeryError>();
                         if (dataTable3.Rows.Count > 0)
                         {
                             var serializedMyObjects = JsonConvert.SerializeObject(dataTable3);
                             // Here you get the object
-                            debitCardSummeryErrorList = (List<DebitCardSummeryError>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<DebitCardSummeryError>));
+                            uploadFileErrorModel.DebitCardSummeryErrorsList = (List<DebitCardSummeryError>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<DebitCardSummeryError>));
                         }
+
                         //Retrive 4th File Error
-                        rdr.NextResult();
+                        //rdr.NextResult();
                         // iterate through results, printing each to console
                         var dataTable4 = new DataTable();
                         dataTable4.Load(rdr);
-
-                        List<StaggingNpmError> staggingNpmErrorList = new List<StaggingNpmError>();
                         if (dataTable4.Rows.Count > 0)
                         {
                             var serializedMyObjects = JsonConvert.SerializeObject(dataTable4);
                             // Here you get the object
-                            staggingNpmErrorList = (List<StaggingNpmError>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<StaggingNpmError>));
+                            uploadFileErrorModel.StaggingNpmErrorsList = (List<StaggingNpmError>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<StaggingNpmError>));
 
                         }
+
                         //Retrive 5th File Error
-                        rdr.NextResult();
+                        //rdr.NextResult();
                         // iterate through results, printing each to console
                         var dataTable5 = new DataTable();
                         dataTable5.Load(rdr);
-
-                        List<StaggingQbDetailError> staggingQbDetailErrorList = new List<StaggingQbDetailError>();
                         if (dataTable5.Rows.Count > 0)
                         {
                             var serializedMyObjects = JsonConvert.SerializeObject(dataTable5);
                             // Here you get the object
-                            staggingQbDetailErrorList = (List<StaggingQbDetailError>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<StaggingQbDetailError>));
+                            uploadFileErrorModel.StaggingQbDetailErrorsList = (List<StaggingQbDetailError>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<StaggingQbDetailError>));
 
                         }
 
                         //Retrive 6th File Error
-                        rdr.NextResult();
+                        //rdr.NextResult();
                         // iterate through results, printing each to console
                         var dataTable6 = new DataTable();
                         dataTable6.Load(rdr);
-
-                        List<BrokerClientListError> brokerClientListErrorList = new List<BrokerClientListError>();
                         if (dataTable6.Rows.Count > 0)
                         {
                             var serializedMyObjects = JsonConvert.SerializeObject(dataTable6);
                             // Here you get the object
-                            brokerClientListErrorList = (List<BrokerClientListError>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<BrokerClientListError>));
+                            uploadFileErrorModel.BrokerClientListErrorsList = (List<BrokerClientListError>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<BrokerClientListError>));
+
+                        }
+
+                        //Retrive 7th File Error
+                        //rdr.NextResult();
+                        // iterate through results, printing each to console
+                        var dataTable7 = new DataTable();
+                        dataTable7.Load(rdr);
+                        if (dataTable7.Rows.Count > 0)
+                        {
+                            var serializedMyObjects = JsonConvert.SerializeObject(dataTable7);
+                            // Here you get the object
+                            uploadFileErrorModel.ClientListErrorsList = (List<ClientListError>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<ClientListError>));
+
+                        }
+
+                        //Retrive 8th File Error
+                        //rdr.NextResult();
+                        // iterate through results, printing each to console
+                        var dataTable8 = new DataTable();
+                        dataTable8.Load(rdr);
+                        if (dataTable8.Rows.Count > 0)
+                        {
+                            var serializedMyObjects = JsonConvert.SerializeObject(dataTable8);
+                            // Here you get the object
+                            uploadFileErrorModel.CobraLettersErrorsList = (List<CobraLettersError>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<CobraLettersError>));
+
+                        }
+
+                        //Retrive 9th File Error
+                        //rdr.NextResult();
+                        // iterate through results, printing each to console
+                        var dataTable9 = new DataTable();
+                        dataTable9.Load(rdr);
+                        if (dataTable9.Rows.Count > 0)
+                        {
+                            var serializedMyObjects = JsonConvert.SerializeObject(dataTable9);
+                            // Here you get the object
+                            uploadFileErrorModel.SwiftBillingNumImportErrorsList = (List<SwiftBillingNumImportError>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<SwiftBillingNumImportError>));
+
+                        }
+
+                        //Retrive 10th File Error
+                        //rdr.NextResult();
+                        // iterate through results, printing each to console
+                        var dataTable10 = new DataTable();
+                        dataTable10.Load(rdr);
+                        if (dataTable10.Rows.Count > 0)
+                        {
+                            var serializedMyObjects = JsonConvert.SerializeObject(dataTable10);
+                            // Here you get the object
+                            uploadFileErrorModel.EmployeeNavImportErrorsList = (List<EmployeeNavImportError>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<EmployeeNavImportError>));
+
+                        }
+
+                        //Retrive 11th File Error
+                        //rdr.NextResult();
+                        // iterate through results, printing each to console
+                        var dataTable11 = new DataTable();
+                        dataTable11.Load(rdr);
+                        if (dataTable11.Rows.Count > 0)
+                        {
+                            var serializedMyObjects = JsonConvert.SerializeObject(dataTable11);
+                            // Here you get the object
+                            uploadFileErrorModel.EcExtractErrorsList = (List<EcExtractError>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<EcExtractError>));
+
+                        }
+
+                        //Retrive 12th File Error
+                        //rdr.NextResult();
+                        // iterate through results, printing each to console
+                        var dataTable12 = new DataTable();
+                        dataTable12.Load(rdr);
+                        if (dataTable12.Rows.Count > 0)
+                        {
+                            var serializedMyObjects = JsonConvert.SerializeObject(dataTable12);
+                            // Here you get the object
+                            uploadFileErrorModel.EbExtractErrorsList = (List<EbExtractError>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<EbExtractError>));
+
+                        }
+
+                        //Retrive 13th File Error
+                        //rdr.NextResult();
+                        // iterate through results, printing each to console
+                        var dataTable13 = new DataTable();
+                        dataTable13.Load(rdr);
+                        if (dataTable13.Rows.Count > 0)
+                        {
+                            var serializedMyObjects = JsonConvert.SerializeObject(dataTable13);
+                            // Here you get the object
+                            uploadFileErrorModel.SpabyacareportErrorsList = (List<SpabyacareportError>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<SpabyacareportError>));
 
                         }
                     }
                 }
-                return tblLoggingList.FirstOrDefault();
             }
             catch (Exception ex)
             {
-
                 throw;
             }
+            return uploadFileErrorModel;
         }
     }
 }

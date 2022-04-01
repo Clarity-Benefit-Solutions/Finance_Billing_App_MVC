@@ -1,5 +1,6 @@
 ﻿using FinanceBillingData.Entities;
 using FinanceBillingData.Interface;
+using FinanceBillingModel.Models;
 using FinanceBillingService.Interface;
 using System;
 using System.Collections.Generic;
@@ -27,7 +28,7 @@ namespace FinanceBillingService.Service
             return await  _tblLoggingRepository.GetTblLoggingByGUID(guid);
         }
 
-        public async Task<TblLogging> GetAllLoggingByGuid(string guid, int? logId)
+        public async Task<UploadFileErrorModel> GetAllLoggingByGuid(string guid, int? logId)
         {
             return await _tblLoggingRepository.GetAllLoggingByGuid(guid, logId);
         }

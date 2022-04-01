@@ -17,6 +17,7 @@ using FinanceBillingService.Interface;
 using FinanceBilling.Models;
 using AutoMapper;
 using FinanceBillingService.Service;
+using FinanceBillingModel.Models;
 
 namespace FinanceBilling.Controllers
 {
@@ -61,7 +62,7 @@ namespace FinanceBilling.Controllers
         [HttpGet]
         public IActionResult UploadFile()
         {
-            TblLogging TblLogging = _itblLoggingService.GetAllLoggingByGuid("22fffadb-e6e1-4c62-a785-aa04edb65da0", 927).Result ;
+            UploadFileErrorModel uploadFileErrorModel = _itblLoggingService.GetAllLoggingByGuid("22fffadb-e6e1-4c62-a785-aa04edb65da0", 927).Result ;
             UploadFile uploadFile = new UploadFile();
             uploadFile.NewClientViewModels = new List<NewClientViewModel>();
             uploadFile.ExistingClients = new List<ExistingClient>();
