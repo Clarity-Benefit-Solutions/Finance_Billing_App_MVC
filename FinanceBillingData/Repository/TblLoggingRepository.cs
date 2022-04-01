@@ -1,7 +1,9 @@
 ﻿using FinanceBillingData.Entities;
 using FinanceBillingData.Interface;
+using FinanceBillingModel.Models;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -31,79 +33,95 @@ namespace FinanceBillingData.Repository
             return tblLogging;
         }
 
-
-        public async Task<TblLogging> GetLoggingByGuid(string guid)
+        public async Task<TblLogging> GetAllLoggingByGuid(string guid, int? logId)
         {
-            string SqlconString = _config.GetConnectionString("SqlConnectionString");
-            List<TblLogging> tblLoggingList = new List<TblLogging>();
-            using (SqlConnection conn = new SqlConnection(SqlconString))
+            try
             {
-                conn.Open();
-
-                // 1.  create a command object identifying the stored procedure
-                SqlCommand cmd = new SqlCommand("SPS_GET_TBL_LOGGING_GUID", conn);
-
-                // 2. set the command object so it knows to execute a stored procedure
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                // 3. add parameter to command, which will be passed to the stored procedure
-                cmd.Parameters.Add(new SqlParameter("@GUID", guid));
-
-
-                // execute the command
-                using (SqlDataReader rdr = cmd.ExecuteReader())
+                string SqlconString = _config.GetConnectionString("SqlConnectionString");
+                List<TblLogging> tblLoggingList = new List<TblLogging>();
+                using (SqlConnection conn = new SqlConnection(SqlconString))
                 {
-                    // iterate through results, printing each to console
-                    while (rdr.Read())
+                    conn.Open();
+
+                    // 1.  create a command object identifying the stored procedure
+                    SqlCommand cmd = new SqlCommand("PSP_GETERRORDETAILBYGUIDANDPACKAGE", conn);
+
+                    // 2. set the command object so it knows to execute a stored procedure
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    // 3. add parameter to command, which will be passed to the stored procedure
+                    cmd.Parameters.Add(new SqlParameter("@GUID", guid));
+                    cmd.Parameters.Add(new SqlParameter("@ID", logId));
+
+                    List<PlanDocReportError> planDoRepErrorList = new List<PlanDocReportError>();
+                    // execute the command
+
+
+
+                    using (SqlDataReader rdr = cmd.ExecuteReader())
                     {
-                        TblLogging tblLogging = new TblLogging();
-                        tblLogging.Id = Convert.ToInt32(rdr["Id"]);
-                        tblLogging.PackageName = Convert.ToString(rdr["PackageName"]);
-                        tblLogging.PackageId = Convert.ToString(rdr["PackageId"]);
-                        tblLogging.Guid = Convert.ToString(rdr["Guid"]);
-                        tblLogging.MachineName = Convert.ToString(rdr["MachineName"]);
-                        tblLogging.UserName = Convert.ToString(rdr["UserName"]);
-                        tblLogging.DataSource = Convert.ToString(rdr["DataSource"]);
-                        if (!DBNull.Value.Equals(rdr["StartDateTime"])) {
-                            tblLogging.StartDateTime = Convert.ToDateTime(rdr["StartDateTime"]);
-                        }
-                        if (!DBNull.Value.Equals(rdr["EndDateTime"]))
+                        // iterate through results, printing each to console
+                        var dataTable = new DataTable();
+                        dataTable.Load(rdr);
+                        //Retrive First File Error
+                        List<PlanDocReportError> planDocReportErrorList = new List<PlanDocReportError>();
+                        if (dataTable.Rows.Count > 0)
                         {
-                                tblLogging.EndDateTime = Convert.ToDateTime(rdr["EndDateTime"]);
+                            var serializedMyObjects = JsonConvert.SerializeObject(dataTable);
+                            // Here you get the object
+                            planDocReportErrorList = (List<PlanDocReportError>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<PlanDocReportError>));
                         }
-                        if (!DBNull.Value.Equals(rdr["NumRowsInserted"]))
+                        //Retrive 2nd File Error
+                        List<PlanDocReportPriorError> planDocReportPriorErrorList = new List<PlanDocReportPriorError>();
+                        if (dataTable.Rows.Count > 0)
                         {
-                            tblLogging.NumRowsInserted = Convert.ToInt32(rdr["NumRowsInserted"]);
+                            var serializedMyObjects = JsonConvert.SerializeObject(dataTable);
+                            // Here you get the object
+                            planDocReportPriorErrorList = (List<PlanDocReportPriorError>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<PlanDocReportPriorError>));
                         }
-                        if (!DBNull.Value.Equals(rdr["NumRowsUpdated"]))
+                        //Retrive 3rd File Error
+                        List<DebitCardSummeryError> debitCardSummeryErrorList = new List<DebitCardSummeryError>();
+                        if (dataTable.Rows.Count > 0)
                         {
-                            tblLogging.NumRowsUpdated = Convert.ToInt32(rdr["NumRowsUpdated"]);
+                            var serializedMyObjects = JsonConvert.SerializeObject(dataTable);
+                            // Here you get the object
+                            debitCardSummeryErrorList = (List<DebitCardSummeryError>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<DebitCardSummeryError>));
                         }
-                        if (!DBNull.Value.Equals(rdr["NumRowsDeleted"]))
+                        //Retrive 4th File Error
+                        List<StaggingNpmError> staggingNpmErrorList = new List<StaggingNpmError>();
+                        if (dataTable.Rows.Count > 0)
                         {
-                            tblLogging.NumRowsDeleted = Convert.ToInt32(rdr["NumRowsDeleted"]);
+                            var serializedMyObjects = JsonConvert.SerializeObject(dataTable);
+                            // Here you get the object
+                            staggingNpmErrorList = (List<StaggingNpmError>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<StaggingNpmError>));
                         }
-                        if (!DBNull.Value.Equals(rdr["NumRowsTotal"]))
+                        //Retrive 5th File Error
+                        List<StaggingQbDetailError> staggingQbDetailErrorList = new List<StaggingQbDetailError>();
+                        if (dataTable.Rows.Count > 0)
                         {
-                            tblLogging.NumRowsTotal = Convert.ToInt32(rdr["NumRowsTotal"]);
+                            var serializedMyObjects = JsonConvert.SerializeObject(dataTable);
+                            // Here you get the object
+                            staggingQbDetailErrorList = (List<StaggingQbDetailError>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<StaggingQbDetailError>));
+
                         }
-                        if (!DBNull.Value.Equals(rdr["IsSuccess"]))
+                        //Retrive 6th File Error
+                        List<BrokerClientListError> brokerClientListErrorList = new List<BrokerClientListError>();
+                        if (dataTable.Rows.Count > 0)
                         {
-                            tblLogging.IsSuccess = Convert.ToBoolean(rdr["IsSuccess"]);
+                            var serializedMyObjects = JsonConvert.SerializeObject(dataTable);
+                            // Here you get the object
+                            brokerClientListErrorList = (List<BrokerClientListError>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<BrokerClientListError>));
+
                         }
-                        if (!DBNull.Value.Equals(rdr["IsFailed"]))
-                        {
-                            tblLogging.IsFailed = Convert.ToBoolean(rdr["IsFailed"]);
-                        }
-                        if (!DBNull.Value.Equals(rdr["IsCompleted"]))
-                        {
-                            tblLogging.IsCompleted = Convert.ToBoolean(rdr["IsCompleted"]);
-                        }
-                        tblLoggingList.Add(tblLogging);
                     }
                 }
+                return tblLoggingList.FirstOrDefault();
             }
-            return tblLoggingList.FirstOrDefault();
+            catch (Exception ex)
+            {
+
+                throw;
+            }
         }
     }
 }

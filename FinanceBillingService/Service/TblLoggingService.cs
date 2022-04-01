@@ -17,19 +17,19 @@ namespace FinanceBillingService.Service
             _tblLoggingRepository = tblLoggingRepository;
         }
 
-        public async Task<List<LogsByGuid>> GetLoggByGuid(string guid)
+        public async Task<TblLogging> GetTblLoggingByGUID(string guid)
         {
-            return await _tblLoggingRepository.GetLoggByGuid(guid);
+            return await _tblLoggingRepository.GetTblLoggingByGUID(guid);
         }
 
-        public async Task<TblLogging> GetTblLoggingByGUID(string guid)
+        public async Task<TblLogging> GetLoggingByGuid(string guid)
         {
             return await  _tblLoggingRepository.GetTblLoggingByGUID(guid);
         }
 
-        Task<TblLogging> ITblLoggingService.GetLoggingByGuid(string guid)
+        public async Task<TblLogging> GetAllLoggingByGuid(string guid, int? logId)
         {
-            throw new NotImplementedException();
+            return await _tblLoggingRepository.GetAllLoggingByGuid(guid, logId);
         }
     }
 }
