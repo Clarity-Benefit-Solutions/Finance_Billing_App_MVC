@@ -17,7 +17,7 @@ namespace FinanceBillingData.Entities
         public string? ErrorCode { get; set; }
         public string? ErrorColumn { get; set; }
         public long? LoggingDbId { get; set; }
-        public string? Description { get; set; }
+        //public string? Description { get; set; }
 
 
 
