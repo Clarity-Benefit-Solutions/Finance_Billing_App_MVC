@@ -31,22 +31,24 @@ namespace FinanceBillingService.Service
             DateTime currentTime = DateTime.Now;
             DateTime MinsLater = currentTime.AddMinutes(intervalTime);
             TblLogging tblLogging = new TblLogging();
-            await Task.Delay(10000 * sleepTime / 2);
+            await Task.Delay(1000 * sleepTime / 2);
             do
             {
-                await Task.Delay(1000 * sleepTime);
-                var data = await _tblLoggingRepository.GetTblLoggingByGUID(guid);
+                currentTime = DateTime.Now;
+                await Task.Delay(10000 * sleepTime);
+                var data = await _tblLoggingRepository.GetStatusById(guid);
+               // var test = await _tblLoggingRepository.GetStatusById((int)data.Id);
                 if (data.IsCompleted == true)
                 {
                     tblLogging = data;
                     break;
                 }
-
+                 
             } while (currentTime <= MinsLater);
 
             if (tblLogging.IsSuccess == true)
             {
-                return true;
+                return false;
             }
             else
             {

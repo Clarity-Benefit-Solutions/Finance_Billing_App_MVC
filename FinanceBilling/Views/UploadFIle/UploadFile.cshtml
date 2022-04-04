@@ -85,7 +85,7 @@
     <span style="font-weight: bolder; font-size: 21px; color: #2d5592; ">
       Display Error:
     </span>
-    @if (uploadFileErrors != null)
+    @if (Model.UploadFileErrorModels != null)
     {
         <div class="accordion-item" style="margin-top: 18px;">
                 <h2 class="accordion-header" id="flush-headingOne">
@@ -1456,7 +1456,8 @@
 
 
             ////
-            @(Html.DevExtreme().DataGrid<FinanceBilling.Models.ErrorLogViewModels>()
+          //commented
+            @*@(Html.DevExtreme().DataGrid<FinanceBilling.Models.ErrorLogViewModels>()
     .DataSource(Model.ErrorList,"ID")
                 .AllowColumnResizing(true)
     .ColumnMinWidth(50)
@@ -1470,7 +1471,7 @@
         c.Add().DataField("ErrorDescription");
                 c.Add().DataField("Dated");
     })
-                )
+                )*@
             @*@if (ViewData.Model?.ErrorList != null)
                 {
                         foreach (var errors in ViewData.Model.ErrorList)
@@ -1490,16 +1491,16 @@
 
 
 <script>
-	$(function () {
-		$("#accordionContainer").dxAccordion({
-			dataSource: accordionData,
-			itemTemplate: function (itemData, itemIndex, itemElement) {
-				for (var field in itemData) {
-					itemElement.append("<p>" + field + ": " + itemData[field] + "</p>");
-				}
-			}
-		});
-	});
+	//$(function () {
+	//	$("#accordionContainer").dxAccordion({
+	//		dataSource: accordionData,
+	//		itemTemplate: function (itemData, itemIndex, itemElement) {
+	//			for (var field in itemData) {
+	//				itemElement.append("<p>" + field + ": " + itemData[field] + "</p>");
+	//			}
+	//		}
+	//	});
+	//});
 
 
 	$(document).ready(function () {

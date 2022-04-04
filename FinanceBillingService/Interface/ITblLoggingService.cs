@@ -13,5 +13,8 @@ namespace FinanceBillingService.Interface
         Task<TblLogging> GetTblLoggingByGUID(string guid);
         Task<TblLogging> GetLoggingByGuid(string guid);
         Task<UploadFileErrorModel> GetAllLoggingByGuid(string guid, int? logId);
+
+        Task<List<TblLogging>> GetLogsForAccordion(string guid);
+
     }
 }
