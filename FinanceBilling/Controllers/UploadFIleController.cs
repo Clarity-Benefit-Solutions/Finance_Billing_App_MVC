@@ -63,6 +63,8 @@ namespace FinanceBilling.Controllers
         public IActionResult UploadFile()
         {
             UploadFileErrorModel uploadFileErrorModel = _itblLoggingService.GetAllLoggingByGuid("22fffadb-e6e1-4c62-a785-aa04edb65da0", 927).Result ;
+            //  ViewData["uploadFileErrorModel"] = uploadFileErrorModel;
+            ViewBag.uploadFileErrorModel = uploadFileErrorModel;
             UploadFile uploadFile = new UploadFile();
             uploadFile.NewClientViewModels = new List<NewClientViewModel>();
             uploadFile.ExistingClients = new List<ExistingClient>();
@@ -70,7 +72,8 @@ namespace FinanceBilling.Controllers
             uploadFile.clientToClientViewModels = new List<ClientToClientViewModel>();
             uploadFile.clientToProductViewModels = new List<ClientToProductViewModel>();
             uploadFile.ClientViewModels = new List<ClientViewModel>();
-
+            
+            
 
             return View(uploadFile);
         }
