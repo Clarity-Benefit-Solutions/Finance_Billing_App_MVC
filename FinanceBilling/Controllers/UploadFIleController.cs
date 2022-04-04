@@ -62,9 +62,7 @@ namespace FinanceBilling.Controllers
         [HttpGet]
         public IActionResult UploadFile()
         {
-            UploadFileErrorModel uploadFileErrorModel = _itblLoggingService.GetAllLoggingByGuid("22fffadb-e6e1-4c62-a785-aa04edb65da0", 927).Result ;
-            //  ViewData["uploadFileErrorModel"] = uploadFileErrorModel;
-            ViewBag.uploadFileErrorModel = uploadFileErrorModel;
+           
             UploadFile uploadFile = new UploadFile();
             uploadFile.NewClientViewModels = new List<NewClientViewModel>();
             uploadFile.ExistingClients = new List<ExistingClient>();
@@ -72,8 +70,8 @@ namespace FinanceBilling.Controllers
             uploadFile.clientToClientViewModels = new List<ClientToClientViewModel>();
             uploadFile.clientToProductViewModels = new List<ClientToProductViewModel>();
             uploadFile.ClientViewModels = new List<ClientViewModel>();
-            
-            
+            uploadFile.UploadFileErrorModels = new List<UploadFileErrorModel>();
+
 
             return View(uploadFile);
         }
@@ -220,7 +218,8 @@ namespace FinanceBilling.Controllers
                     //guid = "6d3f3a9d-9dca-48b2-aa37-c01c4a0a8cde //For Testing
                     ViewBag.Message = "Failed To Upload File, Please check and try again.";
                     var ErrorLogsByGuid = await _itblLoggingService.GetLoggingByGuid(guid);
-                   
+                    UploadFileErrorModel uploadFileErrorModel = _itblLoggingService.GetAllLoggingByGuid(guid, (int?)ErrorLogsByGuid.Id).Result;
+                    _mapper.Map(uploadFileErrorModel, uploadFile.UploadFileErrorModels);
                     List<TBLERRORLOGS> tblErrorLog = await _iErrorLogService.GetErrorLogsByGuId(guid);
 
                     //Check the errors in error table fetch and show to the end user.
