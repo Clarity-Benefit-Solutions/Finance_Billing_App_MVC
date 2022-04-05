@@ -190,7 +190,7 @@ namespace FinanceBilling.Controllers
                 for (int i = 0; i < Request.Form.Files.Count; i++)
                 {
                     filePath = Path.Combine(rootpath, Request.Form.Files[i].FileName);
-                    using (Stream fileStream = new FileStream(filePath, FileMode.Create, FileAccess.Write))
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create, FileAccess.ReadWrite, FileShare.Read))
                     {
                         Request.Form.Files[i].CopyTo(fileStream);
                     }
