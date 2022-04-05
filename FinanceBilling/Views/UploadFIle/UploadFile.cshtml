@@ -78,11 +78,9 @@
         </div>
     }
 </div>
-
-<!--display error by guid-->
 <hr />
-<div class="accordion accordion-flush" id="errorDisplayFlush" style="width:100%;margin-top:17px;">
-
+<!--display error by guid-->
+<div class="accordion" id="ErrorFileDisplay" style="width:100%;margin-top:17px;">
     @if (Model.UploadFileErrorModels != null)
     {
         <span style="font-weight: bolder; font-size: 21px; color: #2d5592; ">
@@ -95,15 +93,18 @@
                 if (uploadFileErrors.BrokerClientListErrorsList != null)
                 {
 
-                    <div class="accordion-item" style="margin-top: 18px;">
-                        <h2 class="accordion-header" id="flush-headingOne">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                                Broker Client Errors List
-                            </button>
-                        </h2>
-                        <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#errorDisplayFlush">
-                            <div class="accordion-body">
-                               <table class="table table-striped">
+                    <div class="card" style="margin-top: 10px;">
+                        <div class="card-header" id="headingOne">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    Broker Client Errors List
+                                </button>
+                            </h2>
+                        </div>
+
+                        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#ErrorFileDisplay">
+                            <div class="card-body" id="accordion-table">
+                                <table class="table table-striped">
                                     <tr>
                                         <th>Error Code</th>
                                         <th>Error Column</th>
@@ -138,21 +139,24 @@
                             </div>
                         </div>
                     </div>
+
                 }
             }
             @if (uploadFileErrors != null)
             {
                 @if (uploadFileErrors.ClientListErrorsList != null)
                 {
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="flush-headingTwo">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                                Client Errors List
-                            </button>
-                        </h2>
-                        <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#errorDisplayFlush">
-                            <div class="accordion-body">
-                               <table class="table table-striped">
+                    <div class="card">
+                        <div class="card-header" id="headingTwo">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    Client Errors List
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#ErrorFileDisplay">
+                            <div class="card-body" id="accordion-table">
+                                <table class="table table-striped">
                                     <tr>
                                         <th>Error Code</th>
                                         <th>Error Column</th>
@@ -190,19 +194,22 @@
                     </div>
                 }
             }
+
             @if (uploadFileErrors != null)
             {
                 if (uploadFileErrors.CobraLettersErrorsList != null)
                 {
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="flush-headingThree">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-                                Cobra Letters Errors List
-                            </button>
-                        </h2>
-                        <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#errorDisplayFlush">
-                            <div class="accordion-body">
-                               <table class="table table-striped">
+                    <div class="card">
+                        <div class="card-header" id="headingThree">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    Cobra Letters Errors List
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#ErrorFileDisplay">
+                            <div class="card-body" id="accordion-table">
+                                <table class="table table-striped">
                                     <tr>
                                         <th>Client Name</th>
                                         <th>Division Name</th>
@@ -242,15 +249,17 @@
             {
                 @if (uploadFileErrors.DebitCardSummeryErrorsList != null)
                 {
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="flush-headingFour">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
-                                Debit CardSummery Errors List
-                            </button>
-                        </h2>
-                        <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#errorDisplayFlush">
-                            <div class="accordion-body">
-                               <table class="table table-striped">
+                    <div class="card">
+                        <div class="card-header" id="headingFour">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                    Debit CardSummery Errors List
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#ErrorFileDisplay">
+                            <div class="card-body" id="accordion-table">
+                                <table class="table table-striped" >
                                     <tr>
                                         <th>Error Code</th>
                                         <th>Error Column</th>
@@ -292,19 +301,22 @@
                     </div>
                 }
             }
+
             @if (uploadFileErrors != null)
             {
                 if (uploadFileErrors.EbExtractErrorsList != null)
                 {
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="flush-headingFive">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
-                                Eb Extract Errors List
-                            </button>
-                        </h2>
-                        <div id="flush-collapseFive" class="accordion-collapse collapse" aria-labelledby="flush-headingFive" data-bs-parent="#errorDisplayFlush">
-                            <div class="accordion-body">
-                               <table class="table table-striped">
+                    <div class="card">
+                        <div class="card-header" id="headingFive">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                    Eb Extract Errors List
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#ErrorFileDisplay">
+                            <div class="card-body" id="accordion-table">
+                                <table class="table table-striped">
                                     <tr>
                                         <th>Termination Date</th>
                                         <th>Error Code</th>
@@ -371,15 +383,17 @@
             {
                 if (uploadFileErrors.EcExtractErrorsList != null)
                 {
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="flush-headingSix">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSix" aria-expanded="false" aria-controls="flush-collapseSix">
-                                Ec Extract Errors List
-                            </button>
-                        </h2>
-                        <div id="flush-collapseSix" class="accordion-collapse collapse" aria-labelledby="flush-headingSix" data-bs-parent="#errorDisplayFlush">
-                            <div class="accordion-body">
-                               <table class="table table-striped">
+                    <div class="card">
+                        <div class="card-header" id="headingsix">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapsesix" aria-expanded="false" aria-controls="collapsesix">
+                                    Ec Extract Errors List
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="collapsesix" class="collapse" aria-labelledby="headingsix" data-parent="#ErrorFileDisplay">
+                            <div class="card-body" id="accordion-table">
+                                <table class="table table-striped">
                                     <tr>
                                         <th>Error Code</th>
                                         <th>Error Column</th>
@@ -500,15 +514,17 @@
             {
                 @if (uploadFileErrors.EmployeeNavImportErrorsList != null)
                 {
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="flush-headingSeven">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSeven" aria-expanded="false" aria-controls="flush-collapseSeven">
-                                Employee Nav Import Errors List
-                            </button>
-                        </h2>
-                        <div id="flush-collapseSeven" class="accordion-collapse collapse" aria-labelledby="flush-headingSeven" data-bs-parent="#errorDisplayFlush">
-                            <div class="accordion-body">
-                               <table class="table table-striped">
+                    <div class="card">
+                        <div class="card-header" id="headingseven">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                                    Employee Nav Import Errors List
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="collapseSeven" class="collapse" aria-labelledby="headingseven" data-parent="#ErrorFileDisplay">
+                            <div class="card-body" id="accordion-table">
+                                <table class="table table-striped">
                                     <tr>
                                         <th>Error Code</th>
                                         <th>Error Column</th>
@@ -554,15 +570,17 @@
             {
                 if (uploadFileErrors.PlanDocReportErrorsList != null)
                 {
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="flush-headingEight">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseEight" aria-expanded="false" aria-controls="flush-collapseEight">
-                                Plan DocReport Errors List
-                            </button>
-                        </h2>
-                        <div id="flush-collapseEight" class="accordion-collapse collapse" aria-labelledby="flush-headingEight" data-bs-parent="#errorDisplayFlush">
-                            <div class="accordion-body">
-                               <table class="table table-striped">
+                    <div class="card">
+                        <div class="card-header" id="headingEight">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                                    Plan DocReport Errors List
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#ErrorFileDisplay">
+                            <div class="card-body" id="accordion-table">
+                                <table class="table table-striped" >
                                     <tr>
                                         <th>Error Code</th>
                                         <th>Error Column</th>
@@ -631,15 +649,17 @@
             {
                 @if (uploadFileErrors.EmployeeNavImportErrorsList != null)
                 {
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="flush-headingNine">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseNine" aria-expanded="false" aria-controls="flush-collapseNine">
-                                Employee Nav Import Errors List
-                            </button>
-                        </h2>
-                        <div id="flush-collapseNine" class="accordion-collapse collapse" aria-labelledby="flush-headingNine" data-bs-parent="#errorDisplayFlush">
-                            <div class="accordion-body">
-                               <table class="table table-striped">
+                    <div class="card">
+                        <div class="card-header" id="headingNine">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapsenine" aria-expanded="false" aria-controls="collapsenine">
+                                    Employee Nav Import Errors List
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="collapsenine" class="collapse" aria-labelledby="headingNine" data-parent="#ErrorFileDisplay">
+                            <div class="card-body" id="accordion-table">
+                                <table class="table table-striped" >
                                     <tr>
                                         <th>Error Code</th>
                                         <th>Error Column</th>
@@ -685,15 +705,17 @@
             {
                 @if (uploadFileErrors.PlanDocReportPriorErrorsList != null)
                 {
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="flush-headingTen">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTen" aria-expanded="false" aria-controls="flush-collapseTen">
-                                Plan Doc Report Prior Errors List
-                            </button>
-                        </h2>
-                        <div id="flush-collapseTen" class="accordion-collapse collapse" aria-labelledby="flush-headingTen" data-bs-parent="#errorDisplayFlush">
-                            <div class="accordion-body">
-                               <table class="table table-striped">
+                    <div class="card">
+                        <div class="card-header" id="headingTen">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
+                                    Plan Doc Report Prior Errors List
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="collapseTen" class="collapse" aria-labelledby="headingTen" data-parent="#ErrorFileDisplay">
+                            <div class="card-body" id="accordion-table">
+                                <table class="table table-striped" >
                                     <tr>
                                         <th>Error Code</th>
                                         <th>Error Column</th>
@@ -761,19 +783,22 @@
                     </div>
                 }
             }
+
             @if (uploadFileErrors != null)
             {
                 if (uploadFileErrors.SpabyacareportErrorsList != null)
                 {
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="flush-headingEleven">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseEleven" aria-expanded="false" aria-controls="flush-collapseEleven">
-                                Spabya careport Errors List
-                            </button>
-                        </h2>
-                        <div id="flush-collapseEleven" class="accordion-collapse collapse" aria-labelledby="flush-headingEleven" data-bs-parent="#errorDisplayFlush">
-                            <div class="accordion-body">
-                               <table class="table table-striped">
+                    <div class="card">
+                        <div class="card-header" id="headingeleven">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseeleven" aria-expanded="false" aria-controls="collapseeleven">
+                                    Spabya careport Errors List
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="collapseeleven" class="collapse" aria-labelledby="headingeleven" data-parent="#ErrorFileDisplay">
+                            <div class="card-body" id="accordion-table">
+                                <table class="table table-striped" >
                                     <tr>
                                         <th>Error Code</th>
                                         <th>Error Column</th>
@@ -878,15 +903,17 @@
             {
                 @if (uploadFileErrors.StaggingNpmErrorsList != null)
                 {
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="flush-headingTwelve">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwelve" aria-expanded="false" aria-controls="flush-collapseTwelve">
-                                Stagging Npm Errors List
-                            </button>
-                        </h2>
-                        <div id="flush-collapseTwelve" class="accordion-collapse collapse" aria-labelledby="flush-headingTwelve" data-bs-parent="#errorDisplayFlush">
-                            <div class="accordion-body">
-                               <table class="table table-striped">
+                    <div class="card">
+                        <div class="card-header" id="headingTwelve">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwelve" aria-expanded="false" aria-controls="collapseTwelve">
+                                    Stagging Npm Errors List
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="collapseTwelve" class="collapse" aria-labelledby="headingTwelve" data-parent="#ErrorFileDisplay">
+                            <div class="card-body" id="accordion-table">
+                                <table class="table table-striped" >
                                     <tr>
                                         <th>Error Code</th>
                                         <th>Error Column</th>
@@ -950,21 +977,22 @@
                         </div>
                     </div>
                 }
-
             }
             @if (uploadFileErrors != null)
             {
                 @if (uploadFileErrors.StaggingQbDetailErrorsList != null)
                 {
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="flush-headingThirteen">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThirteen" aria-expanded="false" aria-controls="flush-collapseThirteen">
-                                Stagging QbDetail Errors List
-                            </button>
-                        </h2>
-                        <div id="flush-collapseThirteen" class="accordion-collapse collapse" aria-labelledby="flush-headingThirteen" data-bs-parent="#errorDisplayFlush">
-                            <div class="accordion-body">
-                               <table class="table table-striped">
+                    <div class="card">
+                        <div class="card-header" id="headingThirteen">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThirteen" aria-expanded="false" aria-controls="collapseThirteen">
+                                    Stagging QbDetail Errors List
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="collapseThirteen" class="collapse" aria-labelledby="headingThirteen" data-parent="#ErrorFileDisplay">
+                            <div class="card-body" id="accordion-table">
+                                <table class="table table-striped" >
                                     <tr>
                                         <th>Error Code</th>
                                         <th>Error Column</th>
@@ -1072,15 +1100,17 @@
             {
                 @if (uploadFileErrors.SwiftBillingNumImportErrorsList != null)
                 {
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="flush-headingFourteen">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFourteen" aria-expanded="false" aria-controls="flush-collapseFourteen">
-                                SwiftBilling NumImport Errors List
-                            </button>
-                        </h2>
-                        <div id="flush-collapseFourteen" class="accordion-collapse collapse" aria-labelledby="flush-headingFourteen" data-bs-parent="#errorDisplayFlush">
-                            <div class="accordion-body">
-                               <table class="table table-striped">
+                    <div class="card">
+                        <div class="card-header" id="headingThirteen">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThirteen" aria-expanded="false" aria-controls="collapseThirteen">
+                                    SwiftBilling NumImport Errors List
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="collapseThirteen" class="collapse" aria-labelledby="headingThirteen" data-parent="#ErrorFileDisplay">
+                            <div class="card-body" id="accordion-table">
+                                <table class="table table-striped">
                                     <tr>
                                         <th>Error Code</th>
                                         <th>Error Column</th>
@@ -1132,10 +1162,14 @@
                     </div>
                 }
             }
+
+
         }
+
 
     }
 </div>
+
 
 
 
@@ -1537,7 +1571,7 @@
 
 	$(document).ready(function () {
 		var res = '@ViewBag.Message';
-		var error = '@(Model.ErrorList!=null)'
+        var error = '@(Model.ErrorList!=null)';
 		if (res == "File Uploaded Successfully") {
             $("#successModal").modal("show")
 		}
@@ -1632,9 +1666,8 @@
         });
     });
 
-    /*file*/
+    
     function UploadeFiles() {
-        debugger;
         var fileUpload = $("#file").get(0);
         var files = fileUpload.files;
         var data = new FormData();
@@ -1673,7 +1706,6 @@
             processData: false,
             cache: false,
             success: function (ss) {
-                debugger
                 alert(ss);
             }
         });
@@ -1749,9 +1781,9 @@
     .mytable tr > *:nth-child(3) {
         width: 15%;
     }
-    .accordion-body {
+    #accordion-table {
         padding: 1rem 1.25rem;
         Height: 300px;
-        overflow-x: scroll;
+        overflow: scroll;
     }
 </style>
