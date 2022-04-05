@@ -68,6 +68,7 @@ namespace FinanceBilling.Controllers
             uploadFile.clientToClientViewModels = new List<ClientToClientViewModel>();
             uploadFile.clientToProductViewModels = new List<ClientToProductViewModel>();
             uploadFile.ClientViewModels = new List<ClientViewModel>();
+            
             //uploadFile.UploadFileErrorModels = new List<UploadFileErrorModel>();
 
 
@@ -83,11 +84,12 @@ namespace FinanceBilling.Controllers
         [DisableFormValueModelBinding]
         public async Task<IActionResult> UploadFile(UploadFile files)
         {
+            UploadFile uploadFile = new UploadFile();
             var filesCount = Request?.Form?.Files?.Count ?? 0;
             if (files == null || filesCount == 0)
             {
                 ModelState.AddModelError("NoFilesUploaded", $"No files slected and uploaded.Please upload files.");
-                return View();
+                return View(uploadFile);
             }
 
             var request = HttpContext.Request;
@@ -100,7 +102,7 @@ namespace FinanceBilling.Controllers
                 string.IsNullOrEmpty(mediaTypeHeader.Boundary.Value))
             {
                 ModelState.AddModelError($"error", $"Something went wrong.");
-                return View();
+                return View(uploadFile);
             }
 
 
@@ -148,7 +150,7 @@ namespace FinanceBilling.Controllers
                 //for (int i = 0; i < uploadfiles.Count; i++) {
                 //    bool exist = FileNamelist.Contains(uploadfiles[i])
                 //}
-                return View();
+                return View(uploadFile);
             }
 
 
@@ -183,7 +185,7 @@ namespace FinanceBilling.Controllers
                 //Directory.CreateDirectory(rootpath);
             }
 
-            UploadFile uploadFile = new UploadFile();
+           
             //checking vallidation is passed or not
             if (IsValidationPassed)
             {
@@ -210,6 +212,7 @@ namespace FinanceBilling.Controllers
                     uploadFile.TerminatedClients = new List<TerminatedClient>();
                     uploadFile.clientToProductViewModels = new List<ClientToProductViewModel>();
                     uploadFile.clientToClientViewModels = new List<ClientToClientViewModel>();
+
                 }
                 else
                 {
