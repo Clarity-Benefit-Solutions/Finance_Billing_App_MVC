@@ -27,6 +27,8 @@ namespace FinanceBilling.Models
         public List<ClientViewModel> ClientViewModels { get; set; }
         public IEnumerable<ErrorLogViewModels> ErrorList { get; set; }
         public List<UploadFileErrorModel> UploadFileErrorModels { get; set; }
+        public List<ErrorFileNameList> ErrorFileNameLists { get; set; }
+
 
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)

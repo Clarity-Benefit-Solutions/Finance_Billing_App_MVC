@@ -3,14 +3,13 @@
 @model UploadFile
 @*@model FinanceBilling.Models.TblLoggingViewModel*@
 @{
-
 	ViewBag.Title = "Upload Files";
 	List<UploadFileErrorModel> uploadFileErrorsList = new List<UploadFileErrorModel>();
-	if (Model != null) {
+	if (Model != null)
+	{
 		uploadFileErrorsList = Model.UploadFileErrorModels;
 	}
 	//UploadFileErrorModel uploadFileErrors = ViewBag.uploadFileErrorModel;
-
 }
 			
 <div class="row" style="border:1px solid green;">
@@ -85,69 +84,70 @@
 		<span style="font-weight: bolder; font-size: 21px; color: #2d5592; ">
 			Display Error:
 		</span>
-		@foreach (UploadFileErrorModel uploadFileErrors in uploadFileErrorsList) {
+		@foreach (var item in Model.ErrorFileNameLists) {
+
+			<div class="card-header" id="heading_@item.ID">
+				<h2 class="mb-0">
+					<button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse_@item.ID" aria-expanded="true" aria-controls="collapse_@item.ID">
+						@item.PackageName;
+					</button>
+				</h2>
+			</div>
+		}
+
+		@foreach(UploadFileErrorModel uploadFileErrors in uploadFileErrorsList) {
 			@if (uploadFileErrors != null) {
 				if (uploadFileErrors.BrokerClientListErrorsList != null) {
+<div class="card" style="margin-top: 10px;">
+	<div id="Collapse_@uploadFileErrors.BrokerClientListErrorsList.Select(x => x.LoggingDbId).FirstOrDefault();" class="collapse show" aria-labelledby="heading_@uploadFileErrors.BrokerClientListErrorsList.Select(x => x.LoggingDbId).FirstOrDefault();" data-parent="#ErrorFileDisplay">
+		<div class="card-body" id="accordion-table">
+			<table class="table table-striped">
+				<tr>
+					<th>Error Code</th>
+					<th>Error Column</th>
+					<th>LoggingDbId</th>
+					<th>Description</th>
+					<th>Broker ID</th>
+					<th>Broker Name</th>
+					<th>Client ID</th>
+					<th>Client Name</th>
+					<th>Active</th>
+				</tr>
 
-					<div class="card" style="margin-top: 10px;">
-						<div class="card-header" id="headingOne">
-							<h2 class="mb-0">
-								<button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-									Broker Client Errors List
-								</button>
-							</h2>
-						</div>
+				@foreach (var item in uploadFileErrors.BrokerClientListErrorsList.ToList()) {
 
-						<div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#ErrorFileDisplay">
-							<div class="card-body" id="accordion-table">
-								<table class="table table-striped">
-									<tr>
-										<th>Error Code</th>
-										<th>Error Column</th>
-										<th>LoggingDbId</th>
-										<th>Description</th>
-										<th>Broker ID</th>
-										<th>Broker Name</th>
-										<th>Client ID</th>
-										<th>Client Name</th>
-										<th>Active</th>
+					<tr>
+						<td>@item.ErrorCode</td>
+						<td>@item.ErrorColumn</td>
+						<td>@item.LoggingDbId</td>
+						<td>@item.Description</td>
+						<td>@item.BrokerID</td>
+						<td>@item.BrokerName</td>
+						<td>@item.ClientID</td>
+						<td>@item.ClientName</td>
+						<td>@item.Active</td>
 
-									</tr>
+					</tr>
+				}
 
-									@foreach (var item in uploadFileErrors.BrokerClientListErrorsList.ToList()) {
-
-										<tr>
-											<td>@item.ErrorCode</td>
-											<td>@item.ErrorColumn</td>
-											<td>@item.LoggingDbId</td>
-											<td>@item.Description</td>
-											<td>@item.BrokerID</td>
-											<td>@item.BrokerName</td>
-											<td>@item.ClientID</td>
-											<td>@item.ClientName</td>
-											<td>@item.Active</td>
-
-										</tr>
-									}
-
-								</table>
-							</div>
-						</div>
-					</div>
+			</table>
+		</div>
+	</div>
+</div>
 
 				}
 			}
 			@if (uploadFileErrors != null) {
 				@if (uploadFileErrors.ClientListErrorsList != null) {
 					<div class="card">
-						<div class="card-header" id="headingTwo">
+						@*<div class="card-header" id="headingTwo">
 							<h2 class="mb-0">
 								<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
 									Client Errors List
 								</button>
 							</h2>
-						</div>
-						<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#ErrorFileDisplay">
+						</div>*@
+						<div id="Collapse_@uploadFileErrors.ClientListErrorsList.Select(x => x.LoggingDbId).FirstOrDefault();" class="collapse" aria-labelledby="heading_@uploadFileErrors.ClientListErrorsList.Select(x => x.LoggingDbId).FirstOrDefault();" data-parent="#ErrorFileDisplay">
 							<div class="card-body" id="accordion-table">
 								<table class="table table-striped">
 									<tr>
@@ -190,14 +190,14 @@
 			@if (uploadFileErrors != null) {
 				if (uploadFileErrors.CobraLettersErrorsList != null) {
 					<div class="card">
-						<div class="card-header" id="headingThree">
+						@*<div class="card-header" id="headingThree">
 							<h2 class="mb-0">
 								<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
 									Cobra Letters Errors List
 								</button>
 							</h2>
-						</div>
-						<div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#ErrorFileDisplay">
+						</div>*@
+						<div id="Collapse_@uploadFileErrors.CobraLettersErrorsList.Select(x => x.LoggingDbId).FirstOrDefault();" class="collapse" aria-labelledby="heading_@uploadFileErrors.CobraLettersErrorsList.Select(x => x.LoggingDbId).FirstOrDefault();" data-parent="#ErrorFileDisplay">
 							<div class="card-body" id="accordion-table">
 								<table class="table table-striped">
 									<tr>
@@ -237,14 +237,14 @@
 			@if (uploadFileErrors != null) {
 				@if (uploadFileErrors.DebitCardSummeryErrorsList != null) {
 					<div class="card">
-						<div class="card-header" id="headingFour">
+						@*<div class="card-header" id="headingFour">
 							<h2 class="mb-0">
 								<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
 									Debit CardSummery Errors List
 								</button>
 							</h2>
-						</div>
-						<div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#ErrorFileDisplay">
+						</div>*@
+						<div id="Collapse_@uploadFileErrors.DebitCardSummeryErrorsList.Select(x => x.LoggingDbId).FirstOrDefault();" class="collapse" aria-labelledby="heading_@uploadFileErrors.DebitCardSummeryErrorsList.Select(x => x.LoggingDbId).FirstOrDefault();" data-parent="#ErrorFileDisplay">
 							<div class="card-body" id="accordion-table">
 								<table class="table table-striped">
 									<tr>
@@ -291,14 +291,14 @@
 			@if (uploadFileErrors != null) {
 				if (uploadFileErrors.EbExtractErrorsList != null) {
 					<div class="card">
-						<div class="card-header" id="headingFive">
+						@*<div class="card-header" id="headingFive">
 							<h2 class="mb-0">
 								<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
 									Eb Extract Errors List
 								</button>
 							</h2>
-						</div>
-						<div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#ErrorFileDisplay">
+						</div>*@
+						<div id="Collapse_@uploadFileErrors.EbExtractErrorsList.Select(x => x.LoggingDbId).FirstOrDefault();" class="collapse" aria-labelledby="heading_@uploadFileErrors.EbExtractErrorsList.Select(x => x.LoggingDbId).FirstOrDefault();" data-parent="#ErrorFileDisplay">
 							<div class="card-body" id="accordion-table">
 								<table class="table table-striped">
 									<tr>
@@ -365,14 +365,14 @@
 			@if (uploadFileErrors != null) {
 				if (uploadFileErrors.EcExtractErrorsList != null) {
 					<div class="card">
-						<div class="card-header" id="headingsix">
+						@*<div class="card-header" id="headingsix">
 							<h2 class="mb-0">
 								<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapsesix" aria-expanded="false" aria-controls="collapsesix">
 									Ec Extract Errors List
 								</button>
 							</h2>
-						</div>
-						<div id="collapsesix" class="collapse" aria-labelledby="headingsix" data-parent="#ErrorFileDisplay">
+						</div>*@
+						<div id="Collapse_@uploadFileErrors.EcExtractErrorsList.Select(x => x.LoggingDbId).FirstOrDefault();" class="collapse" aria-labelledby="heading_@uploadFileErrors.EcExtractErrorsList.Select(x => x.LoggingDbId).FirstOrDefault();" data-parent="#ErrorFileDisplay">
 							<div class="card-body" id="accordion-table">
 								<table class="table table-striped">
 									<tr>
@@ -493,14 +493,14 @@
 			@if (uploadFileErrors != null) {
 				@if (uploadFileErrors.EmployeeNavImportErrorsList != null) {
 					<div class="card">
-						<div class="card-header" id="headingseven">
+						@*<div class="card-header" id="headingseven">
 							<h2 class="mb-0">
 								<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
 									Employee Nav Import Errors List
 								</button>
 							</h2>
-						</div>
-						<div id="collapseSeven" class="collapse" aria-labelledby="headingseven" data-parent="#ErrorFileDisplay">
+						</div>*@
+						<div id="Collapse_@uploadFileErrors.EmployeeNavImportErrorsList.Select(x => x.LoggingDbId).FirstOrDefault();" class="collapse" aria-labelledby="heading_@uploadFileErrors.EmployeeNavImportErrorsList.Select(x => x.LoggingDbId).FirstOrDefault();" data-parent="#ErrorFileDisplay">
 							<div class="card-body" id="accordion-table">
 								<table class="table table-striped">
 									<tr>
@@ -546,14 +546,17 @@
 			@if (uploadFileErrors != null) {
 				if (uploadFileErrors.PlanDocReportErrorsList != null) {
 					<div class="card">
-						<div class="card-header" id="headingEight">
+						@*<div class="card-header" id="headingEight">
 							<h2 class="mb-0">
 								<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
 									Plan DocReport Errors List
 								</button>
 							</h2>
-						</div>
-						<div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#ErrorFileDisplay">
+						</div>*@
+						@{
+								var id = uploadFileErrors.PlanDocReportErrorsList.Select(x => x.LoggingDbId).FirstOrDefault();
+						}
+						<div id="Collapse_@id" class="collapse" aria-labelledby="heading_@uploadFileErrors.PlanDocReportErrorsList.Select(x => x.LoggingDbId).FirstOrDefault();" data-parent="#ErrorFileDisplay">
 							<div class="card-body" id="accordion-table">
 								<table class="table table-striped">
 									<tr>
@@ -622,14 +625,14 @@
 			@if (uploadFileErrors != null) {
 				@if (uploadFileErrors.EmployeeNavImportErrorsList != null) {
 					<div class="card">
-						<div class="card-header" id="headingNine">
+						@*<div class="card-header" id="headingNine">
 							<h2 class="mb-0">
 								<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapsenine" aria-expanded="false" aria-controls="collapsenine">
 									Employee Nav Import Errors List
 								</button>
 							</h2>
-						</div>
-						<div id="collapsenine" class="collapse" aria-labelledby="headingNine" data-parent="#ErrorFileDisplay">
+						</div>*@
+						<div id="Collapse_@uploadFileErrors.EmployeeNavImportErrorsList.Select(x => x.LoggingDbId).FirstOrDefault();" class="collapse" aria-labelledby="heading_@uploadFileErrors.EmployeeNavImportErrorsList.Select(x => x.LoggingDbId).FirstOrDefault();" data-parent="#ErrorFileDisplay">
 							<div class="card-body" id="accordion-table">
 								<table class="table table-striped">
 									<tr>
@@ -675,14 +678,14 @@
 			@if (uploadFileErrors != null) {
 				@if (uploadFileErrors.PlanDocReportPriorErrorsList != null) {
 					<div class="card">
-						<div class="card-header" id="headingTen">
+						@*<div class="card-header" id="headingTen">
 							<h2 class="mb-0">
 								<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
 									Plan Doc Report Prior Errors List
 								</button>
 							</h2>
-						</div>
-						<div id="collapseTen" class="collapse" aria-labelledby="headingTen" data-parent="#ErrorFileDisplay">
+						</div>*@
+						<div id="Collapse_@uploadFileErrors.PlanDocReportPriorErrorsList.Select(x => x.LoggingDbId).FirstOrDefault();" class="collapse" aria-labelledby="heading_@uploadFileErrors.PlanDocReportPriorErrorsList.Select(x => x.LoggingDbId).FirstOrDefault();" data-parent="#ErrorFileDisplay">
 							<div class="card-body" id="accordion-table">
 								<table class="table table-striped">
 									<tr>
@@ -755,14 +758,14 @@
 			@if (uploadFileErrors != null) {
 				if (uploadFileErrors.SpabyacareportErrorsList != null) {
 					<div class="card">
-						<div class="card-header" id="headingeleven">
+						@*<div class="card-header" id="headingeleven">
 							<h2 class="mb-0">
 								<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseeleven" aria-expanded="false" aria-controls="collapseeleven">
 									Spabya careport Errors List
 								</button>
 							</h2>
-						</div>
-						<div id="collapseeleven" class="collapse" aria-labelledby="headingeleven" data-parent="#ErrorFileDisplay">
+						</div>*@
+						<div id="Collapse_@uploadFileErrors.SpabyacareportErrorsList.Select(x => x.LoggingDbId).FirstOrDefault();" class="collapse" aria-labelledby="heading_@uploadFileErrors.SpabyacareportErrorsList.Select(x => x.LoggingDbId).FirstOrDefault();" data-parent="#ErrorFileDisplay">
 							<div class="card-body" id="accordion-table">
 								<table class="table table-striped">
 									<tr>
@@ -867,14 +870,14 @@
 			@if (uploadFileErrors != null) {
 				@if (uploadFileErrors.StaggingNpmErrorsList != null) {
 					<div class="card">
-						<div class="card-header" id="headingTwelve">
+						@*<div class="card-header" id="headingTwelve">
 							<h2 class="mb-0">
 								<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwelve" aria-expanded="false" aria-controls="collapseTwelve">
 									Stagging Npm Errors List
 								</button>
 							</h2>
-						</div>
-						<div id="collapseTwelve" class="collapse" aria-labelledby="headingTwelve" data-parent="#ErrorFileDisplay">
+						</div>*@
+						<div id="Collapse_@uploadFileErrors.StaggingNpmErrorsList.Select(x => x.LoggingDbId).FirstOrDefault();" class="collapse" aria-labelledby="heading_@uploadFileErrors.StaggingNpmErrorsList.Select(x => x.LoggingDbId).FirstOrDefault();" data-parent="#ErrorFileDisplay">
 							<div class="card-body" id="accordion-table">
 								<table class="table table-striped">
 									<tr>
@@ -943,14 +946,14 @@
 			@if (uploadFileErrors != null) {
 				@if (uploadFileErrors.StaggingQbDetailErrorsList != null) {
 					<div class="card">
-						<div class="card-header" id="headingThirteen">
+						@*<div class="card-header" id="headingThirteen">
 							<h2 class="mb-0">
 								<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThirteen" aria-expanded="false" aria-controls="collapseThirteen">
 									Stagging QbDetail Errors List
 								</button>
 							</h2>
-						</div>
-						<div id="collapseThirteen" class="collapse" aria-labelledby="headingThirteen" data-parent="#ErrorFileDisplay">
+						</div>*@
+						<div id="Collapse_@uploadFileErrors.StaggingQbDetailErrorsList.Select(x => x.LoggingDbId).FirstOrDefault();" class="collapse" aria-labelledby="heading_@uploadFileErrors.StaggingQbDetailErrorsList.Select(x => x.LoggingDbId).FirstOrDefault();" data-parent="#ErrorFileDisplay">
 							<div class="card-body" id="accordion-table">
 								<table class="table table-striped">
 									<tr>
@@ -1058,14 +1061,14 @@
 			@if (uploadFileErrors != null) {
 				@if (uploadFileErrors.SwiftBillingNumImportErrorsList != null) {
 					<div class="card">
-						<div class="card-header" id="headingThirteen">
+						@*<div class="card-header" id="headingThirteen">
 							<h2 class="mb-0">
 								<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThirteen" aria-expanded="false" aria-controls="collapseThirteen">
 									SwiftBilling NumImport Errors List
 								</button>
 							</h2>
-						</div>
-						<div id="collapseThirteen" class="collapse" aria-labelledby="headingThirteen" data-parent="#ErrorFileDisplay">
+						</div>*@
+						<div id="Collapse_@uploadFileErrors.SwiftBillingNumImportErrorsList.Select(x => x.LoggingDbId).FirstOrDefault();" class="collapse" aria-labelledby="heading_@uploadFileErrors.SwiftBillingNumImportErrorsList.Select(x => x.LoggingDbId).FirstOrDefault();" data-parent="#ErrorFileDisplay">
 							<div class="card-body" id="accordion-table">
 								<table class="table table-striped">
 									<tr>
@@ -1647,7 +1650,6 @@
                         var loaded = e.loaded;
                         var total = e.total;
                         var percent = Math.round((loaded / total) * 100);
-
                         $("#pb").attr("aria-valuenow", percent).css("width", percent + "%").text(percent + "%");
                     };
 
@@ -1661,7 +1663,8 @@
             contentType: false,
             processData: false,
             cache: false,
-            success: function (ss) {
+					success: function (ss) {
+						debugger;
                 alert(ss);
             }
         });
