@@ -267,10 +267,10 @@ namespace FinanceBillingData.Repository
             return tblLoggingList.FirstOrDefault();
         }
 
-        public async Task<List<TblLogging>> GetLogsForAccordion(string guid)
+        public async Task<List<ErrorFileNameList>> GetLogsForAccordion(string guid)
         {
             string SqlconString = _config.GetConnectionString("SqlConnectionString");
-            List<TblLogging> tblLoggingList = new List<TblLogging>();
+            List<ErrorFileNameList> errorFileNameLists = new List<ErrorFileNameList>();
             using (SqlConnection conn = new SqlConnection(SqlconString)) {
                 conn.Open();
 
@@ -288,31 +288,31 @@ namespace FinanceBillingData.Repository
                 using (SqlDataReader rdr = cmd.ExecuteReader()) {
                     // iterate through results, printing each to console
                     while (rdr.Read()) {
-                        TblLogging tblLogging = new TblLogging();
-                        tblLogging.Id = Convert.ToInt32(rdr["Id"]);
-                        tblLogging.PackageName = Convert.ToString(rdr["PackageName"]);
-                        tblLogging.PackageId = Convert.ToString(rdr["PackageId"]);
-                        tblLogging.Guid = Convert.ToString(rdr["Guid"]);
-                        tblLogging.MachineName = Convert.ToString(rdr["MachineName"]);
-                        tblLogging.UserName = Convert.ToString(rdr["UserName"]);
-                        tblLogging.DataSource = Convert.ToString(rdr["DataSource"]);
+                        ErrorFileNameList errorFileNameList = new ErrorFileNameList();
+                        errorFileNameList.ID = Convert.ToInt32(rdr["Id"]);
+                        errorFileNameList.PackageName = Convert.ToString(rdr["PackageName"]);
+                        errorFileNameList.PackageId = Convert.ToString(rdr["PackageId"]);
+                        errorFileNameList.GUID = Convert.ToString(rdr["Guid"]);
+                        errorFileNameList.MachineName = Convert.ToString(rdr["MachineName"]);
+                        errorFileNameList.UserName = Convert.ToString(rdr["UserName"]);
+                        errorFileNameList.DataSource = Convert.ToString(rdr["DataSource"]);
                         if (!DBNull.Value.Equals(rdr["StartDateTime"])) {
-                            tblLogging.StartDateTime = Convert.ToDateTime(rdr["StartDateTime"]);
+                            errorFileNameList.StartDateTime = Convert.ToDateTime(rdr["StartDateTime"]);
                         }
                         if (!DBNull.Value.Equals(rdr["EndDateTime"])) {
-                            tblLogging.EndDateTime = Convert.ToDateTime(rdr["EndDateTime"]);
+                            errorFileNameList.EndDateTime = Convert.ToDateTime(rdr["EndDateTime"]);
                         }
                         if (!DBNull.Value.Equals(rdr["NumRowsInserted"])) {
-                            tblLogging.NumRowsInserted = Convert.ToInt32(rdr["NumRowsInserted"]);
+                            errorFileNameList.NumRowsInserted = Convert.ToInt32(rdr["NumRowsInserted"]);
                         }
                         //if (!DBNull.Value.Equals(rdr["NumRowsUpdated"])) {
                         //    tblLogging.NumRowsUpdated = Convert.ToInt32(rdr["NumRowsUpdated"]);
                         //}
                         if (!DBNull.Value.Equals(rdr["NumRowsNotInserted"])) {
-                            tblLogging.NumRowsNotInserted = Convert.ToInt32(rdr["NumRowsNotInserted"]);
+                            errorFileNameList.NumRowsNotInserted = Convert.ToInt32(rdr["NumRowsNotInserted"]);
                         }
                         if (!DBNull.Value.Equals(rdr["NumRowsTotal"])) {
-                            tblLogging.NumRowsTotal = Convert.ToInt32(rdr["NumRowsTotal"]);
+                            errorFileNameList.NumRowsTotal = Convert.ToInt32(rdr["NumRowsTotal"]);
                         }
                         //if (!DBNull.Value.Equals(rdr["IsSuccess"])) {
                         //    tblLogging.IsSuccess = Convert.ToBoolean(rdr["IsSuccess"]);
@@ -323,11 +323,11 @@ namespace FinanceBillingData.Repository
                         //if (!DBNull.Value.Equals(rdr["IsCompleted"])) {
                         //    tblLogging.IsCompleted = Convert.ToBoolean(rdr["IsCompleted"]);
                         //}
-                        tblLoggingList.Add(tblLogging);
+                        errorFileNameLists.Add(errorFileNameList);
                     }
                 }
             }
-            return tblLoggingList;
+            return errorFileNameLists;
         }
     }
 }

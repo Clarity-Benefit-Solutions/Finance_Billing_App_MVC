@@ -33,7 +33,7 @@ namespace FinanceBillingService.Service
             return await _tblLoggingRepository.GetAllLoggingByGuid(guid, logId);
         }
 
-        public async Task<List<TblLogging>> GetLogsForAccordion(string guid)
+        public async Task<List<ErrorFileNameList>> GetLogsForAccordion(string guid)
         {
             return await _tblLoggingRepository.GetLogsForAccordion(guid);
 
