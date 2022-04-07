@@ -38,5 +38,11 @@ namespace FinanceBillingService.Service
             return await _tblLoggingRepository.GetLogsForAccordion(guid);
 
         }
+
+        public async Task<ListFileError> AllDataLogsForAccordion(string guid, int Id)
+        {
+            return await _tblLoggingRepository.AllDataLogsForAccordion(guid,Id );
+
+        }
     }
 }

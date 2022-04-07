@@ -4,14 +4,18 @@
 @*@model FinanceBilling.Models.TblLoggingViewModel*@
 @{
 	ViewBag.Title = "Upload Files";
-	List<UploadFileErrorModel> uploadFileErrorsList = new List<UploadFileErrorModel>();
-	if (Model != null)
-	{
-		uploadFileErrorsList = Model.UploadFileErrorModels;
+	//List<UploadFileErrorModel> uploadFileErrorsList = new List<UploadFileErrorModel>();
+	//if (Model != null)
+	//{
+	//	uploadFileErrorsList = Model.UploadFileErrorModels;
+	//}
+	List<ListFileError> listFileErrors = new List<ListFileError>();
+	if (Model != null) {
+		listFileErrors = Model.listFileErrors;
 	}
 	//UploadFileErrorModel uploadFileErrors = ViewBag.uploadFileErrorModel;
 }
-			
+
 <div class="row" style="border:1px solid green;">
 	<div class="col-md-5">
 		<div class="card text-center">
@@ -78,1057 +82,385 @@
 	}
 </div>
 <hr />
-<!--display error by guid-->
-<div class="accordion" id="ErrorFileDisplay" style="width:100%;margin-top:17px;">
-	@if (Model.UploadFileErrorModels != null) {
-		<span style="font-weight: bolder; font-size: 21px; color: #2d5592; ">
-			Display Error:
-		</span>
-		@foreach (var item in Model.ErrorFileNameLists) {
 
-			<div class="card-header" id="heading_@item.ID">
-				<h2 class="mb-0">
-					<button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse_@item.ID" aria-expanded="true" aria-controls="collapse_@item.ID">
-						@item.PackageName;
-					</button>
-				</h2>
-			</div>
-		}
+<!--display error by guid -->
+@if (Model.ErrorFileNameLists != null) {
+	<div class="accordion" id="accordionExample">
+		<div class="accordion-item">
+			@foreach (ListFileError listFileError in listFileErrors) {
+				@if (listFileError != null) {
+					@if (listFileError.BrokerClientListErrorsList != null) {
+						<h2 class="accordion-header" id="heading1">
+							<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapseOne">
+								@listFileError.BrokerClientListErrorsList.Select(x => x.PackageName).FirstOrDefault();
+							</button>
+						</h2><div id="collapse1" class="accordion-collapse collapse show" aria-labelledby="heading1" data-bs-parent="#accordionExample">
+							<div class="accordion-body">
+								<table>
+									<thead>
+										<tr>
+											<td>Error Column</td>
+											<td>Error Description</td>
+											<td>Error Row No</td>
+											<td>Entity Attribute</td>
+										</tr>
+									<thead>
+										@foreach (var item in listFileError.BrokerClientListErrorsList.ToList()) {
+											<tr>
+												<td>@item.ErrorColumn</td>
+												<td>@item.ErrorDescription</td>
+												<td>@item.ErrorRowNo</td>
+												<td>@item.EntityAttributes</td>
 
-		@foreach(UploadFileErrorModel uploadFileErrors in uploadFileErrorsList) {
-			@if (uploadFileErrors != null) {
-				if (uploadFileErrors.BrokerClientListErrorsList != null) {
-<div class="card" style="margin-top: 10px;">
-	<div id="Collapse_@uploadFileErrors.BrokerClientListErrorsList.Select(x => x.LoggingDbId).FirstOrDefault();" class="collapse show" aria-labelledby="heading_@uploadFileErrors.BrokerClientListErrorsList.Select(x => x.LoggingDbId).FirstOrDefault();" data-parent="#ErrorFileDisplay">
-		<div class="card-body" id="accordion-table">
-			<table class="table table-striped">
-				<tr>
-					<th>Error Code</th>
-					<th>Error Column</th>
-					<th>LoggingDbId</th>
-					<th>Description</th>
-					<th>Broker ID</th>
-					<th>Broker Name</th>
-					<th>Client ID</th>
-					<th>Client Name</th>
-					<th>Active</th>
-				</tr>
+											</tr>
+										}
+								</table>
+							</div>
+						</div>
+					}
+					//2
+					@if (listFileError.SwiftBillingNumImportErrorsList != null) {
+						<h2 class="accordion-header" id="heading2">
+							<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="true" aria-controls="collapse2">
+								@listFileError.SwiftBillingNumImportErrorsList.Select(x => x.PackageName).FirstOrDefault();
+							</button>
+						</h2><div id="collapse2" class="accordion-collapse collapse show" aria-labelledby="heading2" data-bs-parent="#accordionExample">
+							<div class="accordion-body">
+								<table>
+									<th>
+									<td>Error Column</td>
+									<td>Error Description</td>
+									<td>Error Row No</td>
+									<td>Entity Attribute</td>
+									</th>
+									@foreach (var item in listFileError.SwiftBillingNumImportErrorsList.ToList()) {
+										<tr>
+											<td>@item.ErrorColumn</td>
+											<td>@item.ErrorDescription</td>
+											<td>@item.ErrorRowNo</td>
+											<td>@item.EntityAttributes</td>
 
-				@foreach (var item in uploadFileErrors.BrokerClientListErrorsList.ToList()) {
+										</tr>
+									}
+								</table>
+							</div>
+						</div>
+					}
+					//3
+					@if (listFileError.StaggingQbDetailErrorsList != null) {
+						<h2 class="accordion-header" id="heading3">
+							<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="true" aria-controls="collapse3">
+								@listFileError.StaggingQbDetailErrorsList.Select(x => x.PackageName).FirstOrDefault();
+							</button>
+						</h2><div id="collaps3" class="accordion-collapse collapse show" aria-labelledby="heading3" data-bs-parent="#accordionExample">
+							<div class="accordion-body">
+								<table>
+									<th>
+									<td>Error Column</td>
+									<td>Error Description</td>
+									<td>Error Row No</td>
+									<td>Entity Attribute</td>
+									</th>
+									@foreach (var item in listFileError.StaggingQbDetailErrorsList.ToList()) {
+										<tr>
+											<td>@item.ErrorColumn</td>
+											<td>@item.ErrorDescription</td>
+											<td>@item.ErrorRowNo</td>
+											<td>@item.EntityAttributes</td>
 
-					<tr>
-						<td>@item.ErrorCode</td>
-						<td>@item.ErrorColumn</td>
-						<td>@item.LoggingDbId</td>
-						<td>@item.Description</td>
-						<td>@item.BrokerID</td>
-						<td>@item.BrokerName</td>
-						<td>@item.ClientID</td>
-						<td>@item.ClientName</td>
-						<td>@item.Active</td>
+										</tr>
+									}
+								</table>
+							</div>
+						</div>
+					}
+					//4
+					@if (listFileError.StaggingNpmErrorsList != null) {
+						<h2 class="accordion-header" id="heading4">
+							<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="true" aria-controls="collapse4">
+								@listFileError.StaggingNpmErrorsList.Select(x => x.PackageName).FirstOrDefault();
+							</button>
+						</h2><div id="collapse4" class="accordion-collapse collapse show" aria-labelledby="heading4" data-bs-parent="#accordionExample">
+							<div class="accordion-body">
+								<table>
+									<th>
+									<td>Error Column</td>
+									<td>Error Description</td>
+									<td>Error Row No</td>
+									<td>Entity Attribute</td>
+									</th>
+									@foreach (var item in listFileError.StaggingNpmErrorsList.ToList()) {
+										<tr>
+											<td>@item.ErrorColumn</td>
+											<td>@item.ErrorDescription</td>
+											<td>@item.ErrorRowNo</td>
+											<td>@item.EntityAttributes</td>
 
-					</tr>
+										</tr>
+									}
+								</table>
+							</div>
+						</div>
+					}
+					//5
+					@if (listFileError.SpabyacareportErrorsList != null) {
+						<h2 class="accordion-header" id="heading5">
+							<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5" aria-expanded="true" aria-controls="collapse5">
+								@listFileError.SpabyacareportErrorsList.Select(x => x.PackageName).FirstOrDefault();
+							</button>
+						</h2><div id="collapse5" class="accordion-collapse collapse show" aria-labelledby="heading5" data-bs-parent="#accordionExample">
+							<div class="accordion-body">
+								<table>
+									<th>
+									<td>Error Column</td>
+									<td>Error Description</td>
+									<td>Error Row No</td>
+									<td>Entity Attribute</td>
+									</th>
+									@foreach (var item in listFileError.SpabyacareportErrorsList.ToList()) {
+										<tr>
+											<td>@item.ErrorColumn</td>
+											<td>@item.ErrorDescription</td>
+											<td>@item.ErrorRowNo</td>
+											<td>@item.EntityAttributes</td>
+
+										</tr>
+									}
+								</table>
+							</div>
+						</div>
+					}
+					//6
+					@if (listFileError.PlanDocReportPriorErrorsList != null) {
+						<h2 class="accordion-header" id="heading6">
+							<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6" aria-expanded="true" aria-controls="collapse6">
+								@listFileError.PlanDocReportPriorErrorsList.Select(x => x.PackageName).FirstOrDefault();
+							</button>
+						</h2><div id="collapse6" class="accordion-collapse collapse show" aria-labelledby="heading6" data-bs-parent="#accordionExample">
+							<div class="accordion-body">
+								<table>
+									<th>
+									<td>Error Column</td>
+									<td>Error Description</td>
+									<td>Error Row No</td>
+									<td>Entity Attribute</td>
+									</th>
+									@foreach (var item in listFileError.PlanDocReportPriorErrorsList.ToList()) {
+										<tr>
+											<td>@item.ErrorColumn</td>
+											<td>@item.ErrorDescription</td>
+											<td>@item.ErrorRowNo</td>
+											<td>@item.EntityAttributes</td>
+
+										</tr>
+									}
+								</table>
+							</div>
+						</div>
+					}
+					//7
+					@if (listFileError.PlanDocReportErrorsList != null) {
+						<h2 class="accordion-header" id="heading7">
+							<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7" aria-expanded="true" aria-controls="collapse7">
+								@listFileError.PlanDocReportErrorsList.Select(x => x.PackageName).FirstOrDefault();
+							</button>
+						</h2><div id="collapse7" class="accordion-collapse collapse show" aria-labelledby="heading7" data-bs-parent="#accordionExample">
+							<div class="accordion-body">
+								<table>
+									<th>
+									<td>Error Column</td>
+									<td>Error Description</td>
+									<td>Error Row No</td>
+									<td>Entity Attribute</td>
+									</th>
+									@foreach (var item in listFileError.PlanDocReportErrorsList.ToList()) {
+										<tr>
+											<td>@item.ErrorColumn</td>
+											<td>@item.ErrorDescription</td>
+											<td>@item.ErrorRowNo</td>
+											<td>@item.EntityAttributes</td>
+
+										</tr>
+									}
+								</table>
+							</div>
+						</div>
+					}
+					//8
+					@if (listFileError.EmployeeNavImportErrorsList != null) {
+						<h2 class="accordion-header" id="headin8">
+							<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8" aria-expanded="true" aria-controls="collapse8">
+								@listFileError.EmployeeNavImportErrorsList.Select(x => x.PackageName).FirstOrDefault();
+							</button>
+						</h2><div id="collapse8" class="accordion-collapse collapse show" aria-labelledby="heading8" data-bs-parent="#accordionExample">
+							<div class="accordion-body">
+								<table>
+									<th>
+									<td>Error Column</td>
+									<td>Error Description</td>
+									<td>Error Row No</td>
+									<td>Entity Attribute</td>
+									</th>
+									@foreach (var item in listFileError.EmployeeNavImportErrorsList.ToList()) {
+										<tr>
+											<td>@item.ErrorColumn</td>
+											<td>@item.ErrorDescription</td>
+											<td>@item.ErrorRowNo</td>
+											<td>@item.EntityAttributes</td>
+
+										</tr>
+									}
+								</table>
+							</div>
+						</div>
+					}
+					//9
+					@if (listFileError.EcExtractErrorsList != null) {
+						<h2 class="accordion-header" id="heading9">
+							<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9" aria-expanded="true" aria-controls="collapse9">
+								@listFileError.EcExtractErrorsList.Select(x => x.PackageName).FirstOrDefault();
+							</button>
+						</h2><div id="collapse9" class="accordion-collapse collapse show" aria-labelledby="heading9" data-bs-parent="#accordionExample">
+							<div class="accordion-body">
+								<table>
+									<th>
+									<td>Error Column</td>
+									<td>Error Description</td>
+									<td>Error Row No</td>
+									<td>Entity Attribute</td>
+									</th>
+									@foreach (var item in listFileError.EcExtractErrorsList.ToList()) {
+										<tr>
+											<td>@item.ErrorColumn</td>
+											<td>@item.ErrorDescription</td>
+											<td>@item.ErrorRowNo</td>
+											<td>@item.EntityAttributes</td>
+
+										</tr>
+									}
+								</table>
+							</div>
+						</div>
+					}
+					//10
+					@if (listFileError.EbExtractErrorsList != null) {
+						<h2 class="accordion-header" id="heading10">
+							<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10" aria-expanded="true" aria-controls="collapse10">
+								@listFileError.EbExtractErrorsList.Select(x => x.PackageName).FirstOrDefault();
+							</button>
+						</h2><div id="collapse10" class="accordion-collapse collapse show" aria-labelledby="heading10" data-bs-parent="#accordionExample">
+							<div class="accordion-body">
+								<table>
+									<th>
+									<td>Error Column</td>
+									<td>Error Description</td>
+									<td>Error Row No</td>
+									<td>Entity Attribute</td>
+									</th>
+									@foreach (var item in listFileError.EbExtractErrorsList.ToList()) {
+										<tr>
+											<td>@item.ErrorColumn</td>
+											<td>@item.ErrorDescription</td>
+											<td>@item.ErrorRowNo</td>
+											<td>@item.EntityAttributes</td>
+
+										</tr>
+									}
+								</table>
+							</div>
+						</div>
+					}
+					//11
+					@if (listFileError.DebitCardSummeryErrorsList != null) {
+						<h2 class="accordion-header" id="heading11">
+							<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11" aria-expanded="true" aria-controls="collapse11">
+								@listFileError.DebitCardSummeryErrorsList.Select(x => x.PackageName).FirstOrDefault();
+							</button>
+						</h2><div id="collapse11" class="accordion-collapse collapse show" aria-labelledby="heading11" data-bs-parent="#accordionExample">
+							<div class="accordion-body">
+								<table>
+									<th>
+									<td>Error Column</td>
+									<td>Error Description</td>
+									<td>Error Row No</td>
+									<td>Entity Attribute</td>
+									</th>
+									@foreach (var item in listFileError.DebitCardSummeryErrorsList.ToList()) {
+										<tr>
+											<td>@item.ErrorColumn</td>
+											<td>@item.ErrorDescription</td>
+											<td>@item.ErrorRowNo</td>
+											<td>@item.EntityAttributes</td>
+
+										</tr>
+									}
+								</table>
+							</div>
+						</div>
+					}
+					//12
+					@if (listFileError.CobraLettersErrorsList != null) {
+						<h2 class="accordion-header" id="heading12">
+							<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12" aria-expanded="true" aria-controls="collapse12">
+								@listFileError.CobraLettersErrorsList.Select(x => x.PackageName).FirstOrDefault();
+							</button>
+						</h2><div id="collapse12" class="accordion-collapse collapse show" aria-labelledby="heading12" data-bs-parent="#accordionExample">
+							<div class="accordion-body">
+								<table>
+									<th>
+									<td>Error Column</td>
+									<td>Error Description</td>
+									<td>Error Row No</td>
+									<td>Entity Attribute</td>
+									</th>
+									@foreach (var item in listFileError.CobraLettersErrorsList.ToList()) {
+										<tr>
+											<td>@item.ErrorColumn</td>
+											<td>@item.ErrorDescription</td>
+											<td>@item.ErrorRowNo</td>
+											<td>@item.EntityAttributes</td>
+
+										</tr>
+									}
+								</table>
+							</div>
+						</div>
+					}
+					//13
+					@if (listFileError.ClientListErrorsList != null) {
+						<h2 class="accordion-header" id="heading13">
+							<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13" aria-expanded="true" aria-controls="collapse13">
+								@listFileError.ClientListErrorsList.Select(x => x.PackageName).FirstOrDefault();
+							</button>
+						</h2><div id="collapse13" class="accordion-collapse collapse show" aria-labelledby="heading13" data-bs-parent="#accordionExample">
+							<div class="accordion-body">
+								<table>
+									<th>
+									<td>Error Column</td>
+									<td>Error Description</td>
+									<td>Error Row No</td>
+									<td>Entity Attribute</td>
+									</th>
+									@foreach (var item in listFileError.ClientListErrorsList.ToList()) {
+										<tr>
+											<td>@item.ErrorColumn</td>
+											<td>@item.ErrorDescription</td>
+											<td>@item.ErrorRowNo</td>
+											<td>@item.EntityAttributes</td>
+
+										</tr>
+									}
+								</table>
+							</div>
+						</div>
+					}
+
 				}
 
-			</table>
+			}
 		</div>
 	</div>
-</div>
-
-				}
-			}
-			@if (uploadFileErrors != null) {
-				@if (uploadFileErrors.ClientListErrorsList != null) {
-					<div class="card">
-						@*<div class="card-header" id="headingTwo">
-							<h2 class="mb-0">
-								<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-									Client Errors List
-								</button>
-							</h2>
-						</div>*@
-						<div id="Collapse_@uploadFileErrors.ClientListErrorsList.Select(x => x.LoggingDbId).FirstOrDefault();" class="collapse" aria-labelledby="heading_@uploadFileErrors.ClientListErrorsList.Select(x => x.LoggingDbId).FirstOrDefault();" data-parent="#ErrorFileDisplay">
-							<div class="card-body" id="accordion-table">
-								<table class="table table-striped">
-									<tr>
-										<th>Error Code</th>
-										<th>Error Column</th>
-										<th>LoggingDbId</th>
-										<th>Description</th>
-										<th>Client Name</th>
-										<th>Client Group Name</th>
-										<th>Client Division Name</th>
-										<th>Client ID</th>
-										<th>Client Division ID</th>
-										<th>Active</th>
-
-									</tr>
-
-									@foreach (var item in uploadFileErrors.ClientListErrorsList.ToList()) {
-
-										<tr>
-											<td>@item.ErrorCode</td>
-											<td>@item.ErrorColumn</td>
-											<td>@item.LoggingDbId</td>
-											<td>@item.Description</td>
-											<td>@item.ClientName</td>
-											<td>@item.ClientGroupName</td>
-											<td>@item.ClientDivisionName</td>
-											<td>@item.ClientID</td>
-											<td>@item.ClientDivisionID</td>
-											<td>@item.Active</td>
-
-										</tr>
-									}
-								</table>
-							</div>
-						</div>
-					</div>
-				}
-			}
-
-			@if (uploadFileErrors != null) {
-				if (uploadFileErrors.CobraLettersErrorsList != null) {
-					<div class="card">
-						@*<div class="card-header" id="headingThree">
-							<h2 class="mb-0">
-								<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-									Cobra Letters Errors List
-								</button>
-							</h2>
-						</div>*@
-						<div id="Collapse_@uploadFileErrors.CobraLettersErrorsList.Select(x => x.LoggingDbId).FirstOrDefault();" class="collapse" aria-labelledby="heading_@uploadFileErrors.CobraLettersErrorsList.Select(x => x.LoggingDbId).FirstOrDefault();" data-parent="#ErrorFileDisplay">
-							<div class="card-body" id="accordion-table">
-								<table class="table table-striped">
-									<tr>
-										<th>Client Name</th>
-										<th>Division Name</th>
-										<th>Mode Order</th>
-										<th>Mode Name</th>
-										<th>Qty</th>
-										<th>Error Code</th>
-										<th>Error Column</th>
-										<th>LoggingDbId</th>
-										<th>Description</th>
-									</tr>
-
-
-									@foreach (var item in uploadFileErrors.CobraLettersErrorsList.ToList()) {
-
-										<tr>
-											<td>@item.ClientName</td>
-											<td>@item.DivisionName</td>
-											<td>@item.ModeOrder</td>
-											<td>@item.ModeName</td>
-											<td>@item.Qty</td>
-											<td>@item.ErrorCode</td>
-											<td>@item.ErrorColumn</td>
-											<td>@item.LoggingDbId</td>
-											<td>@item.Description</td>
-										</tr>
-									}
-
-								</table>
-							</div>
-						</div>
-					</div>
-				}
-			}
-			@if (uploadFileErrors != null) {
-				@if (uploadFileErrors.DebitCardSummeryErrorsList != null) {
-					<div class="card">
-						@*<div class="card-header" id="headingFour">
-							<h2 class="mb-0">
-								<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-									Debit CardSummery Errors List
-								</button>
-							</h2>
-						</div>*@
-						<div id="Collapse_@uploadFileErrors.DebitCardSummeryErrorsList.Select(x => x.LoggingDbId).FirstOrDefault();" class="collapse" aria-labelledby="heading_@uploadFileErrors.DebitCardSummeryErrorsList.Select(x => x.LoggingDbId).FirstOrDefault();" data-parent="#ErrorFileDisplay">
-							<div class="card-body" id="accordion-table">
-								<table class="table table-striped">
-									<tr>
-										<th>Error Code</th>
-										<th>Error Column</th>
-										<th>LoggingDbId</th>
-										<th>Description</th>
-										<th>AdminId</th>
-										<th>AdminName</th>
-										<th>EmployerId</th>
-										<th>EmployerName</th>
-										<th>NewCardCount</th>
-										<th>ReplacementCardCount</th>
-										<th>TotalCardsCount</th>
-
-									</tr>
-
-
-									@foreach (var item in uploadFileErrors.DebitCardSummeryErrorsList.ToList()) {
-
-										<tr>
-											<td>@item.ErrorCode</td>
-											<td>@item.ErrorColumn</td>
-											<td>@item.LoggingDbId</td>
-											<td>@item.Description</td>
-											<td>@item.AdminId</td>
-											<td>@item.AdminName</td>
-											<td>@item.EmployerId</td>
-											<td>@item.EmployerName</td>
-											<td>@item.NewCardCount</td>
-											<td>@item.ReplacementCardCount</td>
-											<td>@item.TotalCardsCount</td>
-
-										</tr>
-									}
-
-								</table>
-							</div>
-						</div>
-					</div>
-				}
-			}
-
-			@if (uploadFileErrors != null) {
-				if (uploadFileErrors.EbExtractErrorsList != null) {
-					<div class="card">
-						@*<div class="card-header" id="headingFive">
-							<h2 class="mb-0">
-								<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-									Eb Extract Errors List
-								</button>
-							</h2>
-						</div>*@
-						<div id="Collapse_@uploadFileErrors.EbExtractErrorsList.Select(x => x.LoggingDbId).FirstOrDefault();" class="collapse" aria-labelledby="heading_@uploadFileErrors.EbExtractErrorsList.Select(x => x.LoggingDbId).FirstOrDefault();" data-parent="#ErrorFileDisplay">
-							<div class="card-body" id="accordion-table">
-								<table class="table table-striped">
-									<tr>
-										<th>Termination Date</th>
-										<th>Error Code</th>
-										<th>Error Column</th>
-										<th>LoggingDbId</th>
-										<th>Description</th>
-										<th>Record Type</th>
-										<th>Tpa Id</th>
-										<th>Employer Id</th>
-										<th>Division</th>
-										<th>Employee Id</th>
-										<th>Employee Social Security Number</th>
-										<th>First Name</th>
-										<th>Last Name</th>
-										<th>AddressLine1</th>
-										<th>AddressLine2</th>
-										<th>City</th>
-										<th>State</th>
-										<th>Zip</th>
-										<th>Country</th>
-										<th>User Defined Field</th>
-										<th>Employee Status</th>
-										<th>Termination Date</th>
-										<th>Error Code</th>
-										<th>Error Column</th>
-										<th>LoggingDbId</th>
-										<th>Description</th>
-									</tr>
-									@foreach (var item in uploadFileErrors.EbExtractErrorsList.ToList()) {
-
-										<tr>
-											<td>@item.ErrorCode</td>
-											<td>@item.ErrorColumn</td>
-											<td>@item.LoggingDbId</td>
-											<td>@item.Description</td>
-											<td>@item.RecordType</td>
-											<td>@item.TpaId</td>
-											<td>@item.EmployerId</td>
-											<td>@item.Division</td>
-											<td>@item.EmployeeId</td>
-											<td>@item.EmployeeSocialSecurityNumber</td>
-											<td>@item.FirstName</td>
-											<td>@item.LastName</td>
-											<td>@item.AddressLine1</td>
-											<td>@item.AddressLine2</td>
-											<td>@item.City</td>
-											<td>@item.State</td>
-											<td>@item.Zip</td>
-											<td>@item.Country</td>
-											<td>@item.UserDefinedField</td>
-											<td>@item.EmployeeStatus</td>
-											<td>@item.TerminationDate</td>
-
-										</tr>
-									}
-								</table>
-							</div>
-						</div>
-					</div>
-				}
-			}
-			@if (uploadFileErrors != null) {
-				if (uploadFileErrors.EcExtractErrorsList != null) {
-					<div class="card">
-						@*<div class="card-header" id="headingsix">
-							<h2 class="mb-0">
-								<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapsesix" aria-expanded="false" aria-controls="collapsesix">
-									Ec Extract Errors List
-								</button>
-							</h2>
-						</div>*@
-						<div id="Collapse_@uploadFileErrors.EcExtractErrorsList.Select(x => x.LoggingDbId).FirstOrDefault();" class="collapse" aria-labelledby="heading_@uploadFileErrors.EcExtractErrorsList.Select(x => x.LoggingDbId).FirstOrDefault();" data-parent="#ErrorFileDisplay">
-							<div class="card-body" id="accordion-table">
-								<table class="table table-striped">
-									<tr>
-										<th>Error Code</th>
-										<th>Error Column</th>
-										<th>LoggingDbId</th>
-										<th>Description</th>
-										<th>Record Type</th>
-										<th>Tpa Id</th>
-										<th>Employer Id</th>
-										<th>Dependent Id</th>
-										<th>Employee Id</th>
-										<th>Employee Social Security Number</th>
-										<th>Plan Start Date</th>
-										<th>Plan End Date</th>
-										<th>Effective Date</th>
-										<th>Termination Date</th>
-										<th>Account Status</th>
-										<th>Employee Status</th>
-										<th>Employee LastName</th>
-										<th>Employee First Name</th>
-										<th>Current Annual Election</th>
-										<th>Original Prefunded Annual Election Amount</th>
-										<th>Individual Amount</th>
-										<th>Employee Annual Election</th>
-										<th>Employee Pay Period Election</th>
-										<th>Employer Annual Election</th>
-										<th>Employer Pay Period Election</th>
-										<th>Employee Contribution Ytd</th>
-										<th>Employer Contribution Ytd</th>
-										<th>Other Deposits</th>
-										<th>Disbursements Ptd</th>
-										<th>Disbursable Balance</th>
-										<th>Available Balance</th>
-										<th>Auto Reimbursement Setting</th>
-										<th>Start AutoDeposit Date</th>
-										<th>Auto Deposit Calendar Id</th>
-										<th>Card Number</th>
-										<th>Coverage Tier Id</th>
-										<th>Employee Address1</th>
-										<th>Employee Address2</th>
-										<th>Employee City</th>
-										<th>Employee State</th>
-										<th>Employee Zip</th>
-										<th>Employee Phone</th>
-										<th>Employee Email Address</th>
-										<th>Employee Birth Date</th>
-										<th>Product Partner Acct Status</th>
-										<th>Product Partner Acct Close Date</th>
-										<th>Unique Key Accounts</th>
-										<th>Billable Account</th>
-										<th>Unique Key Perpay</th>
-										<th>EbTerm Date</th>
-										<th>EbTerm Status</th>
-
-									</tr>
-									@foreach (var item in uploadFileErrors.EcExtractErrorsList.ToList()) {
-
-										<tr>
-											<td>@item.ErrorCode</td>
-											<td>@item.ErrorColumn</td>
-											<td>@item.LoggingDbId</td>
-											<td>@item.Description</td>
-											<td>@item.RecordType</td>
-											<td>@item.TpaId</td>
-											<td>@item.EmployerId</td>
-											<td>@item.DependentId</td>
-											<td>@item.EmployeeId</td>
-											<td>@item.EmployeeSocialSecurityNumber</td>
-											<td>@item.PlanStartDate</td>
-											<td>@item.PlanEndDate</td>
-											<td>@item.EffectiveDate</td>
-											<td>@item.TerminationDate</td>
-											<td>@item.AccountStatus</td>
-											<td>@item.EmployeeStatus</td>
-											<td>@item.EmployeeLastName</td>
-											<td>@item.EmployeeFirstName</td>
-											<td>@item.CurrentAnnualElection</td>
-											<td>@item.OriginalPrefundedAnnualElectionAmount</td>
-											<td>@item.IndividualAmount</td>
-											<td>@item.EmployeeAnnualElection</td>
-											<td>@item.EmployeePayPeriodElection</td>
-											<td>@item.EmployeeContributionYtd</td>
-											<td>@item.EmployerContributionYtd</td>
-											<td>@item.OtherDeposits</td>
-											<td>@item.DisbursementsPtd</td>
-											<td>@item.DisbursableBalance</td>
-											<td>@item.AvailableBalance</td>
-											<td>@item.AutoReimbursementSetting</td>
-											<td>@item.StartAutoDepositDate</td>
-											<td>@item.AutoDepositCalendarId</td>
-											<td>@item.CardNumber</td>
-											<td>@item.CoverageTierId</td>
-											<td>@item.EmployeeAddress1</td>
-											<td>@item.EmployeeAddress2</td>
-											<td>@item.EmployeeCity</td>
-											<td>@item.EmployeeState</td>
-											<td>@item.EmployeeZip</td>
-											<td>@item.EmployeePhone</td>
-											<td>@item.EmployeeEmailAddress</td>
-											<td>@item.EmployeeBirthDate</td>
-											<td>@item.ProductPartnerAcctStatus</td>
-											<td>@item.ProductPartnerAcctCloseDate</td>
-											<td>@item.UniqueKeyAccounts</td>
-											<td>@item.BillableAccount</td>
-											<td>@item.UniqueKeyPerpay</td>
-											<td>@item.EbTermDate</td>
-											<td>@item.EbTermStatus</td>
-
-										</tr>
-									}
-								</table>
-							</div>
-						</div>
-					</div>
-				}
-			}
-			@if (uploadFileErrors != null) {
-				@if (uploadFileErrors.EmployeeNavImportErrorsList != null) {
-					<div class="card">
-						@*<div class="card-header" id="headingseven">
-							<h2 class="mb-0">
-								<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
-									Employee Nav Import Errors List
-								</button>
-							</h2>
-						</div>*@
-						<div id="Collapse_@uploadFileErrors.EmployeeNavImportErrorsList.Select(x => x.LoggingDbId).FirstOrDefault();" class="collapse" aria-labelledby="heading_@uploadFileErrors.EmployeeNavImportErrorsList.Select(x => x.LoggingDbId).FirstOrDefault();" data-parent="#ErrorFileDisplay">
-							<div class="card-body" id="accordion-table">
-								<table class="table table-striped">
-									<tr>
-										<th>Error Code</th>
-										<th>Error Column</th>
-										<th>LoggingDbId</th>
-										<th>Description</th>
-										<th>Company</th>
-										<th>TotalEmployees</th>
-										<th>ActiveEmployees</th>
-										<th>EligibleEmployees</th>
-										<th>EnrolledEmployees</th>
-										<th>CobraEmployees</th>
-										<th>SsmaTimeStamp</th>
-
-									</tr>
-
-
-									@foreach (var item in uploadFileErrors.EmployeeNavImportErrorsList.ToList()) {
-
-										<tr>
-											<td>@item.ErrorCode</td>
-											<td>@item.ErrorColumn</td>
-											<td>@item.LoggingDbId</td>
-											<td>@item.Description</td>
-											<td>@item.Company</td>
-											<td>@item.TotalEmployees</td>
-											<td>@item.ActiveEmployees</td>
-											<td>@item.EligibleEmployees</td>
-											<td>@item.EnrolledEmployees</td>
-											<td>@item.CobraEmployees</td>
-											<td>@item.SsmaTimeStamp</td>
-
-										</tr>
-									}
-
-								</table>
-							</div>
-						</div>
-					</div>
-				}
-			}
-			@if (uploadFileErrors != null) {
-				if (uploadFileErrors.PlanDocReportErrorsList != null) {
-					<div class="card">
-						@*<div class="card-header" id="headingEight">
-							<h2 class="mb-0">
-								<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
-									Plan DocReport Errors List
-								</button>
-							</h2>
-						</div>*@
-						@{
-								var id = uploadFileErrors.PlanDocReportErrorsList.Select(x => x.LoggingDbId).FirstOrDefault();
-						}
-						<div id="Collapse_@id" class="collapse" aria-labelledby="heading_@uploadFileErrors.PlanDocReportErrorsList.Select(x => x.LoggingDbId).FirstOrDefault();" data-parent="#ErrorFileDisplay">
-							<div class="card-body" id="accordion-table">
-								<table class="table table-striped">
-									<tr>
-										<th>Error Code</th>
-										<th>Error Column</th>
-										<th>LoggingDbId</th>
-										<th>Description</th>
-										<th>Line Type</th>
-										<th>Tpa Code</th>
-										<th>Bencode</th>
-										<th>Employer Name</th>
-										<th>Account Type Code</th>
-										<th>Plan Id</th>
-										<th>Py Start Date</th>
-										<th>Plan End Date</th>
-										<th>Grace Roll</th>
-										<th>Runout Date</th>
-										<th>Term Runout Date</th>
-										<th>Plan Min</th>
-										<th>Plan Max</th>
-										<th>Runout Date Dt</th>
-										<th>Billable Runout</th>
-										<th>Account Unique Key</th>
-										<th>Term Runout Date Number</th>
-										<th>Plan End Date Dt</th>
-										<th>Runout Date Number</th>
-										<th>Error RowNo</th>
-
-									</tr>
-									@foreach (var item in uploadFileErrors.PlanDocReportErrorsList.ToList()) {
-
-										<tr>
-											<td>@item.ErrorCode</td>
-											<td>@item.ErrorColumn</td>
-											<td>@item.LoggingDbId</td>
-											<td>@item.Description</td>
-											<td>@item.LineType</td>
-											<td>@item.TpaCode</td>
-											<td>@item.Bencode</td>
-											<td>@item.EmployerName</td>
-											<td>@item.AccountTypeCode</td>
-											<td>@item.PlanId</td>
-											<td>@item.PyStartDate</td>
-											<td>@item.PlanEndDate</td>
-											<td>@item.GraceRoll</td>
-											<td>@item.RunoutDate</td>
-											<td>@item.TermRunoutDate</td>
-											<td>@item.PlanMin</td>
-											<td>@item.PlanMax</td>
-											<td>@item.RunoutDateDt</td>
-											<td>@item.BillableRunout</td>
-											<td>@item.AccountUniqueKey</td>
-											<td>@item.TermRunoutDateNumber</td>
-											<td>@item.PlanEndDateDt</td>
-											<td>@item.RunoutDateNumber</td>
-											<td>@item.ErrorRowNo</td>
-
-										</tr>
-									}
-								</table>
-							</div>
-						</div>
-					</div>
-				}
-			}
-			@if (uploadFileErrors != null) {
-				@if (uploadFileErrors.EmployeeNavImportErrorsList != null) {
-					<div class="card">
-						@*<div class="card-header" id="headingNine">
-							<h2 class="mb-0">
-								<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapsenine" aria-expanded="false" aria-controls="collapsenine">
-									Employee Nav Import Errors List
-								</button>
-							</h2>
-						</div>*@
-						<div id="Collapse_@uploadFileErrors.EmployeeNavImportErrorsList.Select(x => x.LoggingDbId).FirstOrDefault();" class="collapse" aria-labelledby="heading_@uploadFileErrors.EmployeeNavImportErrorsList.Select(x => x.LoggingDbId).FirstOrDefault();" data-parent="#ErrorFileDisplay">
-							<div class="card-body" id="accordion-table">
-								<table class="table table-striped">
-									<tr>
-										<th>Error Code</th>
-										<th>Error Column</th>
-										<th>LoggingDbId</th>
-										<th>Description</th>
-										<th>Company</th>
-										<th>TotalEmployees</th>
-										<th>ActiveEmployees</th>
-										<th>EligibleEmployees</th>
-										<th>EnrolledEmployees</th>
-										<th>CobraEmployees</th>
-										<th>SsmaTimeStamp</th>
-
-									</tr>
-
-
-									@foreach (var item in uploadFileErrors.EmployeeNavImportErrorsList.ToList()) {
-
-										<tr>
-											<td>@item.ErrorCode</td>
-											<td>@item.ErrorColumn</td>
-											<td>@item.LoggingDbId</td>
-											<td>@item.Description</td>
-											<td>@item.Company</td>
-											<td>@item.TotalEmployees</td>
-											<td>@item.ActiveEmployees</td>
-											<td>@item.EligibleEmployees</td>
-											<td>@item.EnrolledEmployees</td>
-											<td>@item.CobraEmployees</td>
-											<td>@item.SsmaTimeStamp</td>
-
-										</tr>
-									}
-
-								</table>
-							</div>
-						</div>
-					</div>
-				}
-			}
-			@if (uploadFileErrors != null) {
-				@if (uploadFileErrors.PlanDocReportPriorErrorsList != null) {
-					<div class="card">
-						@*<div class="card-header" id="headingTen">
-							<h2 class="mb-0">
-								<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
-									Plan Doc Report Prior Errors List
-								</button>
-							</h2>
-						</div>*@
-						<div id="Collapse_@uploadFileErrors.PlanDocReportPriorErrorsList.Select(x => x.LoggingDbId).FirstOrDefault();" class="collapse" aria-labelledby="heading_@uploadFileErrors.PlanDocReportPriorErrorsList.Select(x => x.LoggingDbId).FirstOrDefault();" data-parent="#ErrorFileDisplay">
-							<div class="card-body" id="accordion-table">
-								<table class="table table-striped">
-									<tr>
-										<th>Error Code</th>
-										<th>Error Column</th>
-										<th>LoggingDbId</th>
-										<th>Description</th>
-										<th>Line Type</th>
-										<th>Tpa Code</th>
-										<th>Bencode</th>
-										<th>Employer Name</th>
-										<th>Account Type Code</th>
-										<th>Plan Id</th>
-										<th>Py Start Date</th>
-										<th>Plan End Date</th>
-										<th>Grace Roll</th>
-										<th>Runout Date</th>
-										<th>Term Runout Date</th>
-										<th>Plan Min</th>
-										<th>Plan Max</th>
-										<th>Runout Date Dt</th>
-										<th>Billable Runout</th>
-										<th>Account Unique Key</th>
-										<th>Term Runout Date Number</th>
-										<th>Plan End Date Dt</th>
-										<th>Runout Date Number</th>
-										<th>Error RowNo</th>
-
-									</tr>
-
-
-
-									@foreach (var item in uploadFileErrors.PlanDocReportPriorErrorsList.ToList()) {
-
-										<tr>
-											<td>@item.ErrorCode</td>
-											<td>@item.ErrorColumn</td>
-											<td>@item.LoggingDbId</td>
-											<td>@item.Description</td>
-											<td>@item.LineType</td>
-											<td>@item.TpaCode</td>
-											<td>@item.Bencode</td>
-											<td>@item.EmployerName</td>
-											<td>@item.AccountTypeCode</td>
-											<td>@item.PlanId</td>
-											<td>@item.PyStartDate</td>
-											<td>@item.PlanEndDate</td>
-											<td>@item.GraceRoll</td>
-											<td>@item.RunoutDate</td>
-											<td>@item.TermRunoutDate</td>
-											<td>@item.PlanMin</td>
-											<td>@item.PlanMax</td>
-											<td>@item.RunoutDateDt</td>
-											<td>@item.BillableRunout</td>
-											<td>@item.AccountUniqueKey</td>
-											<td>@item.TermRunoutDateNumber</td>
-											<td>@item.PlanEndDateDt</td>
-											<td>@item.RunoutDateNumber</td>
-											<td>@item.ErrorRowNo</td>
-
-										</tr>
-									}
-								</table>
-							</div>
-						</div>
-					</div>
-				}
-			}
-
-			@if (uploadFileErrors != null) {
-				if (uploadFileErrors.SpabyacareportErrorsList != null) {
-					<div class="card">
-						@*<div class="card-header" id="headingeleven">
-							<h2 class="mb-0">
-								<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseeleven" aria-expanded="false" aria-controls="collapseeleven">
-									Spabya careport Errors List
-								</button>
-							</h2>
-						</div>*@
-						<div id="Collapse_@uploadFileErrors.SpabyacareportErrorsList.Select(x => x.LoggingDbId).FirstOrDefault();" class="collapse" aria-labelledby="heading_@uploadFileErrors.SpabyacareportErrorsList.Select(x => x.LoggingDbId).FirstOrDefault();" data-parent="#ErrorFileDisplay">
-							<div class="card-body" id="accordion-table">
-								<table class="table table-striped">
-									<tr>
-										<th>Error Code</th>
-										<th>Error Column</th>
-										<th>LoggingDbId</th>
-										<th>Description</th>
-										<th>Member Id</th>
-										<th>Client Name</th>
-										<th>Division Name</th>
-										<th>First Name</th>
-										<th>Last Name</th>
-										<th>Middle Initial</th>
-										<th>Dob</th>
-										<th>Ssn</th>
-										<th>Individual Identifier</th>
-										<th>Gender</th>
-										<th>Address</th>
-										<th>Address2</th>
-										<th>City</th>
-										<th>Country</th>
-										<th>Postal Code</th>
-										<th>State Or Province</th>
-										<th>Ein</th>
-										<th>Plan Name</th>
-										<th>Plan Star tDate</th>
-										<th>Plan End Date</th>
-										<th>Tobacco Use</th>
-										<th>Carrier Name</th>
-										<th>Insurance Type</th>
-										<th>Coverage Level Type</th>
-										<th>Employee Type</th>
-										<th>RelationShip Name</th>
-										<th>Spminsurance Type PlanId</th>
-										<th>IsDependent</th>
-										<th>Billing Type Name</th>
-										<th>Status</th>
-										<th>First Day Of Coverage</th>
-										<th>Last Day Of Coverage</th>
-										<th>Term Date</th>
-										<th>My Property</th>
-										<th>Account Type Code</th>
-										<th>Client Alternate</th>
-										<th>Unique Key</th>
-
-									</tr>
-
-									@foreach (var item in uploadFileErrors.SpabyacareportErrorsList.ToList()) {
-
-										<tr>
-											<td>@item.ErrorCode</td>
-											<td>@item.ErrorColumn</td>
-											<td>@item.LoggingDbId</td>
-											<td>@item.Description</td>
-											<td>@item.MemberId</td>
-											<td>@item.ClientName</td>
-											<td>@item.DivisionName</td>
-											<td>@item.FirstName</td>
-											<td>@item.LastName</td>
-											<td>@item.MiddleInitial</td>
-											<td>@item.Dob</td>
-											<td>@item.Ssn</td>
-											<td>@item.IndividualIdentifier</td>
-											<td>@item.Gender</td>
-											<td>@item.Address</td>
-											<td>@item.Address2</td>
-											<td>@item.City</td>
-											<td>@item.Country</td>
-											<td>@item.PostalCode</td>
-											<td>@item.StateOrProvince</td>
-											<td>@item.Ein</td>
-											<td>@item.PlanName</td>
-											<td>@item.PlanStartDate</td>
-											<td>@item.PlanEndDate</td>
-											<td>@item.TobaccoUse</td>
-											<td>@item.CarrierName</td>
-											<td>@item.InsuranceType</td>
-											<td>@item.CoverageLevelType</td>
-											<td>@item.EmployeeType</td>
-											<td>@item.RelationShipName</td>
-											<td>@item.SpminsuranceTypePlanId</td>
-											<td>@item.IsDependent</td>
-											<td>@item.BillingTypeName</td>
-											<td>@item.Status</td>
-											<td>@item.FirstDayOfCoverage</td>
-											<td>@item.LastDayOfCoverage</td>
-											<td>@item.TermDate</td>
-											<td>@item.MyProperty</td>
-											<td>@item.AccountTypeCode</td>
-											<td>@item.ClientAlternate</td>
-											<td>@item.UniqueKey</td>
-
-										</tr>
-									}
-
-								</table>
-							</div>
-						</div>
-					</div>
-				}
-			}
-			@if (uploadFileErrors != null) {
-				@if (uploadFileErrors.StaggingNpmErrorsList != null) {
-					<div class="card">
-						@*<div class="card-header" id="headingTwelve">
-							<h2 class="mb-0">
-								<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwelve" aria-expanded="false" aria-controls="collapseTwelve">
-									Stagging Npm Errors List
-								</button>
-							</h2>
-						</div>*@
-						<div id="Collapse_@uploadFileErrors.StaggingNpmErrorsList.Select(x => x.LoggingDbId).FirstOrDefault();" class="collapse" aria-labelledby="heading_@uploadFileErrors.StaggingNpmErrorsList.Select(x => x.LoggingDbId).FirstOrDefault();" data-parent="#ErrorFileDisplay">
-							<div class="card-body" id="accordion-table">
-								<table class="table table-striped">
-									<tr>
-										<th>Error Code</th>
-										<th>Error Column</th>
-										<th>LoggingDbId</th>
-										<th>Description</th>
-										<th>Client Name</th>
-										<th>include</th>
-										<th>Division Name</th>
-										<th>Full Name</th>
-										<th>SSN</th>
-										<th>Coverage Level</th>
-										<th>Address</th>
-										<th>Address2</th>
-										<th>City</th>
-										<th>State Or Province</th>
-										<th>Postal Code</th>
-										<th>Country</th>
-										<th>PDF Generated DateTime</th>
-										<th>Individual Identifier</th>
-										<th>Type</th>
-										<th>Member ID</th>
-										<th>IsPaylocity</th>
-										<th>Alternate ERID</th>
-
-									</tr>
-
-
-									@foreach (var item in uploadFileErrors.StaggingNpmErrorsList.ToList()) {
-
-										<tr>
-											<td>@item.ErrorCode</td>
-											<td>@item.ErrorColumn</td>
-											<td>@item.LoggingDbId</td>
-											<td>@item.Description</td>
-											<td>@item.ClientName</td>
-											<td>@item.include</td>
-											<td>@item.DivisionName</td>
-											<td>@item.FullName</td>
-											<td>@item.SSN</td>
-											<td>@item.CoverageLevel</td>
-											<td>@item.Address</td>
-											<td>@item.Address2</td>
-											<td>@item.City</td>
-											<td>@item.StateOrProvince</td>
-											<td>@item.PostalCode</td>
-											<td>@item.Country</td>
-											<td>@item.PDFGeneratedDateTime</td>
-											<td>@item.IndividualIdentifier</td>
-											<td>@item.Type</td>
-											<td>@item.MemberID</td>
-											<td>@item.IsPaylocity</td>
-											<td>@item.AlternateERID</td>
-
-
-										</tr>
-									}
-
-								</table>
-							</div>
-						</div>
-					</div>
-				}
-			}
-			@if (uploadFileErrors != null) {
-				@if (uploadFileErrors.StaggingQbDetailErrorsList != null) {
-					<div class="card">
-						@*<div class="card-header" id="headingThirteen">
-							<h2 class="mb-0">
-								<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThirteen" aria-expanded="false" aria-controls="collapseThirteen">
-									Stagging QbDetail Errors List
-								</button>
-							</h2>
-						</div>*@
-						<div id="Collapse_@uploadFileErrors.StaggingQbDetailErrorsList.Select(x => x.LoggingDbId).FirstOrDefault();" class="collapse" aria-labelledby="heading_@uploadFileErrors.StaggingQbDetailErrorsList.Select(x => x.LoggingDbId).FirstOrDefault();" data-parent="#ErrorFileDisplay">
-							<div class="card-body" id="accordion-table">
-								<table class="table table-striped">
-									<tr>
-										<th>Error Code</th>
-										<th>Error Column</th>
-										<th>LoggingDbId</th>
-										<th>Description</th>
-										<th>Member Id</th>
-										<th>Client Name</th>
-										<th>Division Name</th>
-										<th>First Name</th>
-										<th>Last Name</th>
-										<th>Middle Initial</th>
-										<th>Dob</th>
-										<th>Ssn</th>
-										<th>Individual Identifier</th>
-										<th>Gender</th>
-										<th>Address</th>
-										<th>Address2</th>
-										<th>City</th>
-										<th>Country</th>
-										<th>Postal Code</th>
-										<th>State Or Province</th>
-										<th>Ein</th>
-										<th>Plan Name</th>
-										<th>Plan Start Date</th>
-										<th>Plan End Date</th>
-										<th>Tobacco Use</th>
-										<th>Carrier Name</th>
-										<th>Insurance Type</th>
-										<th>Coverage Level Type</th>
-										<th>Employee Type</th>
-										<th>RelationShip Name</th>
-
-										<th>IsDependent</th>
-										<th>Specific Rights Processed Date</th>
-										<th>Event Type</th>
-										<th>Event Category</th>
-										<th>Qualifying Event Date</th>
-										<th>Uses Health Coverage Tax Credit</th>
-										<th>Status</th>
-										<th>First Day Of COBRA</th>
-										<th>Last Day Of COBRA</th>
-										<th>Term Date</th>
-										<th>Alternate ERID</th>
-
-
-									</tr>
-
-
-									@foreach (var item in uploadFileErrors.StaggingQbDetailErrorsList.ToList()) {
-
-										<tr>
-											<td>@item.ErrorCode</td>
-											<td>@item.ErrorColumn</td>
-											<td>@item.LoggingDbId</td>
-											<td>@item.Description</td>
-											<td>@item.MemberID</td>
-											<td>@item.ClientName</td>
-											<td>@item.DivisionName</td>
-											<td>@item.FirstName</td>
-											<td>@item.LastName</td>
-											<td>@item.MiddleInitial</td>
-											<td>@item.DOB</td>
-											<td>@item.SSN</td>
-											<td>@item.IndividualIdentifier</td>
-											<td>@item.Gender</td>
-											<td>@item.Address</td>
-											<td>@item.Address2</td>
-											<td>@item.City</td>
-											<td>@item.Country</td>
-											<td>@item.PostalCode</td>
-											<td>@item.StateOrProvince</td>
-											<td>@item.EIN</td>
-											<td>@item.PlanName</td>
-											<td>@item.PlanStartDate</td>
-											<td>@item.PlanEndDate</td>
-											<td>@item.TobaccoUse</td>
-											<td>@item.CarrierName</td>
-											<td>@item.InsuranceType</td>
-											<td>@item.CoverageLevelType</td>
-											<td>@item.EmployeeType</td>
-											<td>@item.RelationShipName</td>
-
-											<td>@item.IsDependent</td>
-											<td>@item.SpecificRightsProcessedDate</td>
-											<td>@item.EventType</td>
-											<td>@item.EventCategory</td>
-											<td>@item.QualifyingEventDate</td>
-											<td>@item.UsesHealthCoverageTaxCredit</td>
-											<td>@item.Status</td>
-											<td>@item.FirstDayOfCOBRA</td>
-											<td>@item.LastDayOfCOBRA</td>
-											<td>@item.TermDate</td>
-											<td>@item.AlternateERID</td>
-
-										</tr>
-									}
-								</table>
-							</div>
-						</div>
-					</div>
-				}
-			}
-			@if (uploadFileErrors != null) {
-				@if (uploadFileErrors.SwiftBillingNumImportErrorsList != null) {
-					<div class="card">
-						@*<div class="card-header" id="headingThirteen">
-							<h2 class="mb-0">
-								<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThirteen" aria-expanded="false" aria-controls="collapseThirteen">
-									SwiftBilling NumImport Errors List
-								</button>
-							</h2>
-						</div>*@
-						<div id="Collapse_@uploadFileErrors.SwiftBillingNumImportErrorsList.Select(x => x.LoggingDbId).FirstOrDefault();" class="collapse" aria-labelledby="heading_@uploadFileErrors.SwiftBillingNumImportErrorsList.Select(x => x.LoggingDbId).FirstOrDefault();" data-parent="#ErrorFileDisplay">
-							<div class="card-body" id="accordion-table">
-								<table class="table table-striped">
-									<tr>
-										<th>Error Code</th>
-										<th>Error Column</th>
-										<th>LoggingDbId</th>
-										<th>Description</th>
-										<th>Group Number</th>
-										<th>Client Name</th>
-										<th>Client Effective Date</th>
-										<th>Division</th>
-										<th>Location</th>
-										<th>Employee Id</th>
-										<th>First Name</th>
-										<th>Last Name</th>
-										<th>Benefit Class Name</th>
-										<th>Benefit Class Benefit Eligible</th>
-										<th>ParticipantUniqueKey</th>
-
-
-									</tr>
-
-
-									@foreach (var item in uploadFileErrors.SwiftBillingNumImportErrorsList.ToList()) {
-
-										<tr>
-											<td>@item.ErrorCode</td>
-											<td>@item.ErrorColumn</td>
-											<td>@item.LoggingDbId</td>
-											<td>@item.Description</td>
-											<td>@item.GroupNumber</td>
-											<td>@item.ClientName</td>
-											<td>@item.ClientEffectiveDate</td>
-											<td>@item.Division</td>
-											<td>@item.Location</td>
-											<td>@item.EmployeeId</td>
-											<td>@item.FirstName</td>
-											<td>@item.LastName</td>
-											<td>@item.BenefitClassName</td>
-											<td>@item.BenefitClassBenefitEligible</td>
-											<td>@item.ParticipantUniqueKey</td>
-
-										</tr>
-									}
-
-
-								</table>
-							</div>
-						</div>
-					</div>
-				}
-			}
-
-
-		}
-
-
-	}
-</div>
-
+}
 
 
 
@@ -1743,7 +1075,7 @@
 
 	#accordion-table {
 		padding: 1rem 1.25rem;
-		Height: 300px;
-		overflow: scroll;
+		/*	Height: 300px;*/
+		/*overflow: scroll;*/
 	}
 </style>

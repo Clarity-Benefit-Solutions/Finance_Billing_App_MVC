@@ -204,16 +204,40 @@ namespace FinanceBilling.Controllers
                 } else {
                     //guid = "6d3f3a9d-9dca-48b2-aa37-c01c4a0a8cde //For Testing
                     List<UploadFileErrorModel> uploadFileErrorModel = new List<UploadFileErrorModel>();
+                    List<ListFileError> listFileErrors = new List<ListFileError>();
+
                     //List<ErrorFileNameList> errorFileNameLists = new List<ErrorFileNameList>()
-                     ViewBag.Message = "Failed To Upload File, Please check and try again.";
+                    ViewBag.Message = "Failed To Upload File, Please check and try again.";
                     uploadFile.ErrorFileNameLists = await _itblLoggingService.GetLogsForAccordion(guid);
                     foreach (var item in uploadFile.ErrorFileNameLists) {
-                        UploadFileErrorModel uploadFileError = new UploadFileErrorModel();
-                        uploadFileError = _itblLoggingService.GetAllLoggingByGuid(guid, (int?)item.ID).Result;
-                        uploadFileErrorModel.Add(uploadFileError);
+                        //UploadFileErrorModel uploadFileError = new UploadFileErrorModel();
+                         //uploadFileError = _itblLoggingService.GetAllLoggingByGuid(guid, (int?)item.ID).Result;
+                        //uploadFileErrorModel.Add(uploadFileError);
+                        ListFileError listFile = new ListFileError(); 
+                        listFile = _itblLoggingService.AllDataLogsForAccordion(guid,item.ID).Result;
+                        listFileErrors.Add(listFile);
+
+                        //uploadFile.BrokerClientListErrorsList = uploadFileError.BrokerClientListErrorsList
+
+                        //_mapper.Map(uploadFileError.BrokerClientListErrorsList, uploadFile.BrokerClientListErrorsList);
+                        //_mapper.Map(uploadFileError.SwiftBillingNumImportErrorsList, uploadFile.SwiftBillingNumImportErrorsList);
+                        //_mapper.Map(uploadFileError.StaggingQbDetailErrorsList, uploadFile.StaggingQbDetailErrorsList);
+                        //_mapper.Map(uploadFileError.StaggingNpmErrorsList, uploadFile.StaggingNpmErrorsList);
+                        //_mapper.Map(uploadFileError.SpabyacareportErrorsList, uploadFile.SpabyacareportErrorsList);
+                        //_mapper.Map(uploadFileError.PlanDocReportPriorErrorsList, uploadFile.PlanDocReportPriorErrorsList);
+                        //_mapper.Map(uploadFileError.PlanDocReportErrorsList, uploadFile.PlanDocReportErrorsList);
+                        //_mapper.Map(uploadFileError.EmployeeNavImportErrorsList, uploadFile.EmployeeNavImportErrorsList);
+                        //_mapper.Map(uploadFileError.EcExtractErrorsList, uploadFile.EcExtractErrorsList);
+                        //_mapper.Map(uploadFileError.EbExtractErrorsList, uploadFile.EbExtractErrorsList);
+                        //_mapper.Map(uploadFileError.DebitCardSummeryErrorsList, uploadFile.DebitCardSummeryErrorsList);
+                        //_mapper.Map(uploadFileError.CobraLettersErrorsList, uploadFile.CobraLettersErrorsList);
+                        //_mapper.Map(uploadFileError.ClientListErrorsList, uploadFile.ClientListErrorsList);
+
                     }
                     //ViewBag.uploadFileErrorModel = uploadFileErrorModel;
-                    uploadFile.UploadFileErrorModels = uploadFileErrorModel;
+                    uploadFile.listFileErrors = listFileErrors;
+
+                    //uploadFile.UploadFileErrorModels = uploadFileErrorModel;
                 }
             }
             return View(uploadFile);

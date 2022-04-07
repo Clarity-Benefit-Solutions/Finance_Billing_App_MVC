@@ -8,16 +8,22 @@ namespace FinanceBillingModel.Models
 {
     public class CobraLettersError
     {
-        public string? ClientName { get; set; }
-        public string? DivisionName { get; set; }
-        public string? ModeOrder { get; set; }
-        public string? ModeName { get; set; }
-        public string? Description { get; set; }
-        public long? Qty { get; set; }
-        public string? ErrorCode { get; set; }
-        public string? ErrorColumn { get; set; }
-        public long? LoggingDbId { get; set; }
+        //public string? ClientName { get; set; }
+        //public string? DivisionName { get; set; }
+        //public string? ModeOrder { get; set; }
+        //public string? ModeName { get; set; }
         //public string? Description { get; set; }
+        //public long? Qty { get; set; }
+        //public string? ErrorCode { get; set; }
+        //public string? ErrorColumn { get; set; }
+        //public long? LoggingDbId { get; set; }
+        public string PackageName { get; set; }
+        public string ErrorColumn { get; set; }
+        public string ErrorRowNo { get; set; }
+        public string LoggingDbId { get; set; }
+        public string ErrorDescription { get; set; }
+        public string EntityAttributes { get; set; }
+
 
 
 

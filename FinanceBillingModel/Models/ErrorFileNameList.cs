@@ -19,5 +19,11 @@ namespace FinanceBillingModel.Models
         public int NumRowsTotal { get; set; }
         public int NumRowsInserted { get; set; }
         public int NumRowsNotInserted { get; set; }
+        //public string PackageName { get; set; }
+        //public string ErrorColumn { get; set; }
+        //public string ErrorRowNo { get; set; }
+        //public string LoggingDbId { get; set; }
+        //public string ErrorDescription { get; set; }
+        //public string EntityAttributes { get; set; }
     }
 }
