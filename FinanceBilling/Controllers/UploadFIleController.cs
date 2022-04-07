@@ -85,8 +85,7 @@ namespace FinanceBilling.Controllers
         {
             UploadFile uploadFile = new UploadFile();
             var filesCount = Request?.Form?.Files?.Count ?? 0;
-            if (files == null || filesCount == 0)
-            {
+            if (files == null || filesCount == 0) {
                 ModelState.AddModelError("NoFilesUploaded", $"No files slected and uploaded.Please upload files.");
                 return View(uploadFile);
             }
@@ -98,8 +97,7 @@ namespace FinanceBilling.Controllers
             // 2. a boundary should be found in the Content-Type
             if (!request.HasFormContentType ||
                 !MediaTypeHeaderValue.TryParse(request.ContentType, out var mediaTypeHeader) ||
-                string.IsNullOrEmpty(mediaTypeHeader.Boundary.Value))
-            {
+                string.IsNullOrEmpty(mediaTypeHeader.Boundary.Value)) {
                 ModelState.AddModelError($"error", $"Something went wrong.");
                 return View(uploadFile);
             }
@@ -134,15 +132,13 @@ namespace FinanceBilling.Controllers
             var uploadfiles = Request.Form.Files.Select(x => x.FileName).ToList();
 
 
-            for (int i = 0; i < uploadfiles.Count; i++)
-            {
+            for (int i = 0; i < uploadfiles.Count; i++) {
                 returnvalue.Add(Path.GetFileNameWithoutExtension(uploadfiles[i]));
             }
 
             var missingFile = tblFilesNames.Where(f => !returnvalue.Any(str => str.Contains(f.FileName)));
             //File count validation
-            if (Request.Form.Files.Count != validFilesCount)
-            {
+            if (Request.Form.Files.Count != validFilesCount) {
                 ModelState.AddModelError("file_count", $"Number of files to be uploaded should be {validFilesCount}.");
                 ViewBag.missingFile = missingFile;
                 //var missingFiles validation
@@ -158,13 +154,11 @@ namespace FinanceBilling.Controllers
             string filePath;
             var IsValidationPassed = true;
 
-            for (int i = 0; i < Request.Form.Files.Count; i++)
-            {
+            for (int i = 0; i < Request.Form.Files.Count; i++) {
                 arr = Request.Form.Files[i].FileName.Split('.');
                 arr[1] = "." + arr[1];
                 var fileEntityObj = tblFilesNames.Where(o => o.FileName == arr[0] && o.FileExtension.ToLower() == arr[1].ToLower()).FirstOrDefault();
-                if (fileEntityObj == null)
-                {
+                if (fileEntityObj == null) {
                     ModelState.AddModelError($"{Request.Form.Files[i].FileName}NotFound", $"File {Request.Form.Files[i].FileName} can not upload due to invalid file name.");
                     IsValidationPassed = false;
                 }
@@ -178,18 +172,15 @@ namespace FinanceBilling.Controllers
 
             string rootpath = _env.ContentRootPath;
             rootpath = @"E:\Finance_Billing\Starting_Files";
-            if (!Directory.Exists(rootpath))
-            {
+            if (!Directory.Exists(rootpath)) {
                 ModelState.AddModelError($"Something", $"Something went wrong.");
                 //Directory.CreateDirectory(rootpath);
             }
 
 
             //checking vallidation is passed or not
-            if (IsValidationPassed)
-            {
-                for (int i = 0; i < Request.Form.Files.Count; i++)
-                {
+            if (IsValidationPassed) {
+                for (int i = 0; i < Request.Form.Files.Count; i++) {
                     filePath = Path.Combine(rootpath, Request.Form.Files[i].FileName);
                     DirectoryInfo info = new DirectoryInfo(rootpath);
                     if (!info.Exists)
@@ -208,8 +199,7 @@ namespace FinanceBilling.Controllers
                 string guid = newGuid.ToString();
                 bool isExecuted = await _iCommonService.ExecuteSSISPackage(guid);
 
-                if (isExecuted)
-                {
+                if (isExecuted) {
                     ViewBag.Message = "File Uploaded Successfully";
 
                     uploadFile.NewClientViewModels = new List<NewClientViewModel>();
@@ -217,23 +207,43 @@ namespace FinanceBilling.Controllers
                     uploadFile.TerminatedClients = new List<TerminatedClient>();
                     uploadFile.clientToProductViewModels = new List<ClientToProductViewModel>();
                     uploadFile.clientToClientViewModels = new List<ClientToClientViewModel>();
-
-                }
-                else
-                {
+                } else {
                     //guid = "6d3f3a9d-9dca-48b2-aa37-c01c4a0a8cde //For Testing
                     List<UploadFileErrorModel> uploadFileErrorModel = new List<UploadFileErrorModel>();
+                    List<ListFileError> listFileErrors = new List<ListFileError>();
 
+                    //List<ErrorFileNameList> errorFileNameLists = new List<ErrorFileNameList>()
                     ViewBag.Message = "Failed To Upload File, Please check and try again.";
-                    var ErrorLogsByGuid = await _itblLoggingService.GetLogsForAccordion(guid);
-                    foreach (var item in ErrorLogsByGuid)
-                    {
-                        UploadFileErrorModel uploadFileError = new UploadFileErrorModel();
-                        uploadFileError = _itblLoggingService.GetAllLoggingByGuid(guid, (int?)item.Id).Result;
-                        uploadFileErrorModel.Add(uploadFileError);
+                    uploadFile.ErrorFileNameLists = await _itblLoggingService.GetLogsForAccordion(guid);
+                    foreach (var item in uploadFile.ErrorFileNameLists) {
+                        //UploadFileErrorModel uploadFileError = new UploadFileErrorModel();
+                         //uploadFileError = _itblLoggingService.GetAllLoggingByGuid(guid, (int?)item.ID).Result;
+                        //uploadFileErrorModel.Add(uploadFileError);
+                        ListFileError listFile = new ListFileError(); 
+                        listFile = _itblLoggingService.AllDataLogsForAccordion(guid,item.ID).Result;
+                        listFileErrors.Add(listFile);
+
+                        //uploadFile.BrokerClientListErrorsList = uploadFileError.BrokerClientListErrorsList
+
+                        //_mapper.Map(uploadFileError.BrokerClientListErrorsList, uploadFile.BrokerClientListErrorsList);
+                        //_mapper.Map(uploadFileError.SwiftBillingNumImportErrorsList, uploadFile.SwiftBillingNumImportErrorsList);
+                        //_mapper.Map(uploadFileError.StaggingQbDetailErrorsList, uploadFile.StaggingQbDetailErrorsList);
+                        //_mapper.Map(uploadFileError.StaggingNpmErrorsList, uploadFile.StaggingNpmErrorsList);
+                        //_mapper.Map(uploadFileError.SpabyacareportErrorsList, uploadFile.SpabyacareportErrorsList);
+                        //_mapper.Map(uploadFileError.PlanDocReportPriorErrorsList, uploadFile.PlanDocReportPriorErrorsList);
+                        //_mapper.Map(uploadFileError.PlanDocReportErrorsList, uploadFile.PlanDocReportErrorsList);
+                        //_mapper.Map(uploadFileError.EmployeeNavImportErrorsList, uploadFile.EmployeeNavImportErrorsList);
+                        //_mapper.Map(uploadFileError.EcExtractErrorsList, uploadFile.EcExtractErrorsList);
+                        //_mapper.Map(uploadFileError.EbExtractErrorsList, uploadFile.EbExtractErrorsList);
+                        //_mapper.Map(uploadFileError.DebitCardSummeryErrorsList, uploadFile.DebitCardSummeryErrorsList);
+                        //_mapper.Map(uploadFileError.CobraLettersErrorsList, uploadFile.CobraLettersErrorsList);
+                        //_mapper.Map(uploadFileError.ClientListErrorsList, uploadFile.ClientListErrorsList);
+
                     }
                     //ViewBag.uploadFileErrorModel = uploadFileErrorModel;
-                    uploadFile.UploadFileErrorModels = uploadFileErrorModel;
+                    uploadFile.listFileErrors = listFileErrors;
+
+                    //uploadFile.UploadFileErrorModels = uploadFileErrorModel;
                 }
             }
             return View(uploadFile);

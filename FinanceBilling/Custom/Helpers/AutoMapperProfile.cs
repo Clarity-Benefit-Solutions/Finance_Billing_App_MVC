@@ -2,6 +2,7 @@
 using FinanceBilling.Models;
 using FinanceBilling.Models;
 using FinanceBillingData.Entities;
+using FinanceBillingModel.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,11 @@ namespace FinanceBilling.Custom.Helpers
             CreateMap<VwExistingClient, ExistingClient>().ReverseMap();
             CreateMap<ClientProductComparison, ClientToProductViewModel>().ReverseMap();
             CreateMap<ClientToClientComparison, ClientToClientViewModel>().ReverseMap(); 
-            CreateMap<VwNewClient, NewClientViewModel>().ReverseMap(); 
+            CreateMap<VwNewClient, NewClientViewModel>().ReverseMap();
+            //
+            //CreateMap<UploadFileErrorModel, UploadFile>().ReverseMap();
+         
+            //
 
         }
     }
