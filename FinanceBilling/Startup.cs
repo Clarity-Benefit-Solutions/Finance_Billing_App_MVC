@@ -1,5 +1,4 @@
 using AutoMapper;
-using FinanceBilling.Custom.Dependency;
 using FinanceBilling.Custom.Helpers;
 using FinanceBillingData.Entities;
 using FinanceBillingData.Interface;
@@ -12,6 +11,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using NLog;
+using System;
+using System.IO;
 
 namespace FinanceBilling
 {
@@ -20,6 +23,7 @@ namespace FinanceBilling
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+
         }
 
         public IConfiguration Configuration { get; }
@@ -43,6 +47,7 @@ namespace FinanceBilling
            //Repositories
             services.AddSingleton(mapper);
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddSingleton<ILoggerManager, LoggerManager>();
             //Repositories
             //services.AddInternalRepositories();
             services.AddScoped<IErrorLogsRepository, ErrorLogsRepository>();
@@ -74,7 +79,7 @@ namespace FinanceBilling
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerManager logger)
         {
             if (env.IsDevelopment())
             {
@@ -89,7 +94,7 @@ namespace FinanceBilling
             app.UseRouting();
 
             app.UseAuthorization();
-
+            app.UseMiddleware<ExceptionMiddleware>();
             app.UseEndpoints(endpoints => {
                 endpoints.MapControllerRoute(
                     name: "default",

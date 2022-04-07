@@ -60,7 +60,6 @@ namespace FinanceBilling.Controllers
         [HttpGet]
         public IActionResult UploadFile()
         {
-
             UploadFile uploadFile = new UploadFile();
             uploadFile.NewClientViewModels = new List<NewClientViewModel>();
             uploadFile.ExistingClients = new List<ExistingClient>();
@@ -68,7 +67,7 @@ namespace FinanceBilling.Controllers
             uploadFile.clientToClientViewModels = new List<ClientToClientViewModel>();
             uploadFile.clientToProductViewModels = new List<ClientToProductViewModel>();
             uploadFile.ClientViewModels = new List<ClientViewModel>();
-            
+
             //uploadFile.UploadFileErrorModels = new List<UploadFileErrorModel>();
 
 
@@ -185,16 +184,22 @@ namespace FinanceBilling.Controllers
                 //Directory.CreateDirectory(rootpath);
             }
 
-           
+
             //checking vallidation is passed or not
             if (IsValidationPassed)
             {
                 for (int i = 0; i < Request.Form.Files.Count; i++)
                 {
                     filePath = Path.Combine(rootpath, Request.Form.Files[i].FileName);
-                    using (Stream fileStream = new FileStream(filePath, FileMode.Create, FileAccess.ReadWrite, FileShare.Read))
+                    DirectoryInfo info = new DirectoryInfo(rootpath);
+                    if (!info.Exists)
                     {
-                        Request.Form.Files[i].CopyTo(fileStream);
+                        info.Create();
+                    }
+
+                    using (FileStream outputFileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        Request.Form.Files[i].CopyTo(outputFileStream);
                     }
                 }
 
@@ -218,7 +223,7 @@ namespace FinanceBilling.Controllers
                 {
                     //guid = "6d3f3a9d-9dca-48b2-aa37-c01c4a0a8cde //For Testing
                     List<UploadFileErrorModel> uploadFileErrorModel = new List<UploadFileErrorModel>();
-                    
+
                     ViewBag.Message = "Failed To Upload File, Please check and try again.";
                     var ErrorLogsByGuid = await _itblLoggingService.GetLogsForAccordion(guid);
                     foreach (var item in ErrorLogsByGuid)
