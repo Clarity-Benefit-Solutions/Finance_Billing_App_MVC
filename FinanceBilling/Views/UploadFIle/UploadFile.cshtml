@@ -3,495 +3,546 @@
 @model UploadFile
 @*@model FinanceBilling.Models.TblLoggingViewModel*@
 @{
-	ViewBag.Title = "Upload Files";
-	//List<UploadFileErrorModel> uploadFileErrorsList = new List<UploadFileErrorModel>();
-	//if (Model != null)
-	//{
-	//	uploadFileErrorsList = Model.UploadFileErrorModels;
-	//}
-	List<ListFileError> listFileErrors = new List<ListFileError>();
-	if (Model != null) {
-		listFileErrors = Model.listFileErrors;
-	}
-	//UploadFileErrorModel uploadFileErrors = ViewBag.uploadFileErrorModel;
+    ViewBag.Title = "Upload Files";
+    //List<UploadFileErrorModel> uploadFileErrorsList = new List<UploadFileErrorModel>();
+    //if (Model != null)
+    //{
+    //	uploadFileErrorsList = Model.UploadFileErrorModels;
+    //}
+    List<ListFileError> listFileErrors = new List<ListFileError>();
+    if (Model != null)
+    {
+        listFileErrors = Model.listFileErrors;
+    }
+    //UploadFileErrorModel uploadFileErrors = ViewBag.uploadFileErrorModel;
 }
 
 <div class="row" style="border:1px solid green;">
-	<div class="col-md-5">
-		<div class="card text-center">
-			<div class="card-header">
-				Upload Files
-			</div>
-			<div class="card-body text-center">
-				<form method="post" enctype="multipart/form-data" asp-controller="UploadFile" asp-action="UploadFile">
-					<div class="form-group">
-						<div class="col-md-10">
-							<!--<div class="drop-zone d-flex justify-content-center align-items-center">-->
-							@*<img id="Logo" src="@logoImage" style="max-height:100%;max-width:100%;align-content:center;" />*@
-							<!--<span class="drop-zone-prompt">Drag and drop , Browse</span>-->
-							@*<div style="visibility:hidden;">*@
-							<!--<input asp-for="UploadedFiles" type="file" id="file" class="drop-zone-input" onchange="readURL(this);" multiple />-->
-							@*</div>*@
-							<!--</div>-->
-							<input type="file" asp-for="UploadedFiles" id="file" onchange="readURL(this);" multiple />
-							@*<input asp-for="UploadedFiles" multiple />*@
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="col-md-10">
-							<input class="btn btn-success" id="Upload" type="submit" disabled value="Upload" onclick="return UploadeFiles()" /><br />
-							<label id="msglabel" type="hidden">@ViewBag.Message</label>
+    <div class="col-md-5">
+        <div class="card text-center">
+            <div class="card-header">
+                Upload Files
+            </div>
+            <div class="card-body text-center">
+                <form method="post" enctype="multipart/form-data" asp-controller="UploadFile" asp-action="UploadFile">
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            <!--<div class="drop-zone d-flex justify-content-center align-items-center">-->
+                            @*<img id="Logo" src="@logoImage" style="max-height:100%;max-width:100%;align-content:center;" />*@
+                            <!--<span class="drop-zone-prompt">Drag and drop , Browse</span>-->
+                            @*<div style="visibility:hidden;">*@
+                            <!--<input asp-for="UploadedFiles" type="file" id="file" class="drop-zone-input" onchange="readURL(this);" multiple />-->
+                            @*</div>*@
+                            <!--</div>-->
+                            <input type="file" asp-for="UploadedFiles" id="file" onchange="readURL(this);" multiple />
+                            @*<input asp-for="UploadedFiles" multiple />*@
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            <input class="btn btn-success" id="Upload" type="submit" disabled value="Upload" onclick="return UploadeFiles()" /><br />
+                            <label id="msglabel" type="hidden">@ViewBag.Message</label>
 
-						</div>
-						<div class="progress">
-							<div id="pb" class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-								0%
-							</div>
-						</div>
-					</div>
-				</form>
-			</div>
-			<div class="card-footer text-muted">
+                        </div>
+                        <div class="progress">
+                            <div id="pb" class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                                0%
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer text-muted">
 
-			</div>
-		</div>
+            </div>
+        </div>
 
 
-	</div>
+    </div>
+    @if ((Model.ErrorList != null))
+    {
+        @(Html.DevExtreme().DataGrid<FinanceBilling.Models.ErrorLogViewModels>()
+        .DataSource(Model.ErrorList,"ID")
+                                .AllowColumnResizing(true)
+        .ColumnMinWidth(50)
+        .ColumnAutoWidth(true)
+        .ShowBorders(true)
+        .Columns(c => {
+                c.Add().DataField("MachineName");
+                c.Add().DataField("PackageName");
+                c.Add().DataField("TaskName");
+                c.Add().DataField("ErrorCode");
+                c.Add().DataField("ErrorDescription");
+                                c.Add().DataField("Dated");
+        })
+                                )
+    }
+    else if (ViewBag.missingFile != null)
+    {
+        <div class="col-md-5">
+            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
 
-	@if (ViewBag.missingFile != null) {
-		<div class="col-md-5">
-			@Html.ValidationSummary(false, "", new { @class = "text-danger" })
+            <div class="col-sm=12" style="padding-top: 11em; margin-left: 29px;">
+                <span class="alert-heading"><b>Please upload missing files:-</b></span>
+            </div>
+            <div class="col-sm-12">
+                <ul class="text-danger">
+                    @foreach (var modelSate in ViewBag.missingFile)
+                    {
+                        <li>@modelSate.FileName</li>
 
-			<div class="col-sm=12" style="padding-top: 11em; margin-left: 29px;">
-				<span class="alert-heading"><b>Please upload missing files:-</b></span>
-			</div>
-			<div class="col-sm-12">
-				<ul class="text-danger">
-					@foreach (var modelSate in ViewBag.missingFile) {
-						<li>@modelSate.FileName</li>
-
-					}
-				</ul>
-			</div>
-		</div>
-	} else {
-		<div class="col-md-5">
-			@Html.ValidationSummary(false, "", new { @class = "text-danger" })
-		</div>
-	}
+                    }
+                </ul>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="col-md-5">
+            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+        </div>
+    }
 </div>
 <hr />
 
 <!--display error by guid -->
-@if (Model.ErrorFileNameLists != null) {
-	<div class="accordion" id="accordionExample">
-		<div class="accordion-item">
-			@foreach (ListFileError listFileError in listFileErrors) {
-				@if (listFileError != null) {
-					@if (listFileError.BrokerClientListErrorsList != null) {
-						<h2 class="accordion-header" id="heading1">
-							<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapseOne">
-								@listFileError.BrokerClientListErrorsList.Select(x => x.PackageName).FirstOrDefault();
-							</button>
-						</h2><div id="collapse1" class="accordion-collapse collapse show" aria-labelledby="heading1" data-bs-parent="#accordionExample">
-							<div class="accordion-body">
-								<table>
-									<thead>
-										<tr>
-											<td>Error Column</td>
-											<td>Error Description</td>
-											<td>Error Row No</td>
-											<td>Entity Attribute</td>
-										</tr>
-									<thead>
-										@foreach (var item in listFileError.BrokerClientListErrorsList.ToList()) {
-											<tr>
-												<td>@item.ErrorColumn</td>
-												<td>@item.ErrorDescription</td>
-												<td>@item.ErrorRowNo</td>
-												<td>@item.EntityAttributes</td>
+@if (Model.ErrorFileNameLists != null)
+{
+    <div class="accordion" id="accordionExample">
+        <div class="accordion-item">
+            @foreach (ListFileError listFileError in listFileErrors)
+            {
+                @if (listFileError != null)
+                {
+                    @if (listFileError.BrokerClientListErrorsList != null)
+                    {
+                        <h2 class="accordion-header" id="heading1">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapseOne">
+                                @listFileError.BrokerClientListErrorsList.Select(x => x.PackageName).FirstOrDefault();
+                            </button>
+                        </h2><div id="collapse1" class="accordion-collapse collapse show" aria-labelledby="heading1" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <td>Error Column</td>
+                                            <td>Error Description</td>
+                                            <td>Error Row No</td>
+                                            <td>Entity Attribute</td>
+                                        </tr>
+                                    <thead>
+                                        @foreach (var item in listFileError.BrokerClientListErrorsList.ToList())
+                                        {
+                                            <tr>
+                                                <td>@item.ErrorColumn</td>
+                                                <td>@item.ErrorDescription</td>
+                                                <td>@item.ErrorRowNo</td>
+                                                <td>@item.EntityAttributes</td>
 
-											</tr>
-										}
-								</table>
-							</div>
-						</div>
-					}
-					//2
-					@if (listFileError.SwiftBillingNumImportErrorsList != null) {
-						<h2 class="accordion-header" id="heading2">
-							<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="true" aria-controls="collapse2">
-								@listFileError.SwiftBillingNumImportErrorsList.Select(x => x.PackageName).FirstOrDefault();
-							</button>
-						</h2><div id="collapse2" class="accordion-collapse collapse show" aria-labelledby="heading2" data-bs-parent="#accordionExample">
-							<div class="accordion-body">
-								<table>
-									<th>
-									<td>Error Column</td>
-									<td>Error Description</td>
-									<td>Error Row No</td>
-									<td>Entity Attribute</td>
-									</th>
-									@foreach (var item in listFileError.SwiftBillingNumImportErrorsList.ToList()) {
-										<tr>
-											<td>@item.ErrorColumn</td>
-											<td>@item.ErrorDescription</td>
-											<td>@item.ErrorRowNo</td>
-											<td>@item.EntityAttributes</td>
+                                            </tr>
+                                        }
+                                </table>
+                            </div>
+                        </div>
+                    }
+                    //2
+                    @if (listFileError.SwiftBillingNumImportErrorsList != null)
+                    {
+                        <h2 class="accordion-header" id="heading2">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="true" aria-controls="collapse2">
+                                @listFileError.SwiftBillingNumImportErrorsList.Select(x => x.PackageName).FirstOrDefault();
+                            </button>
+                        </h2><div id="collapse2" class="accordion-collapse collapse show" aria-labelledby="heading2" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <table>
+                                    <th>
+                                    <td>Error Column</td>
+                                    <td>Error Description</td>
+                                    <td>Error Row No</td>
+                                    <td>Entity Attribute</td>
+                                    </th>
+                                    @foreach (var item in listFileError.SwiftBillingNumImportErrorsList.ToList())
+                                    {
+                                        <tr>
+                                            <td>@item.ErrorColumn</td>
+                                            <td>@item.ErrorDescription</td>
+                                            <td>@item.ErrorRowNo</td>
+                                            <td>@item.EntityAttributes</td>
 
-										</tr>
-									}
-								</table>
-							</div>
-						</div>
-					}
-					//3
-					@if (listFileError.StaggingQbDetailErrorsList != null) {
-						<h2 class="accordion-header" id="heading3">
-							<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="true" aria-controls="collapse3">
-								@listFileError.StaggingQbDetailErrorsList.Select(x => x.PackageName).FirstOrDefault();
-							</button>
-						</h2><div id="collaps3" class="accordion-collapse collapse show" aria-labelledby="heading3" data-bs-parent="#accordionExample">
-							<div class="accordion-body">
-								<table>
-									<th>
-									<td>Error Column</td>
-									<td>Error Description</td>
-									<td>Error Row No</td>
-									<td>Entity Attribute</td>
-									</th>
-									@foreach (var item in listFileError.StaggingQbDetailErrorsList.ToList()) {
-										<tr>
-											<td>@item.ErrorColumn</td>
-											<td>@item.ErrorDescription</td>
-											<td>@item.ErrorRowNo</td>
-											<td>@item.EntityAttributes</td>
+                                        </tr>
+                                    }
+                                </table>
+                            </div>
+                        </div>
+                    }
+                    //3
+                    @if (listFileError.StaggingQbDetailErrorsList != null)
+                    {
+                        <h2 class="accordion-header" id="heading3">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="true" aria-controls="collapse3">
+                                @listFileError.StaggingQbDetailErrorsList.Select(x => x.PackageName).FirstOrDefault();
+                            </button>
+                        </h2><div id="collaps3" class="accordion-collapse collapse show" aria-labelledby="heading3" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <table>
+                                    <th>
+                                    <td>Error Column</td>
+                                    <td>Error Description</td>
+                                    <td>Error Row No</td>
+                                    <td>Entity Attribute</td>
+                                    </th>
+                                    @foreach (var item in listFileError.StaggingQbDetailErrorsList.ToList())
+                                    {
+                                        <tr>
+                                            <td>@item.ErrorColumn</td>
+                                            <td>@item.ErrorDescription</td>
+                                            <td>@item.ErrorRowNo</td>
+                                            <td>@item.EntityAttributes</td>
 
-										</tr>
-									}
-								</table>
-							</div>
-						</div>
-					}
-					//4
-					@if (listFileError.StaggingNpmErrorsList != null) {
-						<h2 class="accordion-header" id="heading4">
-							<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="true" aria-controls="collapse4">
-								@listFileError.StaggingNpmErrorsList.Select(x => x.PackageName).FirstOrDefault();
-							</button>
-						</h2><div id="collapse4" class="accordion-collapse collapse show" aria-labelledby="heading4" data-bs-parent="#accordionExample">
-							<div class="accordion-body">
-								<table>
-									<th>
-									<td>Error Column</td>
-									<td>Error Description</td>
-									<td>Error Row No</td>
-									<td>Entity Attribute</td>
-									</th>
-									@foreach (var item in listFileError.StaggingNpmErrorsList.ToList()) {
-										<tr>
-											<td>@item.ErrorColumn</td>
-											<td>@item.ErrorDescription</td>
-											<td>@item.ErrorRowNo</td>
-											<td>@item.EntityAttributes</td>
+                                        </tr>
+                                    }
+                                </table>
+                            </div>
+                        </div>
+                    }
+                    //4
+                    @if (listFileError.StaggingNpmErrorsList != null)
+                    {
+                        <h2 class="accordion-header" id="heading4">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="true" aria-controls="collapse4">
+                                @listFileError.StaggingNpmErrorsList.Select(x => x.PackageName).FirstOrDefault();
+                            </button>
+                        </h2><div id="collapse4" class="accordion-collapse collapse show" aria-labelledby="heading4" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <table>
+                                    <th>
+                                    <td>Error Column</td>
+                                    <td>Error Description</td>
+                                    <td>Error Row No</td>
+                                    <td>Entity Attribute</td>
+                                    </th>
+                                    @foreach (var item in listFileError.StaggingNpmErrorsList.ToList())
+                                    {
+                                        <tr>
+                                            <td>@item.ErrorColumn</td>
+                                            <td>@item.ErrorDescription</td>
+                                            <td>@item.ErrorRowNo</td>
+                                            <td>@item.EntityAttributes</td>
 
-										</tr>
-									}
-								</table>
-							</div>
-						</div>
-					}
-					//5
-					@if (listFileError.SpabyacareportErrorsList != null) {
-						<h2 class="accordion-header" id="heading5">
-							<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5" aria-expanded="true" aria-controls="collapse5">
-								@listFileError.SpabyacareportErrorsList.Select(x => x.PackageName).FirstOrDefault();
-							</button>
-						</h2><div id="collapse5" class="accordion-collapse collapse show" aria-labelledby="heading5" data-bs-parent="#accordionExample">
-							<div class="accordion-body">
-								<table>
-									<th>
-									<td>Error Column</td>
-									<td>Error Description</td>
-									<td>Error Row No</td>
-									<td>Entity Attribute</td>
-									</th>
-									@foreach (var item in listFileError.SpabyacareportErrorsList.ToList()) {
-										<tr>
-											<td>@item.ErrorColumn</td>
-											<td>@item.ErrorDescription</td>
-											<td>@item.ErrorRowNo</td>
-											<td>@item.EntityAttributes</td>
+                                        </tr>
+                                    }
+                                </table>
+                            </div>
+                        </div>
+                    }
+                    //5
+                    @if (listFileError.SpabyacareportErrorsList != null)
+                    {
+                        <h2 class="accordion-header" id="heading5">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5" aria-expanded="true" aria-controls="collapse5">
+                                @listFileError.SpabyacareportErrorsList.Select(x => x.PackageName).FirstOrDefault();
+                            </button>
+                        </h2><div id="collapse5" class="accordion-collapse collapse show" aria-labelledby="heading5" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <table>
+                                    <th>
+                                    <td>Error Column</td>
+                                    <td>Error Description</td>
+                                    <td>Error Row No</td>
+                                    <td>Entity Attribute</td>
+                                    </th>
+                                    @foreach (var item in listFileError.SpabyacareportErrorsList.ToList())
+                                    {
+                                        <tr>
+                                            <td>@item.ErrorColumn</td>
+                                            <td>@item.ErrorDescription</td>
+                                            <td>@item.ErrorRowNo</td>
+                                            <td>@item.EntityAttributes</td>
 
-										</tr>
-									}
-								</table>
-							</div>
-						</div>
-					}
-					//6
-					@if (listFileError.PlanDocReportPriorErrorsList != null) {
-						<h2 class="accordion-header" id="heading6">
-							<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6" aria-expanded="true" aria-controls="collapse6">
-								@listFileError.PlanDocReportPriorErrorsList.Select(x => x.PackageName).FirstOrDefault();
-							</button>
-						</h2><div id="collapse6" class="accordion-collapse collapse show" aria-labelledby="heading6" data-bs-parent="#accordionExample">
-							<div class="accordion-body">
-								<table>
-									<th>
-									<td>Error Column</td>
-									<td>Error Description</td>
-									<td>Error Row No</td>
-									<td>Entity Attribute</td>
-									</th>
-									@foreach (var item in listFileError.PlanDocReportPriorErrorsList.ToList()) {
-										<tr>
-											<td>@item.ErrorColumn</td>
-											<td>@item.ErrorDescription</td>
-											<td>@item.ErrorRowNo</td>
-											<td>@item.EntityAttributes</td>
+                                        </tr>
+                                    }
+                                </table>
+                            </div>
+                        </div>
+                    }
+                    //6
+                    @if (listFileError.PlanDocReportPriorErrorsList != null)
+                    {
+                        <h2 class="accordion-header" id="heading6">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6" aria-expanded="true" aria-controls="collapse6">
+                                @listFileError.PlanDocReportPriorErrorsList.Select(x => x.PackageName).FirstOrDefault();
+                            </button>
+                        </h2><div id="collapse6" class="accordion-collapse collapse show" aria-labelledby="heading6" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <table>
+                                    <th>
+                                    <td>Error Column</td>
+                                    <td>Error Description</td>
+                                    <td>Error Row No</td>
+                                    <td>Entity Attribute</td>
+                                    </th>
+                                    @foreach (var item in listFileError.PlanDocReportPriorErrorsList.ToList())
+                                    {
+                                        <tr>
+                                            <td>@item.ErrorColumn</td>
+                                            <td>@item.ErrorDescription</td>
+                                            <td>@item.ErrorRowNo</td>
+                                            <td>@item.EntityAttributes</td>
 
-										</tr>
-									}
-								</table>
-							</div>
-						</div>
-					}
-					//7
-					@if (listFileError.PlanDocReportErrorsList != null) {
-						<h2 class="accordion-header" id="heading7">
-							<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7" aria-expanded="true" aria-controls="collapse7">
-								@listFileError.PlanDocReportErrorsList.Select(x => x.PackageName).FirstOrDefault();
-							</button>
-						</h2><div id="collapse7" class="accordion-collapse collapse show" aria-labelledby="heading7" data-bs-parent="#accordionExample">
-							<div class="accordion-body">
-								<table>
-									<th>
-									<td>Error Column</td>
-									<td>Error Description</td>
-									<td>Error Row No</td>
-									<td>Entity Attribute</td>
-									</th>
-									@foreach (var item in listFileError.PlanDocReportErrorsList.ToList()) {
-										<tr>
-											<td>@item.ErrorColumn</td>
-											<td>@item.ErrorDescription</td>
-											<td>@item.ErrorRowNo</td>
-											<td>@item.EntityAttributes</td>
+                                        </tr>
+                                    }
+                                </table>
+                            </div>
+                        </div>
+                    }
+                    //7
+                    @if (listFileError.PlanDocReportErrorsList != null)
+                    {
+                        <h2 class="accordion-header" id="heading7">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7" aria-expanded="true" aria-controls="collapse7">
+                                @listFileError.PlanDocReportErrorsList.Select(x => x.PackageName).FirstOrDefault();
+                            </button>
+                        </h2><div id="collapse7" class="accordion-collapse collapse show" aria-labelledby="heading7" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <table>
+                                    <th>
+                                    <td>Error Column</td>
+                                    <td>Error Description</td>
+                                    <td>Error Row No</td>
+                                    <td>Entity Attribute</td>
+                                    </th>
+                                    @foreach (var item in listFileError.PlanDocReportErrorsList.ToList())
+                                    {
+                                        <tr>
+                                            <td>@item.ErrorColumn</td>
+                                            <td>@item.ErrorDescription</td>
+                                            <td>@item.ErrorRowNo</td>
+                                            <td>@item.EntityAttributes</td>
 
-										</tr>
-									}
-								</table>
-							</div>
-						</div>
-					}
-					//8
-					@if (listFileError.EmployeeNavImportErrorsList != null) {
-						<h2 class="accordion-header" id="headin8">
-							<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8" aria-expanded="true" aria-controls="collapse8">
-								@listFileError.EmployeeNavImportErrorsList.Select(x => x.PackageName).FirstOrDefault();
-							</button>
-						</h2><div id="collapse8" class="accordion-collapse collapse show" aria-labelledby="heading8" data-bs-parent="#accordionExample">
-							<div class="accordion-body">
-								<table>
-									<th>
-									<td>Error Column</td>
-									<td>Error Description</td>
-									<td>Error Row No</td>
-									<td>Entity Attribute</td>
-									</th>
-									@foreach (var item in listFileError.EmployeeNavImportErrorsList.ToList()) {
-										<tr>
-											<td>@item.ErrorColumn</td>
-											<td>@item.ErrorDescription</td>
-											<td>@item.ErrorRowNo</td>
-											<td>@item.EntityAttributes</td>
+                                        </tr>
+                                    }
+                                </table>
+                            </div>
+                        </div>
+                    }
+                    //8
+                    @if (listFileError.EmployeeNavImportErrorsList != null)
+                    {
+                        <h2 class="accordion-header" id="headin8">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8" aria-expanded="true" aria-controls="collapse8">
+                                @listFileError.EmployeeNavImportErrorsList.Select(x => x.PackageName).FirstOrDefault();
+                            </button>
+                        </h2><div id="collapse8" class="accordion-collapse collapse show" aria-labelledby="heading8" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <table>
+                                    <th>
+                                    <td>Error Column</td>
+                                    <td>Error Description</td>
+                                    <td>Error Row No</td>
+                                    <td>Entity Attribute</td>
+                                    </th>
+                                    @foreach (var item in listFileError.EmployeeNavImportErrorsList.ToList())
+                                    {
+                                        <tr>
+                                            <td>@item.ErrorColumn</td>
+                                            <td>@item.ErrorDescription</td>
+                                            <td>@item.ErrorRowNo</td>
+                                            <td>@item.EntityAttributes</td>
 
-										</tr>
-									}
-								</table>
-							</div>
-						</div>
-					}
-					//9
-					@if (listFileError.EcExtractErrorsList != null) {
-						<h2 class="accordion-header" id="heading9">
-							<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9" aria-expanded="true" aria-controls="collapse9">
-								@listFileError.EcExtractErrorsList.Select(x => x.PackageName).FirstOrDefault();
-							</button>
-						</h2><div id="collapse9" class="accordion-collapse collapse show" aria-labelledby="heading9" data-bs-parent="#accordionExample">
-							<div class="accordion-body">
-								<table>
-									<th>
-									<td>Error Column</td>
-									<td>Error Description</td>
-									<td>Error Row No</td>
-									<td>Entity Attribute</td>
-									</th>
-									@foreach (var item in listFileError.EcExtractErrorsList.ToList()) {
-										<tr>
-											<td>@item.ErrorColumn</td>
-											<td>@item.ErrorDescription</td>
-											<td>@item.ErrorRowNo</td>
-											<td>@item.EntityAttributes</td>
+                                        </tr>
+                                    }
+                                </table>
+                            </div>
+                        </div>
+                    }
+                    //9
+                    @if (listFileError.EcExtractErrorsList != null)
+                    {
+                        <h2 class="accordion-header" id="heading9">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9" aria-expanded="true" aria-controls="collapse9">
+                                @listFileError.EcExtractErrorsList.Select(x => x.PackageName).FirstOrDefault();
+                            </button>
+                        </h2><div id="collapse9" class="accordion-collapse collapse show" aria-labelledby="heading9" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <table>
+                                    <th>
+                                    <td>Error Column</td>
+                                    <td>Error Description</td>
+                                    <td>Error Row No</td>
+                                    <td>Entity Attribute</td>
+                                    </th>
+                                    @foreach (var item in listFileError.EcExtractErrorsList.ToList())
+                                    {
+                                        <tr>
+                                            <td>@item.ErrorColumn</td>
+                                            <td>@item.ErrorDescription</td>
+                                            <td>@item.ErrorRowNo</td>
+                                            <td>@item.EntityAttributes</td>
 
-										</tr>
-									}
-								</table>
-							</div>
-						</div>
-					}
-					//10
-					@if (listFileError.EbExtractErrorsList != null) {
-						<h2 class="accordion-header" id="heading10">
-							<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10" aria-expanded="true" aria-controls="collapse10">
-								@listFileError.EbExtractErrorsList.Select(x => x.PackageName).FirstOrDefault();
-							</button>
-						</h2><div id="collapse10" class="accordion-collapse collapse show" aria-labelledby="heading10" data-bs-parent="#accordionExample">
-							<div class="accordion-body">
-								<table>
-									<th>
-									<td>Error Column</td>
-									<td>Error Description</td>
-									<td>Error Row No</td>
-									<td>Entity Attribute</td>
-									</th>
-									@foreach (var item in listFileError.EbExtractErrorsList.ToList()) {
-										<tr>
-											<td>@item.ErrorColumn</td>
-											<td>@item.ErrorDescription</td>
-											<td>@item.ErrorRowNo</td>
-											<td>@item.EntityAttributes</td>
+                                        </tr>
+                                    }
+                                </table>
+                            </div>
+                        </div>
+                    }
+                    //10
+                    @if (listFileError.EbExtractErrorsList != null)
+                    {
+                        <h2 class="accordion-header" id="heading10">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10" aria-expanded="true" aria-controls="collapse10">
+                                @listFileError.EbExtractErrorsList.Select(x => x.PackageName).FirstOrDefault();
+                            </button>
+                        </h2><div id="collapse10" class="accordion-collapse collapse show" aria-labelledby="heading10" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <table>
+                                    <th>
+                                    <td>Error Column</td>
+                                    <td>Error Description</td>
+                                    <td>Error Row No</td>
+                                    <td>Entity Attribute</td>
+                                    </th>
+                                    @foreach (var item in listFileError.EbExtractErrorsList.ToList())
+                                    {
+                                        <tr>
+                                            <td>@item.ErrorColumn</td>
+                                            <td>@item.ErrorDescription</td>
+                                            <td>@item.ErrorRowNo</td>
+                                            <td>@item.EntityAttributes</td>
 
-										</tr>
-									}
-								</table>
-							</div>
-						</div>
-					}
-					//11
-					@if (listFileError.DebitCardSummeryErrorsList != null) {
-						<h2 class="accordion-header" id="heading11">
-							<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11" aria-expanded="true" aria-controls="collapse11">
-								@listFileError.DebitCardSummeryErrorsList.Select(x => x.PackageName).FirstOrDefault();
-							</button>
-						</h2><div id="collapse11" class="accordion-collapse collapse show" aria-labelledby="heading11" data-bs-parent="#accordionExample">
-							<div class="accordion-body">
-								<table>
-									<th>
-									<td>Error Column</td>
-									<td>Error Description</td>
-									<td>Error Row No</td>
-									<td>Entity Attribute</td>
-									</th>
-									@foreach (var item in listFileError.DebitCardSummeryErrorsList.ToList()) {
-										<tr>
-											<td>@item.ErrorColumn</td>
-											<td>@item.ErrorDescription</td>
-											<td>@item.ErrorRowNo</td>
-											<td>@item.EntityAttributes</td>
+                                        </tr>
+                                    }
+                                </table>
+                            </div>
+                        </div>
+                    }
+                    //11
+                    @if (listFileError.DebitCardSummeryErrorsList != null)
+                    {
+                        <h2 class="accordion-header" id="heading11">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11" aria-expanded="true" aria-controls="collapse11">
+                                @listFileError.DebitCardSummeryErrorsList.Select(x => x.PackageName).FirstOrDefault();
+                            </button>
+                        </h2><div id="collapse11" class="accordion-collapse collapse show" aria-labelledby="heading11" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <table>
+                                    <th>
+                                    <td>Error Column</td>
+                                    <td>Error Description</td>
+                                    <td>Error Row No</td>
+                                    <td>Entity Attribute</td>
+                                    </th>
+                                    @foreach (var item in listFileError.DebitCardSummeryErrorsList.ToList())
+                                    {
+                                        <tr>
+                                            <td>@item.ErrorColumn</td>
+                                            <td>@item.ErrorDescription</td>
+                                            <td>@item.ErrorRowNo</td>
+                                            <td>@item.EntityAttributes</td>
 
-										</tr>
-									}
-								</table>
-							</div>
-						</div>
-					}
-					//12
-					@if (listFileError.CobraLettersErrorsList != null) {
-						<h2 class="accordion-header" id="heading12">
-							<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12" aria-expanded="true" aria-controls="collapse12">
-								@listFileError.CobraLettersErrorsList.Select(x => x.PackageName).FirstOrDefault();
-							</button>
-						</h2><div id="collapse12" class="accordion-collapse collapse show" aria-labelledby="heading12" data-bs-parent="#accordionExample">
-							<div class="accordion-body">
-								<table>
-									<th>
-									<td>Error Column</td>
-									<td>Error Description</td>
-									<td>Error Row No</td>
-									<td>Entity Attribute</td>
-									</th>
-									@foreach (var item in listFileError.CobraLettersErrorsList.ToList()) {
-										<tr>
-											<td>@item.ErrorColumn</td>
-											<td>@item.ErrorDescription</td>
-											<td>@item.ErrorRowNo</td>
-											<td>@item.EntityAttributes</td>
+                                        </tr>
+                                    }
+                                </table>
+                            </div>
+                        </div>
+                    }
+                    //12
+                    @if (listFileError.CobraLettersErrorsList != null)
+                    {
+                        <h2 class="accordion-header" id="heading12">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12" aria-expanded="true" aria-controls="collapse12">
+                                @listFileError.CobraLettersErrorsList.Select(x => x.PackageName).FirstOrDefault();
+                            </button>
+                        </h2><div id="collapse12" class="accordion-collapse collapse show" aria-labelledby="heading12" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <table>
+                                    <th>
+                                    <td>Error Column</td>
+                                    <td>Error Description</td>
+                                    <td>Error Row No</td>
+                                    <td>Entity Attribute</td>
+                                    </th>
+                                    @foreach (var item in listFileError.CobraLettersErrorsList.ToList())
+                                    {
+                                        <tr>
+                                            <td>@item.ErrorColumn</td>
+                                            <td>@item.ErrorDescription</td>
+                                            <td>@item.ErrorRowNo</td>
+                                            <td>@item.EntityAttributes</td>
 
-										</tr>
-									}
-								</table>
-							</div>
-						</div>
-					}
-					//13
-					@if (listFileError.ClientListErrorsList != null) {
-						<h2 class="accordion-header" id="heading13">
-							<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13" aria-expanded="true" aria-controls="collapse13">
-								@listFileError.ClientListErrorsList.Select(x => x.PackageName).FirstOrDefault();
-							</button>
-						</h2><div id="collapse13" class="accordion-collapse collapse show" aria-labelledby="heading13" data-bs-parent="#accordionExample">
-							<div class="accordion-body">
-								<table>
-									<th>
-									<td>Error Column</td>
-									<td>Error Description</td>
-									<td>Error Row No</td>
-									<td>Entity Attribute</td>
-									</th>
-									@foreach (var item in listFileError.ClientListErrorsList.ToList()) {
-										<tr>
-											<td>@item.ErrorColumn</td>
-											<td>@item.ErrorDescription</td>
-											<td>@item.ErrorRowNo</td>
-											<td>@item.EntityAttributes</td>
+                                        </tr>
+                                    }
+                                </table>
+                            </div>
+                        </div>
+                    }
+                    //13
+                    @if (listFileError.ClientListErrorsList != null)
+                    {
+                        <h2 class="accordion-header" id="heading13">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13" aria-expanded="true" aria-controls="collapse13">
+                                @listFileError.ClientListErrorsList.Select(x => x.PackageName).FirstOrDefault();
+                            </button>
+                        </h2><div id="collapse13" class="accordion-collapse collapse show" aria-labelledby="heading13" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <table>
+                                    <th>
+                                    <td>Error Column</td>
+                                    <td>Error Description</td>
+                                    <td>Error Row No</td>
+                                    <td>Entity Attribute</td>
+                                    </th>
+                                    @foreach (var item in listFileError.ClientListErrorsList.ToList())
+                                    {
+                                        <tr>
+                                            <td>@item.ErrorColumn</td>
+                                            <td>@item.ErrorDescription</td>
+                                            <td>@item.ErrorRowNo</td>
+                                            <td>@item.EntityAttributes</td>
 
-										</tr>
-									}
-								</table>
-							</div>
-						</div>
-					}
+                                        </tr>
+                                    }
+                                </table>
+                            </div>
+                        </div>
+                    }
 
-				}
+                }
 
-			}
-		</div>
-	</div>
+            }
+        </div>
+    </div>
 }
 
 
 
 <!-- Modal -->
 <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-xl">
-		<div class="modal-content">
-			<div class="modal-header">
-				<ul class="nav nav-tabs" id="myTab" role="tablist">
-					<li class="nav-item" role="presentation">
-						<button class="nav-link active " id="new-tab" data-bs-toggle="tab" data-bs-target="#new" type="button" role="tab" aria-controls="new" aria-selected="true">New</button>
-					</li>
-					<li class="nav-item" role="presentation">
-						<button class="nav-link" id="existing-tab" data-bs-toggle="tab" data-bs-target="#existing" type="button" role="tab" aria-controls="existing" aria-selected="false">Existing</button>
-					</li>
-					<li class="nav-item" role="presentation">
-						<button class="nav-link" id="terminated-tab" data-bs-toggle="tab" data-bs-target="#terminated" type="button" role="tab" aria-controls="terminated" aria-selected="false">Terminated</button>
-					</li>
-					<li class="nav-item" role="analytics">
-						<button class="nav-link" id="analytics-tab" data-bs-toggle="tab" data-bs-target="#analytics" type="button" role="tab" aria-controls="analytics" aria-selected="false">Analytics</button>
-					</li>
-				</ul>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<div class="tab-content" id="myTabContent" style="width:100%;">
-					<div class="tab-pane fade show active" id="new" role="tabpanel" aria-labelledby="new-tab" style="overflow:auto; width:100%;">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active " id="new-tab" data-bs-toggle="tab" data-bs-target="#new" type="button" role="tab" aria-controls="new" aria-selected="true">New</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="existing-tab" data-bs-toggle="tab" data-bs-target="#existing" type="button" role="tab" aria-controls="existing" aria-selected="false">Existing</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="terminated-tab" data-bs-toggle="tab" data-bs-target="#terminated" type="button" role="tab" aria-controls="terminated" aria-selected="false">Terminated</button>
+                    </li>
+                    <li class="nav-item" role="analytics">
+                        <button class="nav-link" id="analytics-tab" data-bs-toggle="tab" data-bs-target="#analytics" type="button" role="tab" aria-controls="analytics" aria-selected="false">Analytics</button>
+                    </li>
+                </ul>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="tab-content" id="myTabContent" style="width:100%;">
+                    <div class="tab-pane fade show active" id="new" role="tabpanel" aria-labelledby="new-tab" style="overflow:auto; width:100%;">
 
-						@(Html.DevExtreme().DataGrid<FinanceBilling.Models.NewClientViewModel>()
+                        @(Html.DevExtreme().DataGrid<FinanceBilling.Models.NewClientViewModel>()
     .DataSource(ds => ds.Mvc()
         .Controller("Client")
         //.Key("ClientID")
@@ -537,11 +588,11 @@
     )
 )
 
-					</div>
+                    </div>
 
-					<div class="tab-pane fade" id="existing" role="tabpanel" aria-labelledby="existing-tab" style="overflow:auto; width:100%;">
+                    <div class="tab-pane fade" id="existing" role="tabpanel" aria-labelledby="existing-tab" style="overflow:auto; width:100%;">
 
-						@(Html.DevExtreme().DataGrid<FinanceBilling.Models.NewClientViewModel>()
+                        @(Html.DevExtreme().DataGrid<FinanceBilling.Models.NewClientViewModel>()
     .DataSource(ds => ds.Mvc()
         .Controller("Client")
         .LoadAction("ExistingClient")
@@ -601,10 +652,10 @@
 
     )
 )
-					</div>
-					<div class="tab-pane fade" id="terminated" role="tabpanel" aria-labelledby="terminated-tab" style="overflow:auto; width:100%;">
+                    </div>
+                    <div class="tab-pane fade" id="terminated" role="tabpanel" aria-labelledby="terminated-tab" style="overflow:auto; width:100%;">
 
-						@(Html.DevExtreme().DataGrid<FinanceBilling.Models.TerminatedClient>()
+                        @(Html.DevExtreme().DataGrid<FinanceBilling.Models.TerminatedClient>()
     .DataSource(ds => ds.Mvc()
         .Controller("Client")
         .LoadAction("TerminatedClient")
@@ -664,14 +715,14 @@
 
     )
 )
-					</div>
+                    </div>
 
-					<div class="tab-pane fade" id="analytics" role="tabpanel" aria-labelledby="analytics-tab" style="overflow:auto; width:100%;">
-						<div class="container" style="overflow:auto; width:100%;float:left;">
-							<div class="col-md-6" style="overflow:auto; width:100% ;float:left;">
-								<h4 class="form-inline">Client To Product Comaprison</h4>
+                    <div class="tab-pane fade" id="analytics" role="tabpanel" aria-labelledby="analytics-tab" style="overflow:auto; width:100%;">
+                        <div class="container" style="overflow:auto; width:100%;float:left;">
+                            <div class="col-md-6" style="overflow:auto; width:100% ;float:left;">
+                                <h4 class="form-inline">Client To Product Comaprison</h4>
 
-								@(Html.DevExtreme().DataGrid<FinanceBilling.Models.ClientToProductViewModel>()
+                                @(Html.DevExtreme().DataGrid<FinanceBilling.Models.ClientToProductViewModel>()
     .DataSource(ds => ds.Mvc()
         .Controller("Analytics")
         .LoadAction("GetListClientProductComparison")
@@ -709,11 +760,11 @@
     })
     )
 )
-							</div>
-							<div class="col-md-6" style="overflow:auto; width:100%;float:left;">
-								<h4 class="form-inline">Client To Client Comparison</h4>
+                            </div>
+                            <div class="col-md-6" style="overflow:auto; width:100%;float:left;">
+                                <h4 class="form-inline">Client To Client Comparison</h4>
 
-								@(Html.DevExtreme().DataGrid<FinanceBilling.Models.ClientToClientViewModel>()
+                                @(Html.DevExtreme().DataGrid<FinanceBilling.Models.ClientToClientViewModel>()
     .DataSource(ds => ds.Mvc()
         .Controller("Analytics")
         .LoadAction("GetListClientToClientComparison")
@@ -749,99 +800,99 @@
     })
     )
 )
-							</div>
-						</div>
+                            </div>
+                        </div>
 
-					</div>
-				</div>
+                    </div>
+                </div>
 
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-			</div>
-		</div>
-	</div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
 
 </div>
 
 <!--error-->
 <!-- Button trigger modal -->
 @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
-			Launch demo modal
-	</button>*@
+            Launch demo modal
+    </button>*@
 
 <!-- Modal -->
 <div class="modal fade" id="displayErrors" tabindex="-1" role="dialog" aria-labelledby="displayErrorsTitle" aria-hidden="true">
-	<div class="modal-dialog modal-xl" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="displayErrorsTitle">Display Errors</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				@*@foreach (var item in Model.ErrorList) {
-					<div class="accordion" id="accordionExample">
-							<div class="accordion-item">
-									<h2 class="accordion-header" id="headingOne">
-											<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-													@item.PackageName
-											</button>
-									</h2>
-									<div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-											<div class="accordion-body">
-													<strong>@item.ErrorCode</strong> @item.ErrorDescription.
-											</div>
-									</div>
-							</div>*@
-				@*<div class="accordion-item">
-							<h2 class="accordion-header" id="headingTwo">
-									<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-											Accordion Item #2
-									</button>
-							</h2>
-							<div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-									<div class="accordion-body">
-											<strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-									</div>
-							</div>
-					</div>*@
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="displayErrorsTitle">Display Errors</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @*@foreach (var item in Model.ErrorList) {
+                    <div class="accordion" id="accordionExample">
+                            <div class="accordion-item">
+                                    <h2 class="accordion-header" id="headingOne">
+                                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                    @item.PackageName
+                                            </button>
+                                    </h2>
+                                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                            <div class="accordion-body">
+                                                    <strong>@item.ErrorCode</strong> @item.ErrorDescription.
+                                            </div>
+                                    </div>
+                            </div>*@
+                @*<div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                            Accordion Item #2
+                                    </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                            <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                                    </div>
+                            </div>
+                    </div>*@
 
-			</div>
-			}
+            </div>
+            }
 
 
-			////
-			//commented
-			@*@(Html.DevExtreme().DataGrid<FinanceBilling.Models.ErrorLogViewModels>()
-				.DataSource(Model.ErrorList,"ID")
-										.AllowColumnResizing(true)
-				.ColumnMinWidth(50)
-				.ColumnAutoWidth(true)
-				.ShowBorders(true)
-				.Columns(c => {
-						c.Add().DataField("MachineName");
-						c.Add().DataField("PackageName");
-						c.Add().DataField("TaskName");
-						c.Add().DataField("ErrorCode");
-						c.Add().DataField("ErrorDescription");
-										c.Add().DataField("Dated");
-				})
-										)*@
-			@*@if (ViewData.Model?.ErrorList != null)
-				{
-								foreach (var errors in ViewData.Model.ErrorList)
-								{
-												<div><span>@errors.ErrorCode</span> : <span>@errors.MachineName</span></div>
-												<div><span>@errors.ErrorDescription</span></div>
-								}
-				}*@
-		</div>
-		<div class="modal-footer">
-			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-		</div>
-	</div>
+            ////
+            //commented
+            @*@(Html.DevExtreme().DataGrid<FinanceBilling.Models.ErrorLogViewModels>()
+                .DataSource(Model.ErrorList,"ID")
+                                        .AllowColumnResizing(true)
+                .ColumnMinWidth(50)
+                .ColumnAutoWidth(true)
+                .ShowBorders(true)
+                .Columns(c => {
+                        c.Add().DataField("MachineName");
+                        c.Add().DataField("PackageName");
+                        c.Add().DataField("TaskName");
+                        c.Add().DataField("ErrorCode");
+                        c.Add().DataField("ErrorDescription");
+                                        c.Add().DataField("Dated");
+                })
+                                        )*@
+            @*@if (ViewData.Model?.ErrorList != null)
+                {
+                                foreach (var errors in ViewData.Model.ErrorList)
+                                {
+                                                <div><span>@errors.ErrorCode</span> : <span>@errors.MachineName</span></div>
+                                                <div><span>@errors.ErrorDescription</span></div>
+                                }
+                }*@
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+    </div>
 </div>
 
 
@@ -1061,21 +1112,21 @@
 
 </script>
 <style>
-	.mytable tr > *:nth-child(1) {
-		width: 15%;
-	}
+    .mytable tr > *:nth-child(1) {
+        width: 15%;
+    }
 
-	.mytable tr > *:nth-child(2) {
-		width: 70%;
-	}
+    .mytable tr > *:nth-child(2) {
+        width: 70%;
+    }
 
-	.mytable tr > *:nth-child(3) {
-		width: 15%;
-	}
+    .mytable tr > *:nth-child(3) {
+        width: 15%;
+    }
 
-	#accordion-table {
-		padding: 1rem 1.25rem;
-		/*	Height: 300px;*/
-		/*overflow: scroll;*/
-	}
+    #accordion-table {
+        padding: 1rem 1.25rem;
+        /*	Height: 300px;*/
+        /*overflow: scroll;*/
+    }
 </style>

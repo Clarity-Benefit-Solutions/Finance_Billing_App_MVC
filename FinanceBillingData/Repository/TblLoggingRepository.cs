@@ -210,7 +210,7 @@ namespace FinanceBillingData.Repository
             return uploadFileErrorModel;
         }
 
-        public async Task<TblLogging> GetStatusById(string guid)
+        public async Task<List<TblLogging>> GetStatusById(string guid)
         {
             string SqlconString = _config.GetConnectionString("SqlConnectionString");
             List<TblLogging> tblLoggingList = new List<TblLogging>();
@@ -265,7 +265,7 @@ namespace FinanceBillingData.Repository
                     }
                 }
             }
-            return tblLoggingList.FirstOrDefault();
+            return tblLoggingList;
         }
 
         public async Task<List<ErrorFileNameList>> GetLogsForAccordion(string guid)
@@ -357,7 +357,7 @@ namespace FinanceBillingData.Repository
                         if (dataTable1.Rows.Count > 0) {
                             var serializedMyObjects = JsonConvert.SerializeObject(dataTable1);
                             // Here you get the object
-                            listFileError.PlanDocReportErrorsList = (List<ErrorFileData>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<ErrorFileData>));
+                            listFileError.PlanDocReportErrorsList = (List<PlanDocReportError>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<PlanDocReportError>));
                         }
                         //Retrive 2nd File Error
                         //rdr.NextResult();
@@ -367,7 +367,7 @@ namespace FinanceBillingData.Repository
                         if (dataTable2.Rows.Count > 0) {
                             var serializedMyObjects = JsonConvert.SerializeObject(dataTable2);
                             // Here you get the object
-                            listFileError.PlanDocReportPriorErrorsList = (List<ErrorFileData>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<ErrorFileData>));
+                            listFileError.PlanDocReportPriorErrorsList = (List<PlanDocReportPriorError>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<PlanDocReportPriorError>));
                         }
 
                         //Retrive 3rd File Error
@@ -378,7 +378,7 @@ namespace FinanceBillingData.Repository
                         if (dataTable3.Rows.Count > 0) {
                             var serializedMyObjects = JsonConvert.SerializeObject(dataTable3);
                             // Here you get the object
-                            listFileError.DebitCardSummeryErrorsList = (List<ErrorFileData>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<ErrorFileData>));
+                            listFileError.DebitCardSummeryErrorsList = (List<DebitCardSummeryError>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<DebitCardSummeryError>));
                         }
 
                         //Retrive 4th File Error
@@ -389,7 +389,7 @@ namespace FinanceBillingData.Repository
                         if (dataTable4.Rows.Count > 0) {
                             var serializedMyObjects = JsonConvert.SerializeObject(dataTable4);
                             // Here you get the object
-                            listFileError.StaggingNpmErrorsList = (List<ErrorFileData>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<ErrorFileData>));
+                            listFileError.StaggingNpmErrorsList = (List<StaggingNpmError>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<StaggingNpmError>));
 
                         }
 
@@ -401,7 +401,7 @@ namespace FinanceBillingData.Repository
                         if (dataTable5.Rows.Count > 0) {
                             var serializedMyObjects = JsonConvert.SerializeObject(dataTable5);
                             // Here you get the object
-                            listFileError.StaggingQbDetailErrorsList = (List<ErrorFileData>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<ErrorFileData>));
+                            listFileError.StaggingQbDetailErrorsList = (List<StaggingQbDetailError>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<StaggingQbDetailError>));
 
                         }
 
@@ -413,7 +413,7 @@ namespace FinanceBillingData.Repository
                         if (dataTable6.Rows.Count > 0) {
                             var serializedMyObjects = JsonConvert.SerializeObject(dataTable6);
                             // Here you get the object
-                            listFileError.BrokerClientListErrorsList = (List<ErrorFileData>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<ErrorFileData>));
+                            listFileError.BrokerClientListErrorsList = (List<BrokerClientListError>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<BrokerClientListError>));
 
                         }
 
@@ -425,7 +425,7 @@ namespace FinanceBillingData.Repository
                         if (dataTable7.Rows.Count > 0) {
                             var serializedMyObjects = JsonConvert.SerializeObject(dataTable7);
                             // Here you get the object
-                            listFileError.ClientListErrorsList = (List<ErrorFileData>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<ErrorFileData>));
+                            listFileError.ClientListErrorsList = (List<ClientListError>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<ClientListError>));
 
                         }
 
@@ -437,7 +437,7 @@ namespace FinanceBillingData.Repository
                         if (dataTable8.Rows.Count > 0) {
                             var serializedMyObjects = JsonConvert.SerializeObject(dataTable8);
                             // Here you get the object
-                            listFileError.CobraLettersErrorsList = (List<ErrorFileData>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<ErrorFileData>));
+                            listFileError.CobraLettersErrorsList = (List<CobraLettersError>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<CobraLettersError>));
 
                         }
 
@@ -449,7 +449,7 @@ namespace FinanceBillingData.Repository
                         if (dataTable9.Rows.Count > 0) {
                             var serializedMyObjects = JsonConvert.SerializeObject(dataTable9);
                             // Here you get the object
-                            listFileError.SwiftBillingNumImportErrorsList = (List<ErrorFileData>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<ErrorFileData>));
+                            listFileError.SwiftBillingNumImportErrorsList = (List<SwiftBillingNumImportError>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<SwiftBillingNumImportError>));
 
                         }
 
@@ -461,7 +461,7 @@ namespace FinanceBillingData.Repository
                         if (dataTable10.Rows.Count > 0) {
                             var serializedMyObjects = JsonConvert.SerializeObject(dataTable10);
                             // Here you get the object
-                            listFileError.EmployeeNavImportErrorsList = (List<ErrorFileData>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<ErrorFileData>));
+                            listFileError.EmployeeNavImportErrorsList = (List<EmployeeNavImportError>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<EmployeeNavImportError>));
 
                         }
 
@@ -473,7 +473,7 @@ namespace FinanceBillingData.Repository
                         if (dataTable11.Rows.Count > 0) {
                             var serializedMyObjects = JsonConvert.SerializeObject(dataTable11);
                             // Here you get the object
-                            listFileError.EcExtractErrorsList = (List<ErrorFileData>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<ErrorFileData>));
+                            listFileError.EcExtractErrorsList = (List<EcExtractError>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<EcExtractError>));
 
                         }
 
@@ -485,7 +485,7 @@ namespace FinanceBillingData.Repository
                         if (dataTable12.Rows.Count > 0) {
                             var serializedMyObjects = JsonConvert.SerializeObject(dataTable12);
                             // Here you get the object
-                            listFileError.EbExtractErrorsList = (List<ErrorFileData>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<ErrorFileData>));
+                            listFileError.EbExtractErrorsList = (List<EbExtractError>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<EbExtractError>));
 
                         }
 
@@ -497,7 +497,7 @@ namespace FinanceBillingData.Repository
                         if (dataTable13.Rows.Count > 0) {
                             var serializedMyObjects = JsonConvert.SerializeObject(dataTable13);
                             // Here you get the object
-                            listFileError.SpabyacareportErrorsList = (List<ErrorFileData>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<ErrorFileData>));
+                            listFileError.SpabyacareportErrorsList = (List<SpabyacareportError>)JsonConvert.DeserializeObject(serializedMyObjects, typeof(List<SpabyacareportError>));
 
                         }
                     }

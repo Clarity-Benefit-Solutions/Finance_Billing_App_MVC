@@ -29,7 +29,7 @@ namespace FinanceBilling
             .ConfigureWebHostDefaults(webBuilder =>
 
             {
-                webBuilder.UseStartup<Startup>().UseKestrel(o=>o.Limits.KeepAliveTimeout=TimeSpan.FromMinutes(20)).Build();
+                webBuilder.UseStartup<Startup>();
             });
 
     }

@@ -83,6 +83,7 @@ namespace FinanceBilling.Controllers
         [DisableFormValueModelBinding]
         public async Task<IActionResult> UploadFile(UploadFile files)
         {
+            string parentPackageName = _config.GetSection("SSISTiming:ParentPackageName").Value;
             UploadFile uploadFile = new UploadFile();
             var filesCount = Request?.Form?.Files?.Count ?? 0;
             if (files == null || filesCount == 0) {
@@ -180,26 +181,31 @@ namespace FinanceBilling.Controllers
 
             //checking vallidation is passed or not
             if (IsValidationPassed) {
-                for (int i = 0; i < Request.Form.Files.Count; i++) {
-                    filePath = Path.Combine(rootpath, Request.Form.Files[i].FileName);
+                foreach (var file in Request.Form.Files)
+                {
+                    filePath = Path.Combine(rootpath, file.FileName);
                     DirectoryInfo info = new DirectoryInfo(rootpath);
                     if (!info.Exists)
                     {
                         info.Create();
                     }
 
-                    using (FileStream outputFileStream = new FileStream(filePath, FileMode.Create))
+                    //using (FileStream outputFileStream = new FileStream(filePath, FileMode.Open, FileAccess.Write, FileShare.Read))
+                    using (FileStream outputFileStream = System.IO.File.Create(filePath))
                     {
-                        Request.Form.Files[i].CopyTo(outputFileStream);
+                        await file.CopyToAsync(outputFileStream);
                     }
+
                 }
 
                 //call the store procedure to run SSIS package
                 Guid newGuid = Guid.NewGuid();
                 string guid = newGuid.ToString();
-                bool isExecuted = await _iCommonService.ExecuteSSISPackage(guid);
-
-                if (isExecuted) {
+                List<TblLogging> tbleLogginList = await _iCommonService.ExecuteSSISPackage(guid);
+                TblLogging parentFile = tbleLogginList.Where(x => x.PackageName == parentPackageName).FirstOrDefault();
+                bool? isExecuted = parentFile?.IsSuccess;
+                if(parentFile!=null)
+                if (isExecuted==true) {
                     ViewBag.Message = "File Uploaded Successfully";
 
                     uploadFile.NewClientViewModels = new List<NewClientViewModel>();
@@ -208,42 +214,80 @@ namespace FinanceBilling.Controllers
                     uploadFile.clientToProductViewModels = new List<ClientToProductViewModel>();
                     uploadFile.clientToClientViewModels = new List<ClientToClientViewModel>();
                 } else {
-                    //guid = "6d3f3a9d-9dca-48b2-aa37-c01c4a0a8cde //For Testing
-                    List<UploadFileErrorModel> uploadFileErrorModel = new List<UploadFileErrorModel>();
-                    List<ListFileError> listFileErrors = new List<ListFileError>();
+                        ViewBag.Message = "Failed To Upload File, Please check and try again.";
+                       
+                        if (parentFile?.IsSuccess == false) {
+                            List<TBLERRORLOGS> tblErrorLog = await _iErrorLogService.GetErrorLogsByGuId(guid);
+                            // Delete Files from starting folder
+                            System.IO.DirectoryInfo di = new DirectoryInfo(rootpath);
 
-                    //List<ErrorFileNameList> errorFileNameLists = new List<ErrorFileNameList>()
-                    ViewBag.Message = "Failed To Upload File, Please check and try again.";
-                    uploadFile.ErrorFileNameLists = await _itblLoggingService.GetLogsForAccordion(guid);
-                    foreach (var item in uploadFile.ErrorFileNameLists) {
-                        //UploadFileErrorModel uploadFileError = new UploadFileErrorModel();
-                         //uploadFileError = _itblLoggingService.GetAllLoggingByGuid(guid, (int?)item.ID).Result;
-                        //uploadFileErrorModel.Add(uploadFileError);
-                        ListFileError listFile = new ListFileError(); 
-                        listFile = _itblLoggingService.AllDataLogsForAccordion(guid,item.ID).Result;
-                        listFileErrors.Add(listFile);
+                            foreach (FileInfo file in di.GetFiles())
+                            {
+                                file.Delete();
+                            }
+                            foreach (DirectoryInfo dir in di.GetDirectories())
+                            {
+                                dir.Delete(true);
+                            }
+                            //Check the errors in error table fetch and show to the end user.
+                            //for (int i = 0; i < tblErrorLog.Count; i++)
+                            //{
+                            //    ModelState.AddModelError(tblErrorLog[i].ErrorCode.ToString(), tblErrorLog[i].ErrorDescription.ToString());
+                            //}
+                            if (tblErrorLog?.Count > 0)
+                            {
+                                uploadFile.ErrorList = new List<ErrorLogViewModels>();
+                                uploadFile.ErrorList = tblErrorLog.Select(x => new ErrorLogViewModels()
+                                {
+                                    ID = x.ID,
+                                    ErrorCode = x.ErrorCode,
+                                    ErrorDescription = x.ErrorDescription,
+                                    LoggingDbID = x.LoggingDbID,
+                                    MachineName = x.MachineName,
+                                    PackageName = x.PackageName,
+                                    TaskName = x.TaskName,
+                                    Dated = x.Dated
+                                }).ToList();
+                            }
+                        }
+                        else {
+                            //guid = "6d3f3a9d-9dca-48b2-aa37-c01c4a0a8cde //For Testing
+                            List<UploadFileErrorModel> uploadFileErrorModel = new List<UploadFileErrorModel>();
+                            List<ListFileError> listFileErrors = new List<ListFileError>();
 
-                        //uploadFile.BrokerClientListErrorsList = uploadFileError.BrokerClientListErrorsList
+                            //List<ErrorFileNameList> errorFileNameLists = new List<ErrorFileNameList>()
+                            
+                            uploadFile.ErrorFileNameLists = await _itblLoggingService.GetLogsForAccordion(guid);
+                            foreach (var item in uploadFile.ErrorFileNameLists) {
+                                //UploadFileErrorModel uploadFileError = new UploadFileErrorModel();
+                                //uploadFileError = _itblLoggingService.GetAllLoggingByGuid(guid, (int?)item.ID).Result;
+                                //uploadFileErrorModel.Add(uploadFileError);
+                                ListFileError listFile = new ListFileError();
+                                listFile = _itblLoggingService.AllDataLogsForAccordion(guid, item.ID).Result;
+                                listFileErrors.Add(listFile);
 
-                        //_mapper.Map(uploadFileError.BrokerClientListErrorsList, uploadFile.BrokerClientListErrorsList);
-                        //_mapper.Map(uploadFileError.SwiftBillingNumImportErrorsList, uploadFile.SwiftBillingNumImportErrorsList);
-                        //_mapper.Map(uploadFileError.StaggingQbDetailErrorsList, uploadFile.StaggingQbDetailErrorsList);
-                        //_mapper.Map(uploadFileError.StaggingNpmErrorsList, uploadFile.StaggingNpmErrorsList);
-                        //_mapper.Map(uploadFileError.SpabyacareportErrorsList, uploadFile.SpabyacareportErrorsList);
-                        //_mapper.Map(uploadFileError.PlanDocReportPriorErrorsList, uploadFile.PlanDocReportPriorErrorsList);
-                        //_mapper.Map(uploadFileError.PlanDocReportErrorsList, uploadFile.PlanDocReportErrorsList);
-                        //_mapper.Map(uploadFileError.EmployeeNavImportErrorsList, uploadFile.EmployeeNavImportErrorsList);
-                        //_mapper.Map(uploadFileError.EcExtractErrorsList, uploadFile.EcExtractErrorsList);
-                        //_mapper.Map(uploadFileError.EbExtractErrorsList, uploadFile.EbExtractErrorsList);
-                        //_mapper.Map(uploadFileError.DebitCardSummeryErrorsList, uploadFile.DebitCardSummeryErrorsList);
-                        //_mapper.Map(uploadFileError.CobraLettersErrorsList, uploadFile.CobraLettersErrorsList);
-                        //_mapper.Map(uploadFileError.ClientListErrorsList, uploadFile.ClientListErrorsList);
+                                //uploadFile.BrokerClientListErrorsList = uploadFileError.BrokerClientListErrorsList
 
-                    }
-                    //ViewBag.uploadFileErrorModel = uploadFileErrorModel;
-                    uploadFile.listFileErrors = listFileErrors;
+                                //_mapper.Map(uploadFileError.BrokerClientListErrorsList, uploadFile.BrokerClientListErrorsList);
+                                //_mapper.Map(uploadFileError.SwiftBillingNumImportErrorsList, uploadFile.SwiftBillingNumImportErrorsList);
+                                //_mapper.Map(uploadFileError.StaggingQbDetailErrorsList, uploadFile.StaggingQbDetailErrorsList);
+                                //_mapper.Map(uploadFileError.StaggingNpmErrorsList, uploadFile.StaggingNpmErrorsList);
+                                //_mapper.Map(uploadFileError.SpabyacareportErrorsList, uploadFile.SpabyacareportErrorsList);
+                                //_mapper.Map(uploadFileError.PlanDocReportPriorErrorsList, uploadFile.PlanDocReportPriorErrorsList);
+                                //_mapper.Map(uploadFileError.PlanDocReportErrorsList, uploadFile.PlanDocReportErrorsList);
+                                //_mapper.Map(uploadFileError.EmployeeNavImportErrorsList, uploadFile.EmployeeNavImportErrorsList);
+                                //_mapper.Map(uploadFileError.EcExtractErrorsList, uploadFile.EcExtractErrorsList);
+                                //_mapper.Map(uploadFileError.EbExtractErrorsList, uploadFile.EbExtractErrorsList);
+                                //_mapper.Map(uploadFileError.DebitCardSummeryErrorsList, uploadFile.DebitCardSummeryErrorsList);
+                                //_mapper.Map(uploadFileError.CobraLettersErrorsList, uploadFile.CobraLettersErrorsList);
+                                //_mapper.Map(uploadFileError.ClientListErrorsList, uploadFile.ClientListErrorsList);
 
-                    //uploadFile.UploadFileErrorModels = uploadFileErrorModel;
+                            }
+                            //ViewBag.uploadFileErrorModel = uploadFileErrorModel;
+                            uploadFile.listFileErrors = listFileErrors;
+
+                            //uploadFile.UploadFileErrorModels = uploadFileErrorModel;
+                        }
                 }
             }
             return View(uploadFile);
