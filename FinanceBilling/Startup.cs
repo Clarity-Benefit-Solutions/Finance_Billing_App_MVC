@@ -58,7 +58,7 @@ namespace FinanceBilling
             services.AddScoped<IQuickBookClientsRepository, QuickBookClientsRepository>();
             services.AddScoped<IClientMasterRepository,ClientMasterRepository>();
             services.AddScoped<IExcludedClientsRepository,ExcludedClientsRepository>();
-
+            services.AddScoped<IApplicationSettingRepository,ApplicationSettingRepository>();
             //Services
             //services.AddInternalServices();
 
@@ -73,6 +73,7 @@ namespace FinanceBilling
             services.AddScoped<IQuickBookClientsServices,QuickBookClientsServices>();
             services.AddScoped<IClientMasterService,ClientMasterService>();
             services.AddScoped<IExcludedClientsService,ExcludedClientsService>();
+            services.AddScoped<IApplicationSettingService, ApplicationSettingService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

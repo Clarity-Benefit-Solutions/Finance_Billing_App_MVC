@@ -75,13 +75,14 @@ namespace FinanceBillingData.Entities
         public virtual DbSet<ClientProductComparison> ClientProductComparisons { get; set; }
         public virtual DbSet<ClientToClientComparison> ClientToClientComparisons { get; set; }
 
-        public virtual DbSet<LogsByGuid> LogsByGuid { get;set;}
+        public virtual DbSet<LogsByGuid> LogsByGuid { get; set; }
 
         public virtual DbSet<SpClientDropDownData> SpClientDropDownData { get; set; }
         public virtual DbSet<SpExcludeClientData> SpExcludeClientData { get; set; }
-        
+
 
         public virtual DbSet<TblQBClients> TblQBClients { get; set; }
+        public virtual DbSet<ApplicationSetting> ApplicationSetting { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -250,7 +251,8 @@ namespace FinanceBillingData.Entities
             });
 
             //
-            modelBuilder.Entity<TblLogging>(entity => {
+            modelBuilder.Entity<TblLogging>(entity =>
+            {
                 //entity.HasNoKey();
                 entity.HasKey("Id");
                 entity.ToTable("TBL_LOGGINGDB");
@@ -312,7 +314,8 @@ namespace FinanceBillingData.Entities
                   .HasColumnName("IsCompleted");
             });
 
-            modelBuilder.Entity<TBLERRORLOGS>(entity => {
+            modelBuilder.Entity<TBLERRORLOGS>(entity =>
+            {
                 entity.HasNoKey();
 
                 entity.ToTable("TBL_ERROR_LOGS");
@@ -1673,7 +1676,7 @@ namespace FinanceBillingData.Entities
 
                 entity.Property(e => e.UniqueKeyParticipant).HasMaxLength(255);
             });
-           
+
 
             modelBuilder.Entity<TblQbImportsPro>(entity =>
             {
@@ -3674,13 +3677,14 @@ namespace FinanceBillingData.Entities
             OnModelCreatingPartial(modelBuilder);
 
             ///////////////
-            modelBuilder.Entity<LogsByGuid>(entity => {
-                
+            modelBuilder.Entity<LogsByGuid>(entity =>
+            {
+
                 entity.HasNoKey();
                 entity.ToView("PSP_GETLOGBYGUID");
 
                 entity.Property(e => e.Id)
-                .HasColumnName("Id");                       
+                .HasColumnName("Id");
 
                 entity.Property(e => e.PackageName)
                     .HasColumnName("PackageName");
@@ -3713,6 +3717,21 @@ namespace FinanceBillingData.Entities
                     .HasColumnName("NumRowsNotInserted");
 
             });
+            modelBuilder.Entity<ApplicationSetting>(entity =>
+           {
+               entity.HasKey("SettingId");
+
+               entity.ToTable("ApplicationSetting");
+
+               entity.Property(e => e.SettingName)
+                   .HasMaxLength(255)
+                   .HasColumnName("SettingName");
+
+               entity.Property(e => e.SettingValue)
+                    .HasMaxLength(25)
+                    .HasColumnName("SettingValue");
+               entity.Property(e => e.Description).HasMaxLength(500);
+           });
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

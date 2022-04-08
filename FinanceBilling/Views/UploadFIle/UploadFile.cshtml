@@ -815,111 +815,15 @@
 
 </div>
 
-<!--error-->
-<!-- Button trigger modal -->
-@*<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
-            Launch demo modal
-    </button>*@
-
-<!-- Modal -->
-<div class="modal fade" id="displayErrors" tabindex="-1" role="dialog" aria-labelledby="displayErrorsTitle" aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="displayErrorsTitle">Display Errors</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                @*@foreach (var item in Model.ErrorList) {
-                    <div class="accordion" id="accordionExample">
-                            <div class="accordion-item">
-                                    <h2 class="accordion-header" id="headingOne">
-                                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                                    @item.PackageName
-                                            </button>
-                                    </h2>
-                                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                            <div class="accordion-body">
-                                                    <strong>@item.ErrorCode</strong> @item.ErrorDescription.
-                                            </div>
-                                    </div>
-                            </div>*@
-                @*<div class="accordion-item">
-                            <h2 class="accordion-header" id="headingTwo">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                            Accordion Item #2
-                                    </button>
-                            </h2>
-                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">
-                                            <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-                                    </div>
-                            </div>
-                    </div>*@
-
-            </div>
-            }
-
-
-            ////
-            //commented
-            @*@(Html.DevExtreme().DataGrid<FinanceBilling.Models.ErrorLogViewModels>()
-                .DataSource(Model.ErrorList,"ID")
-                                        .AllowColumnResizing(true)
-                .ColumnMinWidth(50)
-                .ColumnAutoWidth(true)
-                .ShowBorders(true)
-                .Columns(c => {
-                        c.Add().DataField("MachineName");
-                        c.Add().DataField("PackageName");
-                        c.Add().DataField("TaskName");
-                        c.Add().DataField("ErrorCode");
-                        c.Add().DataField("ErrorDescription");
-                                        c.Add().DataField("Dated");
-                })
-                                        )*@
-            @*@if (ViewData.Model?.ErrorList != null)
-                {
-                                foreach (var errors in ViewData.Model.ErrorList)
-                                {
-                                                <div><span>@errors.ErrorCode</span> : <span>@errors.MachineName</span></div>
-                                                <div><span>@errors.ErrorDescription</span></div>
-                                }
-                }*@
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-    </div>
-</div>
-
-
-
 
 <script>
-	//$(function () {
-	//	$("#accordionContainer").dxAccordion({
-	//		dataSource: accordionData,
-	//		itemTemplate: function (itemData, itemIndex, itemElement) {
-	//			for (var field in itemData) {
-	//				itemElement.append("<p>" + field + ": " + itemData[field] + "</p>");
-	//			}
-	//		}
-	//	});
-	//});
-
-
+	
 	$(document).ready(function () {
 		var res = '@ViewBag.Message';
-        var error = '@(Model.ErrorList!=null)';
 		if (res == "File Uploaded Successfully") {
             $("#successModal").modal("show")
 		}
-        if (error =="True") {
-		    $("#displayErrors").modal("show");
-		}
+        
     });
 
     $("#new-tab").click(function () {
