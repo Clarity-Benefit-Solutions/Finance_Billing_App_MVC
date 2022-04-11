@@ -246,6 +246,9 @@ namespace FinanceBillingData.Repository
                         if (!DBNull.Value.Equals(rdr["NumRowsUpdated"])) {
                             tblLogging.NumRowsUpdated = Convert.ToInt32(rdr["NumRowsUpdated"]);
                         }
+                        if (!DBNull.Value.Equals(rdr["NumRowsNotInserted"])) {
+                            tblLogging.NumRowsNotInserted = Convert.ToInt32(rdr["NumRowsNotInserted"]);
+                        }
                         if (!DBNull.Value.Equals(rdr["NumRowsDeleted"])) {
                             tblLogging.NumRowsDeleted = Convert.ToInt32(rdr["NumRowsDeleted"]);
                         }

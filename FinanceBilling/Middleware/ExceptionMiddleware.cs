@@ -34,12 +34,12 @@ namespace FinanceBilling
                 var result = JsonConvert.SerializeObject(new { message = ex.Message });
 
                 Log.Error("Exception Occured: " + result);
-                httpContext.Response.ContentType = "application/json";
+               // httpContext.Response.ContentType = "application/json";
                 httpContext.Response.StatusCode = 500;
                 // Error Logging into Logs table
                 //context.Logs.Add(new Models.Logs { Message = exception.Message,MessageTemplate = result,Level="Exception",TimeStamp = DateTime.UtcNow,Exception= exception.InnerException.ToString(),UserId=userId  });
 
-                await httpContext.Response.WriteAsync(result);
+                //await httpContext.Response.WriteAsync(result);
             }
 
 
