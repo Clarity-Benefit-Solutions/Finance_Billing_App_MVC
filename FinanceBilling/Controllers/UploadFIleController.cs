@@ -6,6 +6,7 @@ using FinanceBillingData.Interface;
 using FinanceBillingModel.Models;
 using FinanceBillingService.Interface;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -191,26 +192,59 @@ namespace FinanceBilling.Controllers
                 //checking vallidation is passed or not
                 if (IsValidationPassed) {
                     //Test(Request.Form.Files,rootpath);   
-                    foreach (var file in Request.Form.Files) {
-                        try {
-                            filePath = Path.Combine(rootpath, file.FileName);
-                            DirectoryInfo info = new DirectoryInfo(rootpath);
-                            if (!info.Exists) {
-                                info.Create();
-                            }
+                    foreach (var formFile in Request.Form.Files)
+                    {
+                        try
+                        {
+                            if (formFile.Length > 0)
+                            {
 
-                            //using (FileStream outputFileStream = new FileStream(filePath, FileMode.Open, FileAccess.Write, FileShare.Read))
-                            using (FileStream outputFileStream = System.IO.File.Create(filePath)) {
-                                await file.CopyToAsync(outputFileStream);
-                                outputFileStream.DisposeAsync();
+                                // full path to file in temp location
+                                filePath = Path.Combine(rootpath, formFile.FileName);
+                                DirectoryInfo info = new DirectoryInfo(rootpath);
+                                if (!info.Exists)
+                                {
+                                    info.Create();
+                                }
+
+                                using (var stream = new FileStream(filePath, FileMode.Create))
+                                {
+                                    await formFile.CopyToAsync(stream);
+                                }
                             }
                         }
-                        catch (Exception ex) {
-                            string i = ex.Message;
+                        catch (Exception ex)
+                        {
+                            if (ex.Message.Contains("because it is being used by another process")) { }
+                            else {
+                                throw;
+                            }
                         }
-
-
                     }
+                    //foreach (var file in Request.Form.Files) {
+                    //    try {
+                    //        filePath = Path.Combine(rootpath, file.FileName);
+                    //        DirectoryInfo info = new DirectoryInfo(rootpath);
+                    //        if (!info.Exists) {
+                    //            info.Create();
+                    //        }
+
+                    //        using (FileStream outputFileStream = new FileStream(filePath, FileMode.Create))
+                    //        {
+                    //            file.CopyTo(outputFileStream);
+                    //        }
+
+                    //        using (FileStream outputFileStream = System.IO.File.Create(filePath)) {
+                    //            await file.CopyToAsync(outputFileStream);
+                    //            outputFileStream.DisposeAsync();
+                    //        }
+                    //    }
+                    //    catch (Exception ex) {
+                    //        string i = ex.Message;
+                    //    }
+
+
+                    //}
 
                     //call the store procedure to run SSIS package
                     Guid newGuid = Guid.NewGuid();
@@ -256,6 +290,8 @@ namespace FinanceBilling.Controllers
                             }
                         } else {
                             ViewBag.Message = "Failed To Upload File, one or more error occured.";
+                             //When proces is finished
+                                await _iApplicationSettingService.UpdateApplicationSettingValueByName(uploadProcessName, "0");
                             List<TBLERRORLOGS> tblErrorLog = await _iErrorLogService.GetErrorLogsByGuId(guid);
                             // Delete Files from starting folder
                             System.IO.DirectoryInfo di = new DirectoryInfo(rootpath);

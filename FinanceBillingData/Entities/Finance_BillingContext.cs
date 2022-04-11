@@ -11,6 +11,7 @@ namespace FinanceBillingData.Entities
         public Finance_BillingContext(DbContextOptions<Finance_BillingContext> options)
             : base(options)
         {
+            this.Database.SetCommandTimeout(360);
         }
 
         public virtual DbSet<Tbl4DebitcardTmp> Tbl4DebitcardTmps { get; set; }
