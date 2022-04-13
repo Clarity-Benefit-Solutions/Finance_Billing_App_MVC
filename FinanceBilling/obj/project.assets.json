@@ -10144,9 +10144,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\SmartData\\User 4\\FinanceBilling\\FinaceBilling.csproj",
-      "projectName": "FinaceBilling",
-      "projectPath": "E:\\SmartData\\User 4\\FinanceBilling\\FinaceBilling.csproj",
+      "projectUniqueName": "E:\\SmartData\\User 4\\FinanceBilling\\FinanceBilling.csproj",
+      "projectName": "FinanceBilling",
+      "projectPath": "E:\\SmartData\\User 4\\FinanceBilling\\FinanceBilling.csproj",
       "packagesPath": "C:\\Users\\KKumar_Beneflex\\.nuget\\packages\\",
       "outputPath": "E:\\SmartData\\User 4\\FinanceBilling\\obj\\",
       "projectStyle": "PackageReference",
@@ -10239,7 +10239,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.102\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.103\\RuntimeIdentifierGraph.json"
       }
     }
   }

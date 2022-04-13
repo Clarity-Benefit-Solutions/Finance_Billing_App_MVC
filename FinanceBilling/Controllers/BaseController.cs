@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FinaceBilling.Controllers
+namespace FinanceBilling.Controllers
 {
     public abstract class BaseController : Controller
     {

@@ -27,3 +27,5 @@
 /FinanceBillingService/bin/Release/net5.0
 /FinanceBillingService/obj
 /FinanceBillingData/obj
+/FinanceBilling/Logs
+/FinanceBilling/bin/Debug/net5.0

@@ -6,7 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DevExtremeAspNetCoreApp.Custom.Attributes
+namespace Financebilling.Custom.Attributes
 {
     public class AllowedExtensionsAttribute : ValidationAttribute
     {

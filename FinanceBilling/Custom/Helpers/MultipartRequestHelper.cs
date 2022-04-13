@@ -6,7 +6,7 @@ using System.Linq;
 
 using System.Threading.Tasks;
 
-namespace DevExtremeAspNetCoreApp.Custom.Helpers
+namespace FinanceBilling.Custom.Helpers
 {
     public static class MultipartRequestHelper
     {

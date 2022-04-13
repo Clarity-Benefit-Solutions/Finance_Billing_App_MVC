@@ -2,6 +2,7 @@ E:\SmartData\User 2\Git\MVC App\FinanceBillingModel\bin\Debug\net5.0\FinanceBill
 E:\SmartData\User 2\Git\MVC App\FinanceBillingModel\bin\Debug\net5.0\FinanceBillingModel.dll
 E:\SmartData\User 2\Git\MVC App\FinanceBillingModel\bin\Debug\net5.0\ref\FinanceBillingModel.dll
 E:\SmartData\User 2\Git\MVC App\FinanceBillingModel\bin\Debug\net5.0\FinanceBillingModel.pdb
+E:\SmartData\User 2\Git\MVC App\FinanceBillingModel\obj\Debug\net5.0\FinanceBillingModel.csproj.AssemblyReference.cache
 E:\SmartData\User 2\Git\MVC App\FinanceBillingModel\obj\Debug\net5.0\FinanceBillingModel.GeneratedMSBuildEditorConfig.editorconfig
 E:\SmartData\User 2\Git\MVC App\FinanceBillingModel\obj\Debug\net5.0\FinanceBillingModel.AssemblyInfoInputs.cache
 E:\SmartData\User 2\Git\MVC App\FinanceBillingModel\obj\Debug\net5.0\FinanceBillingModel.AssemblyInfo.cs
@@ -9,16 +10,3 @@ E:\SmartData\User 2\Git\MVC App\FinanceBillingModel\obj\Debug\net5.0\FinanceBill
 E:\SmartData\User 2\Git\MVC App\FinanceBillingModel\obj\Debug\net5.0\FinanceBillingModel.dll
 E:\SmartData\User 2\Git\MVC App\FinanceBillingModel\obj\Debug\net5.0\ref\FinanceBillingModel.dll
 E:\SmartData\User 2\Git\MVC App\FinanceBillingModel\obj\Debug\net5.0\FinanceBillingModel.pdb
-E:\SmartData\User 2\Git\MVC App\FinanceBillingModel\obj\Debug\net5.0\FinanceBillingModel.csproj.AssemblyReference.cache
-E:\SmartData\User 4\FinanceBillingModel\bin\Debug\net5.0\FinanceBillingModel.deps.json
-E:\SmartData\User 4\FinanceBillingModel\bin\Debug\net5.0\FinanceBillingModel.dll
-E:\SmartData\User 4\FinanceBillingModel\bin\Debug\net5.0\ref\FinanceBillingModel.dll
-E:\SmartData\User 4\FinanceBillingModel\bin\Debug\net5.0\FinanceBillingModel.pdb
-E:\SmartData\User 4\FinanceBillingModel\obj\Debug\net5.0\FinanceBillingModel.csproj.AssemblyReference.cache
-E:\SmartData\User 4\FinanceBillingModel\obj\Debug\net5.0\FinanceBillingModel.GeneratedMSBuildEditorConfig.editorconfig
-E:\SmartData\User 4\FinanceBillingModel\obj\Debug\net5.0\FinanceBillingModel.AssemblyInfoInputs.cache
-E:\SmartData\User 4\FinanceBillingModel\obj\Debug\net5.0\FinanceBillingModel.AssemblyInfo.cs
-E:\SmartData\User 4\FinanceBillingModel\obj\Debug\net5.0\FinanceBillingModel.csproj.CoreCompileInputs.cache
-E:\SmartData\User 4\FinanceBillingModel\obj\Debug\net5.0\FinanceBillingModel.dll
-E:\SmartData\User 4\FinanceBillingModel\obj\Debug\net5.0\ref\FinanceBillingModel.dll
-E:\SmartData\User 4\FinanceBillingModel\obj\Debug\net5.0\FinanceBillingModel.pdb

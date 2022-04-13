@@ -24,5 +24,6 @@ namespace FinanceBillingData.Entities
         public bool? IsSuccess { get; set; }
         public bool? IsFailed { get; set; }
         public bool? IsCompleted { get; set; }
+        public int? NumRowsNotInserted { get; set; }
     }
 }

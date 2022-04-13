@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FinanceBillingData.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace FinanceBillingService.Interface
 {
     public interface ICommonService
     {
-        Task<bool> ExecuteSSISPackage(string guid);
+        Task<List<TblLogging>> ExecuteSSISPackage(string guid);
     }
 }

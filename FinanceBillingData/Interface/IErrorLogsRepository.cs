@@ -9,5 +9,8 @@ namespace FinanceBillingData.Interface
     public interface IErrorLogsRepository
     {
         Task<List<TblErrorLog>> GetErrorLogs();
+        Task<List<TBLERRORLOGS>> GetErrorLogsByLogId(long logId);
+        
+
     }
 }

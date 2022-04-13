@@ -3,18 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.32106.194
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinanceBilling", "FinanceBilling\FinaceBilling.csproj", "{206711EE-230B-47B7-8A93-B3B3E92A7316}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DevExtreme NuGet.config", "DevExtreme NuGet.config", "{E8A09FDA-A364-403E-8BD0-FE4D69D66252}"
 	ProjectSection(SolutionItems) = preProject
 		NuGet.config = NuGet.config
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinanceBillingData", "FinanceBillingData\FinanceBillingData.csproj", "{10FB0BB1-D9DE-4161-8E9C-286106B79407}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinanceBillingData", "FinanceBillingData\FinanceBillingData.csproj", "{10FB0BB1-D9DE-4161-8E9C-286106B79407}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinanceBillingService", "FinanceBillingService\FinanceBillingService.csproj", "{A6FE3BFA-061B-4F06-A541-0D03BF7280A0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinanceBillingService", "FinanceBillingService\FinanceBillingService.csproj", "{A6FE3BFA-061B-4F06-A541-0D03BF7280A0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinanceBillingModel", "FinanceBillingModel\FinanceBillingModel.csproj", "{84287193-6F47-44EB-BF71-1E8437591E92}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinanceBillingModel", "FinanceBillingModel\FinanceBillingModel.csproj", "{84287193-6F47-44EB-BF71-1E8437591E92}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinanceBilling", "FinanceBilling\FinanceBilling.csproj", "{E4714908-E3F1-423B-BBE7-7FC79B61983B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,10 +22,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{206711EE-230B-47B7-8A93-B3B3E92A7316}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{206711EE-230B-47B7-8A93-B3B3E92A7316}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{206711EE-230B-47B7-8A93-B3B3E92A7316}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{206711EE-230B-47B7-8A93-B3B3E92A7316}.Release|Any CPU.Build.0 = Release|Any CPU
 		{10FB0BB1-D9DE-4161-8E9C-286106B79407}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{10FB0BB1-D9DE-4161-8E9C-286106B79407}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{10FB0BB1-D9DE-4161-8E9C-286106B79407}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -38,6 +34,10 @@ Global
 		{84287193-6F47-44EB-BF71-1E8437591E92}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{84287193-6F47-44EB-BF71-1E8437591E92}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{84287193-6F47-44EB-BF71-1E8437591E92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4714908-E3F1-423B-BBE7-7FC79B61983B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4714908-E3F1-423B-BBE7-7FC79B61983B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4714908-E3F1-423B-BBE7-7FC79B61983B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4714908-E3F1-423B-BBE7-7FC79B61983B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

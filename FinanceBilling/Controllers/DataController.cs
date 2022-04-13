@@ -4,7 +4,7 @@ using FinanceBillingService.Interface;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
-namespace FinaceBilling.Controllers
+namespace FinanceBilling.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

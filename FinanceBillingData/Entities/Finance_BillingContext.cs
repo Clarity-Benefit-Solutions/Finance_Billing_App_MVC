@@ -11,6 +11,7 @@ namespace FinanceBillingData.Entities
         public Finance_BillingContext(DbContextOptions<Finance_BillingContext> options)
             : base(options)
         {
+            this.Database.SetCommandTimeout(360);
         }
 
         public virtual DbSet<Tbl4DebitcardTmp> Tbl4DebitcardTmps { get; set; }
@@ -28,7 +29,8 @@ namespace FinanceBillingData.Entities
         public virtual DbSet<TblFilesNameToUpload> TblFilesNameToUploads { get; set; }
         public virtual DbSet<TblInvoiceDateTable> TblInvoiceDateTables { get; set; }
         public virtual DbSet<TblLogging> TblLoggings { get; set; }
-
+        public virtual DbSet<TBL_LOGGINGDB> TBL_LOGGINGDBs { get; set; }
+        public virtual DbSet<TBLERRORLOGS> TBLERRORLOGSs { get; set; }
         public virtual DbSet<TblMonthMinConversion> TblMonthMinConversions { get; set; }
         public virtual DbSet<TblMonthMinConversionInvoice> TblMonthMinConversionInvoices { get; set; }
         public virtual DbSet<TblProcess> TblProcesses { get; set; }
@@ -74,12 +76,14 @@ namespace FinanceBillingData.Entities
         public virtual DbSet<ClientProductComparison> ClientProductComparisons { get; set; }
         public virtual DbSet<ClientToClientComparison> ClientToClientComparisons { get; set; }
 
-
+        public virtual DbSet<LogsByGuid> LogsByGuid { get; set; }
 
         public virtual DbSet<SpClientDropDownData> SpClientDropDownData { get; set; }
         public virtual DbSet<SpExcludeClientData> SpExcludeClientData { get; set; }
 
+
         public virtual DbSet<TblQBClients> TblQBClients { get; set; }
+        public virtual DbSet<ApplicationSetting> ApplicationSetting { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -245,6 +249,104 @@ namespace FinanceBillingData.Entities
                 entity.Property(e => e.PepmFlg).HasColumnName("PEPM Flg");
 
                 entity.Property(e => e.UniqueKeyParticipant).HasMaxLength(255);
+            });
+
+            //
+            modelBuilder.Entity<TblLogging>(entity =>
+            {
+                //entity.HasNoKey();
+                entity.HasKey("Id");
+                entity.ToTable("TBL_LOGGINGDB");
+
+                entity.Property(e => e.Id).HasColumnName("Id")
+                       .HasColumnType("bigint");
+
+                entity.Property(e => e.PackageName)
+                    .HasMaxLength(250)
+                    .HasColumnName("PackageName");
+
+                entity.Property(e => e.PackageId)
+                    .HasMaxLength(250)
+                    .HasColumnName("PackageId");
+
+                entity.Property(e => e.Guid)
+                    .HasMaxLength(500)
+                    .HasColumnName("Guid");
+
+                entity.Property(e => e.MachineName)
+                    .HasMaxLength(250)
+                    .HasColumnName("MachineName");
+
+                entity.Property(e => e.UserName)
+                    .HasMaxLength(250)
+                    .HasColumnName("UserName");
+
+                entity.Property(e => e.DataSource)
+                    .HasMaxLength(250)
+                    .HasColumnName("DataSource");
+
+                entity.Property(e => e.StartDateTime)
+                    .HasColumnType("datetime")
+                    .HasColumnName("StartDateTime");
+
+                entity.Property(e => e.EndDateTime)
+                    .HasColumnType("datetime")
+                    .HasColumnName("EndDateTime");
+
+                entity.Property(e => e.NumRowsInserted)
+                    .HasColumnName("NumRowsInserted");
+
+                entity.Property(e => e.NumRowsUpdated)
+                    .HasColumnName("NumRowsUpdated");
+
+                entity.Property(e => e.NumRowsDeleted)
+                    .HasColumnName("NumRowsDeleted");
+
+                entity.Property(e => e.NumRowsTotal)
+                   .HasColumnName("NumRowsTotal");
+
+                entity.Property(e => e.IsSuccess)
+                   .HasColumnName("IsSuccess");
+
+                entity.Property(e => e.IsFailed)
+                  .HasColumnName("IsFailed");
+
+                entity.Property(e => e.IsCompleted)
+                  .HasColumnName("IsCompleted");
+            });
+
+            modelBuilder.Entity<TBLERRORLOGS>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("TBL_ERROR_LOGS");
+
+                entity.Property(e => e.ID).HasColumnName("ID");
+
+                entity.Property(e => e.MachineName)
+                    .HasMaxLength(200)
+                    .HasColumnName("MachineName");
+
+                entity.Property(e => e.PackageName)
+                    .HasMaxLength(200)
+                    .HasColumnName("PackageName");
+
+                entity.Property(e => e.TaskName)
+                   .HasMaxLength(200)
+                   .HasColumnName("TaskName");
+
+                entity.Property(e => e.ErrorCode)
+                   .HasColumnName("ErrorCode");
+
+                entity.Property(e => e.ErrorDescription)
+                    .HasColumnName("ErrorDescription");
+
+                entity.Property(e => e.Dated)
+                    .HasColumnType("datetime")
+                    .HasColumnName("Dated");
+
+                entity.Property(e => e.LoggingDbID).HasColumnName("LoggingDbID")
+                     .HasColumnType("bigint");
             });
 
             modelBuilder.Entity<TblBillingInvoiceExport>(entity =>
@@ -1575,62 +1677,7 @@ namespace FinanceBillingData.Entities
 
                 entity.Property(e => e.UniqueKeyParticipant).HasMaxLength(255);
             });
-            modelBuilder.Entity<TblLogging>(entity =>
-            {
 
-
-                entity.ToTable("TBL_LOGGINGDB");
-
-                entity.Property(e => e.Id)
-                    .HasColumnName("Id");
-
-                entity.Property(e => e.PackageName)
-                    .HasColumnName("PackageName");
-
-                entity.Property(e => e.PackageId)
-                    .HasColumnName("PackageId");
-
-                entity.Property(e => e.Guid)
-                    .HasColumnName("Guid");
-
-                entity.Property(e => e.MachineName)
-                    .HasColumnName("MachineName");
-
-                entity.Property(e => e.UserName)
-                    .HasColumnName("UserName");
-
-                entity.Property(e => e.DataSource)
-                    .HasColumnName("DataSource");
-
-                entity.Property(e => e.StartDateTime)
-                    .HasColumnName("StartDateTime");
-
-                entity.Property(e => e.EndDateTime)
-                    .HasColumnName("EndDateTime");
-
-                entity.Property(e => e.NumRowsInserted)
-                    .HasColumnName("NumRowsInserted");
-
-                entity.Property(e => e.NumRowsUpdated)
-                    .HasColumnName("NumRowsUpdated");
-
-                entity.Property(e => e.NumRowsDeleted)
-                    .HasColumnName("NumRowsDeleted");
-
-                entity.Property(e => e.NumRowsTotal)
-                    .HasColumnName("NumRowsTotal");
-
-                entity.Property(e => e.IsSuccess)
-                    .HasColumnName("IsSuccess");
-
-                entity.Property(e => e.IsFailed)
-                    .HasColumnName("IsFailed");
-
-                entity.Property(e => e.IsCompleted)
-                    .HasColumnName("IsCompleted");
-
-
-            });
 
             modelBuilder.Entity<TblQbImportsPro>(entity =>
             {
@@ -3629,6 +3676,63 @@ namespace FinanceBillingData.Entities
                 entity.Property(e => e.ModifiedDate).HasColumnName("ModifiedDate");
             });
             OnModelCreatingPartial(modelBuilder);
+
+            ///////////////
+            modelBuilder.Entity<LogsByGuid>(entity =>
+            {
+
+                entity.HasNoKey();
+                entity.ToView("PSP_GETLOGBYGUID");
+
+                entity.Property(e => e.Id)
+                .HasColumnName("Id");
+
+                entity.Property(e => e.PackageName)
+                    .HasColumnName("PackageName");
+
+                entity.Property(e => e.PackageId)
+                    .HasColumnName("PackageId");
+
+                entity.Property(e => e.Guid)
+                    .HasColumnName("Guid");
+
+                entity.Property(e => e.MachineName)
+                    .HasColumnName("MachineName");
+
+                entity.Property(e => e.UserName)
+                    .HasColumnName("UserName");
+
+                entity.Property(e => e.DataSource)
+                    .HasColumnName("DataSource");
+
+                entity.Property(e => e.StartDateTime)
+                    .HasColumnName("StartDateTime");
+
+                entity.Property(e => e.EndDateTime)
+                    .HasColumnName("EndDateTime");
+
+                entity.Property(e => e.NumRowsInserted)
+                    .HasColumnName("NumRowsInserted");
+
+                entity.Property(e => e.NumRowsNotInserted)
+                    .HasColumnName("NumRowsNotInserted");
+
+            });
+            modelBuilder.Entity<ApplicationSetting>(entity =>
+           {
+               entity.HasKey("SettingId");
+
+               entity.ToTable("ApplicationSetting");
+
+               entity.Property(e => e.SettingName)
+                   .HasMaxLength(255)
+                   .HasColumnName("SettingName");
+
+               entity.Property(e => e.SettingValue)
+                    .HasMaxLength(25)
+                    .HasColumnName("SettingValue");
+               entity.Property(e => e.Description).HasMaxLength(500);
+           });
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
