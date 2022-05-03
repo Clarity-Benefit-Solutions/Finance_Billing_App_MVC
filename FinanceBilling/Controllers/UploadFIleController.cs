@@ -73,10 +73,6 @@ namespace FinanceBilling.Controllers
             uploadFile.clientToClientViewModels = new List<ClientToClientViewModel>();
             uploadFile.clientToProductViewModels = new List<ClientToProductViewModel>();
             uploadFile.ClientViewModels = new List<ClientViewModel>();
-
-            //uploadFile.UploadFileErrorModels = new List<UploadFileErrorModel>();
-
-
             return View(uploadFile);
         }
 
@@ -94,7 +90,7 @@ namespace FinanceBilling.Controllers
                 UploadFile uploadFile = new UploadFile();
                 string uploadProcessName = _config.GetSection("SSISTiming:UploadProcessName").Value;
                 bool readyForUpload = await _iApplicationSettingService.GetSSPApplicationSettingByName(uploadProcessName);
-
+                string  uploadedFilePath= _config.GetSection("SSISTiming:UploadingFilePath").Value;
                 if (readyForUpload)
                 {
                     //When proces is finished
@@ -120,24 +116,6 @@ namespace FinanceBilling.Controllers
                         ModelState.AddModelError($"error", $"Something went wrong.");
                         return View(uploadFile);
                     }
-                    #region Filenames commented
-                    //var FileNamelist = new List<string> {
-                    //    "1_BENEFL_Integrated_Current_Import.csv",
-                    //    "2_BENEFL_Integrated_Prior_Import.csv",
-                    //    "3_DebitCard_Import.csv",
-                    //    "4_NPM.CSV",
-                    //    "5_QBdetail.xlsx",
-                    //    "6_BrokerClientlist.CSV",
-                    //    "7_Clientlist.CSV",
-                    //    "8_Cobraletters.CSV",
-                    //    "9_Bswift_BillingNumbers_Import.xlsx",
-                    //    "910_ENBillingNumbers_Import.xlsx",
-                    //    "911_EC Extract.txt",
-                    //    "912_EB Extract.txt",
-                    //    "913_SPMBYACAREPORT.CSV",
-                    //    "IgnoredRowsEBExtract.txt"
-                    //};
-                    #endregion
 
                     List<TblFilesNameToUpload> tblFilesNames = await _iFileNameRepository.GetFileNamesList();
                     //Seed FileNames
@@ -184,18 +162,16 @@ namespace FinanceBilling.Controllers
                     }
 
                     string rootpath = _env.ContentRootPath;
-                    rootpath = @"E:\Finance_Billing\Starting_Files";
+                    rootpath = uploadedFilePath;
                     if (!Directory.Exists(rootpath))
                     {
                         ModelState.AddModelError($"Something", $"Something went wrong.");
-                        //Directory.CreateDirectory(rootpath);
                     }
 
 
                     //checking vallidation is passed or not
                     if (IsValidationPassed)
                     {
-                        //Test(Request.Form.Files,rootpath);
                         int i = 0;
                         foreach (var formFile in Request.Form.Files)
                         {
@@ -331,7 +307,6 @@ namespace FinanceBilling.Controllers
         [HttpGet]
         public async Task<object> GetAccordionData(DataSourceLoadOptions loadOptions, string Guid, int Id)
         {
-            //List<ListFileError> listFile = new List<ListFileError>();
             ListFileError listFile = new ListFileError();
             List<AccordionBodyData> accordionBodyData = new List<AccordionBodyData>();
 
@@ -339,7 +314,6 @@ namespace FinanceBilling.Controllers
             listFile = _itblLoggingService.AllDataLogsForAccordion(Guid, Id).Result;
             if (listFile.BrokerClientListErrorsList != null)
             {
-                //var BrokerClientListErrorsList = listFile.PlanDocReportPriorErrorsList;
                 foreach (var item in listFile.BrokerClientListErrorsList)
                 {
                     AccordionBodyData accordionBody = new AccordionBodyData();
@@ -355,7 +329,6 @@ namespace FinanceBilling.Controllers
             }
             if (listFile.SwiftBillingNumImportErrorsList != null)
             {
-                //var SwiftBillingNumImportErrorsList = listFile.PlanDocReportPriorErrorsList;
                 foreach (var item in listFile.SwiftBillingNumImportErrorsList)
                 {
                     AccordionBodyData accordionBody = new AccordionBodyData();
@@ -371,7 +344,6 @@ namespace FinanceBilling.Controllers
             }
             if (listFile.StaggingQbDetailErrorsList != null)
             {
-                //var StaggingQbDetailErrorsList = listFile.PlanDocReportPriorErrorsList;
                 foreach (var item in listFile.StaggingQbDetailErrorsList)
                 {
                     AccordionBodyData accordionBody = new AccordionBodyData();
@@ -382,14 +354,12 @@ namespace FinanceBilling.Controllers
                     accordionBody.LoggingDbId = item.LoggingDbId;
                     accordionBody.PackageName = item.PackageName;
                     accordionBodyData.Add(accordionBody);
-                    //_mapper.Map(StaggingQbDetailErrorsList, accordionBodyData);
                 }
                 return DataSourceLoader.Load(accordionBodyData, loadOptions);
 
             }
             if (listFile.StaggingQbDetailErrorsList != null)
             {
-                //var StaggingNpmErrorsList = listFile.PlanDocReportPriorErrorsList;
                 foreach (var item in listFile.StaggingQbDetailErrorsList)
                 {
                     AccordionBodyData accordionBody = new AccordionBodyData();
@@ -400,14 +370,12 @@ namespace FinanceBilling.Controllers
                     accordionBody.LoggingDbId = item.LoggingDbId;
                     accordionBody.PackageName = item.PackageName;
                     accordionBodyData.Add(accordionBody);
-                    // _mapper.Map(StaggingNpmErrorsList, accordionBodyData);
                 }
                 return DataSourceLoader.Load(accordionBodyData, loadOptions);
 
             }
             if (listFile.SpabyacareportErrorsList != null)
             {
-                //var SpabyacareportErrorsList = listFile.PlanDocReportPriorErrorsList;
                 foreach (var item in listFile.SpabyacareportErrorsList)
                 {
                     AccordionBodyData accordionBody = new AccordionBodyData();
@@ -418,7 +386,6 @@ namespace FinanceBilling.Controllers
                     accordionBody.LoggingDbId = item.LoggingDbId;
                     accordionBody.PackageName = item.PackageName;
                     accordionBodyData.Add(accordionBody);
-                    //_mapper.Map(.SpabyacareportErrorsList, accordionBodyData);
                 }
                 return DataSourceLoader.Load(accordionBodyData, loadOptions);
             }
@@ -435,14 +402,12 @@ namespace FinanceBilling.Controllers
                     accordionBody.LoggingDbId = item.LoggingDbId;
                     accordionBody.PackageName = item.PackageName;
                     accordionBodyData.Add(accordionBody);
-                    //_mapper.Map(plandocReportPriorErrorList, accordionBodyData);
                 }
                 return DataSourceLoader.Load(accordionBodyData, loadOptions);
 
             }
             if (listFile.PlanDocReportErrorsList != null)
             {
-                // var PlanDocReportErrorsList = listFile.PlanDocReportPriorErrorsList;
                 foreach (var item in listFile.PlanDocReportErrorsList)
                 {
                     AccordionBodyData accordionBody = new AccordionBodyData();
@@ -453,14 +418,12 @@ namespace FinanceBilling.Controllers
                     accordionBody.LoggingDbId = item.LoggingDbId;
                     accordionBody.PackageName = item.PackageName;
                     accordionBodyData.Add(accordionBody);
-                    //_mapper.Map(PlanDocReportErrorsList, accordionBodyData);
                 }
                 return DataSourceLoader.Load(accordionBodyData, loadOptions);
 
             }
             if (listFile.EmployeeNavImportErrorsList != null)
             {
-                //var EmployeeNavImportErrorsList = listFile.PlanDocReportPriorErrorsList;
                 foreach (var item in listFile.EmployeeNavImportErrorsList)
                 {
                     AccordionBodyData accordionBody = new AccordionBodyData();
@@ -471,13 +434,11 @@ namespace FinanceBilling.Controllers
                     accordionBody.LoggingDbId = item.LoggingDbId;
                     accordionBody.PackageName = item.PackageName;
                     accordionBodyData.Add(accordionBody);
-                    //_mapper.Map(EmployeeNavImportErrorsList, accordionBodyData);
                 }
                 return DataSourceLoader.Load(accordionBodyData, loadOptions);
             }
             if (listFile.EcExtractErrorsList != null)
             {
-                //var EcExtractErrorsList = listFile.PlanDocReportPriorErrorsList;
                 foreach (var item in listFile.EcExtractErrorsList)
                 {
                     AccordionBodyData accordionBody = new AccordionBodyData();
@@ -488,13 +449,11 @@ namespace FinanceBilling.Controllers
                     accordionBody.LoggingDbId = item.LoggingDbId;
                     accordionBody.PackageName = item.PackageName;
                     accordionBodyData.Add(accordionBody);
-                    // _mapper.Map(EcExtractErrorsList, accordionBodyData);
                 }
                 return DataSourceLoader.Load(accordionBodyData, loadOptions);
             }
             if (listFile.EbExtractErrorsList != null)
             {
-                //var EbExtractErrorsList = listFile.PlanDocReportPriorErrorsList;
                 foreach (var item in listFile.EbExtractErrorsList)
                 {
                     AccordionBodyData accordionBody = new AccordionBodyData();
@@ -505,13 +464,11 @@ namespace FinanceBilling.Controllers
                     accordionBody.LoggingDbId = item.LoggingDbId;
                     accordionBody.PackageName = item.PackageName;
                     accordionBodyData.Add(accordionBody);
-                    //_mapper.Map(EbExtractErrorsList, accordionBodyData);
                 }
                 return DataSourceLoader.Load(accordionBodyData, loadOptions);
             }
             if (listFile.DebitCardSummeryErrorsList != null)
             {
-                //var DebitCardSummeryErrorsList = listFile.PlanDocReportPriorErrorsList;
                 foreach (var item in listFile.DebitCardSummeryErrorsList)
                 {
                     AccordionBodyData accordionBody = new AccordionBodyData();
@@ -522,13 +479,11 @@ namespace FinanceBilling.Controllers
                     accordionBody.LoggingDbId = item.LoggingDbId;
                     accordionBody.PackageName = item.PackageName;
                     accordionBodyData.Add(accordionBody);
-                    // _mapper.Map(DebitCardSummeryErrorsList, accordionBodyData);
                 }
                 return DataSourceLoader.Load(accordionBodyData, loadOptions);
             }
             if (listFile.CobraLettersErrorsList != null)
             {
-                //var CobraLettersErrorsList = listFile.PlanDocReportPriorErrorsList;
                 foreach (var item in listFile.CobraLettersErrorsList)
                 {
                     AccordionBodyData accordionBody = new AccordionBodyData();
@@ -539,13 +494,11 @@ namespace FinanceBilling.Controllers
                     accordionBody.LoggingDbId = item.LoggingDbId;
                     accordionBody.PackageName = item.PackageName;
                     accordionBodyData.Add(accordionBody);
-                    // _mapper.Map(CobraLettersErrorsList, accordionBodyData);
                 }
                 return DataSourceLoader.Load(accordionBodyData, loadOptions);
             }
             if (listFile.ClientListErrorsList != null)
             {
-                // var ClientListErrorsList = listFile.PlanDocReportPriorErrorsList;
                 foreach (var item in listFile.ClientListErrorsList)
                 {
                     AccordionBodyData accordionBody = new AccordionBodyData();
@@ -556,7 +509,6 @@ namespace FinanceBilling.Controllers
                     accordionBody.LoggingDbId = item.LoggingDbId;
                     accordionBody.PackageName = item.PackageName;
                     accordionBodyData.Add(accordionBody);
-                    // _mapper.Map(ClientListErrorsList, accordionBodyData);
                 }
                 return DataSourceLoader.Load(accordionBodyData, loadOptions);
             }

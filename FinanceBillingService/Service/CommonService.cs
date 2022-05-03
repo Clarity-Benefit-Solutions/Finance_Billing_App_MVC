@@ -33,13 +33,11 @@ namespace FinanceBillingService.Service
             DateTime MinsLater = currentTime.AddMinutes(intervalTime);
             List<TblLogging> tblLoggingList = new List<TblLogging>();
             TblLogging tblLogging = new TblLogging();
-            await Task.Delay(1000 * sleepTime / 2);
             do
             {
                 currentTime = DateTime.Now;
-                await Task.Delay(10000 * sleepTime);
+                await Task.Delay(1000 * sleepTime);
                 tblLoggingList = await _tblLoggingRepository.GetStatusById(guid);
-                // var test = await _tblLoggingRepository.GetStatusById((int)data.Id);
                 TblLogging parentFile = tblLoggingList.Where(x => x.PackageName == parentPackageName).FirstOrDefault();
                 if (parentFile != null)
                 {
